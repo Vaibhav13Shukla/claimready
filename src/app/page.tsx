@@ -151,6 +151,13 @@ export default function LandingPage() {
               >
                 <span>{hi ? "अस्वीकृति डिकोड करें" : "Decode a rejection"}</span>
               </Link>
+              <Link
+                href="/demo"
+                className="cr-btn cr-btn--ghost wipe-in"
+                style={{ ["--d" as string]: "0.78s" }}
+              >
+                <span>{hi ? "डेमो नागरिक के रूप में देखें" : "Log in as a demo citizen"}</span>
+              </Link>
             </div>
           </div>
         </div>

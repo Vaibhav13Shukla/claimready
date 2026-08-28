@@ -8,6 +8,7 @@ import { diagnose } from "../../core/classifier";
 import { routeRemedy } from "../../core/remedy-router";
 import { calculateTimeline } from "../../core/timeline";
 import { Scheme, Owner, RemedyType } from "../../core/taxonomy/taxonomy.schema";
+import { ClaimXray } from "../../components/ClaimXray";
 
 const OWNER_LABEL: Record<Owner, { en: string; hi: string }> = {
   MEMBER_SELF: { en: "You (self-service on the UAN portal)", hi: "आप स्वयं (यूएएन पोर्टल पर)" },
@@ -160,6 +161,14 @@ function DiagnosisContent() {
           </div>
           <p className="text-[14px] text-[#1b1d20] leading-relaxed">{explanation}</p>
         </div>
+
+        {/* Claim X-Ray — synthetic case reconstruction */}
+        <ClaimXray
+          rc={diagnosis.root_cause_code}
+          confidence={diagnosis.confidence}
+          scheme={scheme}
+          isHindi={isHindi}
+        />
 
         {/* 2-Column Who Fixes + Timeline */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">

@@ -6,16 +6,17 @@ import { useLanguage } from "../../i18n/context";
 import { Scheme } from "../../core/taxonomy/taxonomy.schema";
 import { COMMON_ERROR_OPTIONS } from "../../ai/fallback";
 
-const CLAIM_LABEL: Record<Scheme, { en: string; hi: string; icon: string }> = {
-  FINAL_SETTLEMENT: { en: "Final Settlement", hi: "अंतिम भुगतान", icon: "🧾" },
-  PF_ADVANCE: { en: "PF Advance", hi: "पीएफ एडवांस", icon: "🏥" },
-  PENSION_EPS: { en: "Pension / EPS", hi: "पेंशन / ईपीएस", icon: "👵" },
+const CLAIM_LABEL: Record<Scheme, { en: string; hi: string }> = {
+  FINAL_SETTLEMENT: { en: "Final Settlement", hi: "अंतिम भुगतान" },
+  PF_ADVANCE: { en: "PF Advance", hi: "पीएफ एडवांस" },
+  PENSION_EPS: { en: "Pension / EPS", hi: "पेंशन / ईपीएस" },
 };
 
 function ConfirmContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { lang } = useLanguage();
+  const hi = lang === "hi";
 
   const initialScheme = (searchParams.get("scheme") as Scheme) || "FINAL_SETTLEMENT";
   const initialText = searchParams.get("raw_error_text") || "";
@@ -42,100 +43,101 @@ function ConfirmContent() {
   const claim = CLAIM_LABEL[scheme];
 
   return (
-    <div className="max-w-xl mx-auto px-6 sm:px-8 py-10">
+    <div className="max-w-[640px] mx-auto px-6 sm:px-8 py-10">
+      {/* Step Badge */}
       <div className="cr-badge fade-up">
-        <span className="cr-tick" />
-        <span>{lang === "hi" ? "चरण 2 / 4 · पुष्टि" : "Step 2 / 4 · Verify"}</span>
+        <span>{hi ? "चरण 2 / 4: पुष्टि" : "Step 2 of 4: Verify Case"}</span>
       </div>
+
       <h1
-        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        className="fade-up mt-4 text-2xl sm:text-3xl font-semibold tracking-[-0.03em] text-[#1b1d20]"
         style={{ ["--d" as string]: "0.05s" }}
       >
-        {lang === "hi" ? "निकाले गए केस की पुष्टि करें" : "Confirm the extracted case"}
+        {hi ? "केस विवरण की पुष्टि करें" : "Confirm the Extracted Case"}
       </h1>
-      <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
-        {lang === "hi"
-          ? "नियम-इंजन द्वारा कारण वर्गीकृत करने से पहले जांचें कि हमने सही पढ़ा है।"
-          : "Review what we read before the deterministic rules engine classifies the cause."}
+      <p className="fade-up mt-1.5 text-[15px] text-[#6e6e6e]" style={{ ["--d" as string]: "0.1s" }}>
+        {hi
+          ? "नियम-इंजन द्वारा कारण वर्गीकृत करने से पहले जांचें कि विवरण सही है।"
+          : "Review the claim remark before our deterministic rules engine maps the root cause and remedy."}
       </p>
 
-      <div className="fade-up cr-card mt-6 p-6 space-y-5" style={{ ["--d" as string]: "0.15s" }}>
-        <div className="flex items-center justify-between border-b border-black/10 pb-3">
-          <span className="text-xs font-semibold text-neutral-500">
+      <div className="fade-up cr-card mt-6 p-6 sm:p-7 bg-white space-y-5" style={{ ["--d" as string]: "0.15s" }}>
+        {/* Confidence Row */}
+        <div className="flex items-center justify-between border-b border-[#e1dfd8] pb-3.5">
+          <span className="text-[13px] font-semibold text-[#6e6e6e]">
             {source === "ai_assisted"
-              ? lang === "hi"
-                ? "एआई निष्कर्षण विश्वसनीयता"
-                : "AI extraction confidence"
-              : lang === "hi"
+              ? hi
+                ? "निष्कर्षण विश्वसनीयता"
+                : "Extraction Confidence"
+              : hi
                 ? "मिलान विश्वसनीयता"
-                : "Match confidence"}
+                : "Match Confidence"}
           </span>
           <span
-            className={`text-xs font-bold px-2.5 py-1 border ${
+            className={`text-[12px] font-bold px-3 py-1 rounded-[9999px] border ${
               confidence >= 0.8
-                ? "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/30"
+                ? "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/25"
                 : confidence >= 0.6
-                  ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/30"
-                  : "bg-[#d21f3c]/10 text-[#d21f3c] border-[#d21f3c]/30"
+                  ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/25"
+                  : "bg-[#d21f3c]/10 text-[#d21f3c] border-[#d21f3c]/25"
             }`}
           >
-            {Math.round(confidence * 100)}% {source === "ai_assisted" ? "AI" : "match"}
+            {Math.round(confidence * 100)}% {source === "ai_assisted" ? "AI" : "Match"}
           </span>
         </div>
 
+        {/* Claim Type */}
         <div className="space-y-1.5">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
-            {lang === "hi" ? "दावा प्रकार" : "Claim type"}
+          <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+            {hi ? "दावा प्रकार" : "Claim Type"}
           </span>
           {isEditing ? (
             <select
               value={scheme}
               onChange={(e) => setScheme(e.target.value as Scheme)}
-              aria-label={lang === "hi" ? "दावा प्रकार" : "Claim type"}
-              className="w-full cr-card p-2.5 text-sm"
+              aria-label={hi ? "दावा प्रकार" : "Claim type"}
+              className="w-full p-3 text-sm rounded-[12.8px] border border-[#a3a3a3] bg-white text-[#1b1d20]"
             >
               {(Object.keys(CLAIM_LABEL) as Scheme[]).map((s) => (
                 <option key={s} value={s}>
-                  {lang === "hi" ? CLAIM_LABEL[s].hi : CLAIM_LABEL[s].en}
+                  {hi ? CLAIM_LABEL[s].hi : CLAIM_LABEL[s].en}
                 </option>
               ))}
             </select>
           ) : (
-            <div className="flex items-center gap-2 cr-card p-3">
-              <span className="text-lg">{claim.icon}</span>
-              <span className="text-sm font-semibold">{lang === "hi" ? claim.hi : claim.en}</span>
+            <div className="p-3 rounded-[12.8px] bg-[#f2f1ec] border border-[#e1dfd8] text-[14px] font-semibold text-[#1b1d20]">
+              {hi ? claim.hi : claim.en}
             </div>
           )}
         </div>
 
+        {/* Extracted Remark */}
         <div className="space-y-1.5">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
-            {lang === "hi" ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"}
+          <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+            {hi ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted Rejection Remark"}
           </span>
           {isEditing ? (
             <textarea
               rows={3}
               value={errorText}
               onChange={(e) => setErrorText(e.target.value)}
-              aria-label={
-                lang === "hi" ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"
-              }
-              className="w-full cr-card p-3 text-sm"
+              aria-label={hi ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"}
+              className="w-full p-3 text-sm rounded-[12.8px] border border-[#a3a3a3] bg-white text-[#1b1d20]"
             />
           ) : (
-            <div className="cr-card p-3.5 text-sm font-medium text-[#14449e]">
+            <div className="p-3.5 rounded-[12.8px] bg-[#5196fe]/[0.06] border border-[#5196fe]/20 text-[14px] font-medium text-[#1b5bb5]">
               &ldquo;{errorText}&rdquo;
             </div>
           )}
         </div>
 
+        {/* Low confidence helper */}
         {isLow && (
-          <div className="p-4 bg-[#b45309]/[0.06] border border-[#b45309]/25 space-y-2">
+          <div className="p-4 rounded-[12.8px] bg-[#b45309]/[0.06] border border-[#b45309]/25 space-y-2">
             <div className="text-xs font-bold text-[#b45309]">
-              ⚠️{" "}
-              {lang === "hi"
-                ? "कम विश्वसनीयता — निकटतम कारण चुनें"
-                : "Low confidence — pick the matching remark"}
+              {hi
+                ? "कम विश्वसनीयता: कृपया नीचे से सही कारण चुनें"
+                : "Low confidence: select the closest matching reason"}
             </div>
             <div className="grid gap-1.5">
               {COMMON_ERROR_OPTIONS.map((opt) => (
@@ -146,7 +148,7 @@ function ConfirmContent() {
                     setErrorText(opt.phrase_en);
                     setScheme(opt.scheme);
                   }}
-                  className="text-left text-xs p-2 bg-white border border-black/10 hover:border-[#1f6fe5] hover:text-[#1f6fe5] transition-colors"
+                  className="text-left text-xs p-2.5 rounded-[8px] bg-white border border-[#e1dfd8] hover:border-[#5196fe] hover:text-[#5196fe] transition-colors"
                 >
                   {opt.phrase_en}
                 </button>
@@ -155,21 +157,22 @@ function ConfirmContent() {
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-3 pt-1">
-          <button onClick={proceed} className="cr-btn cr-btn--primary flex-1">
-            <span>{lang === "hi" ? "हाँ, निदान चलाएं →" : "Yes, run the diagnosis →"}</span>
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <button onClick={proceed} className="cr-btn cr-btn--primary flex-1 !min-h-[46px] !text-[14px]">
+            <span>{hi ? "हाँ, निदान चलाएं →" : "Yes, Run Diagnosis →"}</span>
           </button>
           <button
             onClick={() => setIsEditing((v) => !v)}
             aria-pressed={isEditing}
-            className="cr-btn cr-btn--ghost !min-h-[52px]"
+            className="cr-btn cr-btn--ghost !min-h-[46px] !px-5 !text-[14px]"
           >
             <span>
               {isEditing
-                ? lang === "hi"
-                  ? "हो गया"
+                ? hi
+                  ? "पूर्ण"
                   : "Done"
-                : lang === "hi"
+                : hi
                   ? "संपादित करें"
                   : "Edit"}
             </span>

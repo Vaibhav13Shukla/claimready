@@ -21,18 +21,18 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
 
     // Confirm step shows what was "read" and lets the judge proceed.
     await expect(page.getByText(/name mismatch as per aadhaar/i)).toBeVisible();
-    await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
+    await page.getByRole("button", { name: /yes,?\s*run.*diagnosis/i }).click();
     await expect(page).toHaveURL(/\/diagnosis/);
 
     // Diagnosis: RC01 root cause is visible, with a plain-language explanation.
     await expect(page.getByText("RC01")).toBeVisible();
     await expect(page.getByRole("status")).not.toBeEmpty();
 
-    await page.getByRole("link", { name: /build my resolution plan/i }).click();
+    await page.getByRole("link", { name: /build.*resolution plan/i }).click();
     await expect(page).toHaveURL(/\/action/);
 
     // Action page: resolution steps render, and the tracker is reachable.
-    await expect(page.getByRole("heading", { name: /steps to resolve/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /action steps/i })).toBeVisible();
     await page
       .getByRole("link", { name: /resolution timeline/i })
       .first()
@@ -48,7 +48,7 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     await page.getByRole("button", { name: /multiple uan found/i }).click();
     await expect(page).toHaveURL(/\/confirm/);
 
-    await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
+    await page.getByRole("button", { name: /yes,?\s*run.*diagnosis/i }).click();
     await expect(page).toHaveURL(/\/diagnosis/);
     await expect(page.getByText("RC05")).toBeVisible();
   });
@@ -81,7 +81,7 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     await page.getByRole("button", { name: /diagnose/i }).click();
 
     await expect(page).toHaveURL(/\/confirm/);
-    await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
+    await page.getByRole("button", { name: /yes,?\s*run.*diagnosis/i }).click();
     await expect(page).toHaveURL(/\/diagnosis/);
     await expect(page.getByText("RC04")).toBeVisible();
   });
@@ -105,7 +105,7 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     await page.getByRole("button", { name: /diagnose/i }).click();
 
     await expect(page).toHaveURL(/\/confirm/);
-    await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
+    await page.getByRole("button", { name: /yes,?\s*run.*diagnosis/i }).click();
     await expect(page).toHaveURL(/\/diagnosis/);
 
     // The page must actually render its content, not a crashed blank screen.

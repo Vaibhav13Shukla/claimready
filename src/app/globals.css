@@ -1,59 +1,135 @@
 @import "tailwindcss";
 
+@theme {
+  /* Colors */
+  --color-electric-blue: #5196fe;
+  --color-ember-orange: #f9754e;
+  --color-ink-black: #1b1d20;
+  --color-midnight: #101828;
+  --color-paper-white: #ffffff;
+  --color-parchment: #f2f1ec;
+  --color-sand: #e1dfd8;
+  --color-graphite: #27272a;
+  --color-steel: #6e6e6e;
+  --color-ash: #797876;
+  --color-fog: #a3a3a3;
+
+  /* Typography */
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-gambetta: 'Source Serif 4', 'Newsreader', Georgia, serif;
+  --font-system-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography Scale */
+  --text-caption: 14px;
+  --leading-caption: 1.5;
+  --tracking-caption: -0.14px;
+  --text-body-sm: 16px;
+  --leading-body-sm: 1.5;
+  --tracking-body-sm: -0.32px;
+  --text-body: 18px;
+  --leading-body: 1.43;
+  --tracking-body: -0.36px;
+  --text-subheading: 20px;
+  --leading-subheading: 1.42;
+  --tracking-subheading: -0.46px;
+  --text-heading-sm: 32px;
+  --leading-heading-sm: 1.16;
+  --tracking-heading-sm: -0.96px;
+  --text-heading: 48px;
+  --leading-heading: 1.13;
+  --tracking-heading: -2.88px;
+  --text-display: 64px;
+  --leading-display: 1.05;
+  --tracking-display: -6.4px;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+
+  /* Border Radius */
+  --radius-lg: 8px;
+  --radius-xl: 12.8px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-md: rgba(0, 0, 0, 0.1) 0px 2px 10px 0px;
+}
+
+:root {
+  /* Colors */
+  --color-electric-blue: #5196fe;
+  --color-ember-orange: #f9754e;
+  --color-ink-black: #1b1d20;
+  --color-midnight: #101828;
+  --color-paper-white: #ffffff;
+  --color-parchment: #f2f1ec;
+  --color-sand: #e1dfd8;
+  --color-graphite: #27272a;
+  --color-steel: #6e6e6e;
+  --color-ash: #797876;
+  --color-fog: #a3a3a3;
+
+  /* Legacy & token aliases */
+  --bg: #ffffff;
+  --text: #1b1d20;
+  --muted: #6e6e6e;
+  --blue: #5196fe;
+  --blue-dark: #3f75c6;
+  --orange: #f9754e;
+  --line: #e1dfd8;
+  --parchment: #f2f1ec;
+  --sand: #e1dfd8;
+  --steel: #6e6e6e;
+  --ash: #797876;
+  --fog: #a3a3a3;
+
+  /* Status accents */
+  --red: #d21f3c;
+  --amber: #b45309;
+  --green: #067a54;
+
+  /* Typography */
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-gambetta: 'Source Serif 4', 'Newsreader', Georgia, serif;
+  --font: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-serif-accent), var(--font-gambetta), Georgia, "Times New Roman", serif;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12.8px;
+  --radius-lg: 24px;
+  --radius-cards: 24px;
+  --radius-badges: 12.8px;
+  --radius-inputs: 12.8px;
+  --radius-buttons: 9999px;
+  --radius-pill: 9999px;
+
+  /* Surfaces */
+  --surface-page-canvas: #ffffff;
+  --surface-soft-card: #f2f1ec;
+  --surface-card: #ffffff;
+}
+
 @layer base {
-  :root {
-    --bg: #ffffff;
-    --text: #1b1d20;
-    --muted: #1a1a1a;
-    --blue: #1f6fe5;
-    --blue-dark: #14449e;
-    --headline-muted: #6b7378;
-    --line: rgba(27, 29, 32, 0.1);
-    --glass-light: rgba(255, 255, 255, 0.55);
-    --glass-blur: 18px;
-    /* Radius scale (Parker-adopted shape language: pill CTAs, soft cards) */
-    --radius-sm: 8px;
-    --radius-md: 12.8px;
-    --radius-lg: 24px;
-    --radius-pill: 9999px;
-    /* --font-inter is set by next/font/google in layout.tsx (self-hosted,
-       no external request) */
-    --font: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-serif: var(--font-serif-accent), Georgia, "Times New Roman", serif;
-
-    /* semantic accents */
-    --red: #d21f3c;
-    --amber: #b45309;
-    --green: #067a54;
-
-    /* ---- Join Parker reference palette, adopted as literally as WCAG AA
-       allows (see design decision below on --blue/--blue-dark). Warm
-       neutrals carry no text-contrast conflict, so they're taken verbatim. ---- */
-    --parchment: #f2f1ec;
-    --sand: #e1dfd8;
-    --steel: #6e6e6e;
-    --ash: #797876;
-    --fog: #a3a3a3;
-    --midnight: #101828;
-    --graphite: #27272a;
-    /* Electric Blue (#5196fe) and Ember Orange (#f9754e) both measure below
-       3:1 against white — neither clears even WCAG's non-text minimum, let
-       alone the 4.5:1 text threshold — so --blue/--blue-dark above keep the
-       same hue family retuned to 4.70:1 / 8.93:1 instead of the literal hex.
-       Orange has no accessible single-CTA role in this app (would collide
-       with the existing amber "action needed" status color), so it's
-       skipped rather than retuned. */
-
-    --shadow-md: rgba(0, 0, 0, 0.1) 0px 2px 10px 0px;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--surface-page-canvas);
+    color: var(--color-ink-black);
     font-family: var(--font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -72,204 +148,175 @@
   input,
   select,
   textarea {
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-inputs);
+    border: 1px solid var(--color-fog);
+    background: #ffffff;
   }
 
-  /* Visible keyboard focus indicator (WCAG 2.4.7) */
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-electric-blue);
+    box-shadow: 0 0 0 3px rgba(81, 150, 254, 0.15);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--blue);
+    outline: 2px solid var(--color-electric-blue);
     outline-offset: 2px;
   }
 }
 
-/* Italic serif accent — one deliberate flourish, applied to a single
-   emphasis phrase in the landing hero (Latin script only; Hindi keeps the
-   default sans since Source Serif 4 has no Devanagari coverage). */
+/* Everything below is wrapped in @layer components. Tailwind v4 puts its
+   own utilities (including responsive/state variants like `hidden`,
+   `sm:inline-flex`, `disabled:`) in @layer utilities, and per the CSS
+   Cascade Layers spec, UNLAYERED css always wins over ANY layered css
+   regardless of specificity. These custom classes were unlayered, so e.g.
+   `hidden sm:inline-flex` on a .cr-btn silently lost to .cr-btn's own
+   `display: inline-flex` at every viewport width — a real bug: the
+   Navbar's ghost CTA never actually hid on mobile (confirmed via computed
+   style at a 360px viewport: display stayed "flex", contributing to a
+   confirmed horizontal-scroll overflow on the intake page). Putting these
+   in @layer components lets Tailwind's utilities win as expected. */
+@layer components {
+
+/* Gambetta / Source Serif 4 italic display flourish */
 .font-serif-accent {
-  font-family: var(--font-serif-accent), Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif-accent), var(--font-gambetta), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 500;
 }
 
-/* ---------- Surfaces ---------- */
-.cr-glass {
-  background: var(--glass-light);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid rgba(31, 111, 229, 0.14);
-  border-radius: var(--radius-lg);
-}
-
+/* Surfaces & Cards */
 .cr-card {
   background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-}
-/* .cr-card doubles as form-control chrome (select/textarea in confirm/intake)
-   as well as content cards — those two roles have different radii in the
-   spec (24px cards vs 12.8px inputs), so form elements need their own,
-   more-specific override rather than inheriting the card radius. */
-select.cr-card,
-textarea.cr-card,
-input.cr-card {
-  border-radius: var(--radius-md);
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-cards);
 }
 
+.cr-card-soft {
+  background: var(--color-parchment);
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-cards);
+}
+
+/* Tagline Badge */
 .cr-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px 16px 7px 13px;
-  background: var(--glass-light);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(31, 111, 229, 0.2);
-  border-radius: var(--radius-pill);
-  color: var(--muted);
-  font-size: clamp(12px, 1.3vw, 14px);
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--color-ink-black);
+  border-radius: var(--radius-badges);
+  color: #ffffff;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  line-height: 1.4;
+  letter-spacing: -0.14px;
 }
 
-.cr-tick {
-  width: 13px;
-  height: 13px;
-  border: 2px solid var(--blue);
-  border-radius: 3px;
-  background: #fff;
-  flex-shrink: 0;
-}
-
-/* ---------- Buttons ---------- */
+/* Buttons (9999px pill shapes) */
 .cr-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  min-height: 52px;
-  padding: 12px 22px;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 24px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-buttons);
   font-weight: 500;
   font-size: 15px;
-  letter-spacing: -0.015em;
-  line-height: 1;
+  letter-spacing: -0.32px;
+  line-height: 1.2;
   white-space: nowrap;
-  overflow: hidden;
   cursor: pointer;
-  transition: color 0.25s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
 }
-.cr-btn > * {
-  position: relative;
-  z-index: 1;
-}
-.cr-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-.cr-btn:hover::before {
-  transform: scaleX(1);
-}
+
 .cr-btn--primary {
-  background: var(--blue);
-  color: #fff;
+  background: var(--color-electric-blue);
+  color: #ffffff;
 }
-.cr-btn--primary::before {
-  background: var(--blue-dark);
+.cr-btn--primary:hover {
+  background: #3f75c6;
+  transform: translateY(-1px);
 }
+
 .cr-btn--ghost {
-  background: rgba(255, 255, 255, 0.6);
-  color: var(--text);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: transparent;
+  color: var(--color-ink-black);
+  border: 1px solid var(--color-ink-black);
 }
-.cr-btn--ghost::before {
-  background: rgba(31, 111, 229, 0.08);
+.cr-btn--ghost:hover {
+  background: rgba(27, 29, 32, 0.05);
+  transform: translateY(-1px);
 }
+
+.cr-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
 .cr-btn__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  color: #ffffff;
   flex-shrink: 0;
 }
-.cr-btn--primary .cr-btn__icon {
-  background: var(--blue-dark);
-  color: #fff;
-}
-.cr-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
-/* ---------- Nav ---------- */
+/* Nav Links */
 .cr-navlink {
   position: relative;
   display: inline-flex;
   align-items: center;
-  color: var(--text);
-  font-size: 14px;
+  color: var(--color-steel);
+  font-size: 15px;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1;
+  letter-spacing: -0.2px;
+  line-height: 1.5;
   white-space: nowrap;
-  /* WCAG 2.5.8: keep the clickable area >=24px tall even though the text
-     itself is small — padding, not a taller font, so the layout is unchanged. */
-  padding: 10px 2px 12px;
-  margin: -10px -2px -12px;
-  transition:
-    color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 6px 0;
+  transition: color 0.2s ease;
+  text-decoration: none;
 }
 .cr-navlink::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
+  bottom: 0;
   width: 100%;
   height: 2px;
-  background: var(--blue);
+  background: var(--color-electric-blue);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cr-navlink:hover {
-  color: var(--blue);
-  transform: translateY(-2px);
+  color: var(--color-ink-black);
 }
 .cr-navlink:hover::after {
   transform: scaleX(1);
 }
-
-/* ---------- Headline + accent paint-on ---------- */
-.headline-mask {
-  display: block;
-  overflow: hidden;
+.cr-navlink.active {
+  color: var(--color-ink-black);
 }
-/* A single text node whose color animates muted -> accent blue. The earlier
-   version used two ::before/::after pseudo-elements with content: attr(data-text)
-   to fake a left-to-right paint-on reveal, but generated content is exposed to
-   the accessibility tree in Chromium, so a screen reader read the headline's
-   key phrase 2-3 times over. This keeps the same "the accent catches your eye
-   a beat after the headline lands" feel with exactly one copy of the text. */
-.accent-paint {
-  color: var(--headline-muted);
-  animation: accent-color 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+.cr-navlink.active::after {
+  transform: scaleX(1);
 }
 
-/* ---------- Entrance animations ---------- */
+/* Entrance Animations */
 @keyframes type-rise {
   from {
-    transform: translate3d(0, 118%, 0);
+    transform: translate3d(0, 110%, 0);
   }
   to {
     transform: translate3d(0, 0, 0);
@@ -283,42 +330,18 @@ input.cr-card {
     clip-path: inset(0 0 0 0);
   }
 }
-@keyframes wipe-right {
-  from {
-    clip-path: inset(0 0 0 100%);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-@keyframes link-in {
-  from {
-    opacity: 0;
-    transform: translate3d(-16px, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 14px, 0);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes accent-color {
-  to {
-    color: var(--blue);
-  }
-}
 @keyframes pulse-dot {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -326,8 +349,12 @@ input.cr-card {
   }
 }
 
-.rise {
+.headline-mask {
   display: block;
+  overflow: hidden;
+}
+.rise {
+  display: inline-block;
   animation: type-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: var(--d, 0s);
 }
@@ -335,16 +362,8 @@ input.cr-card {
   animation: wipe-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: var(--d, 0s);
 }
-.wipe-right {
-  animation: wipe-right 0.65s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  animation-delay: var(--d, 0s);
-}
 .fade-up {
   animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  animation-delay: var(--d, 0s);
-}
-.link-in {
-  animation: link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: var(--d, 0s);
 }
 .pulse-dot {
@@ -354,14 +373,10 @@ input.cr-card {
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .wipe-in,
-  .wipe-right,
   .fade-up,
-  .link-in,
   .pulse-dot {
     animation: none !important;
   }
-  .accent-paint {
-    animation: none !important;
-    color: var(--blue);
-  }
 }
+
+} /* end @layer components */

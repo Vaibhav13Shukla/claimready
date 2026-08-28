@@ -6,10 +6,10 @@ import { useLanguage } from "../../i18n/context";
 import { Scheme } from "../../core/taxonomy/taxonomy.schema";
 import { COMMON_ERROR_OPTIONS } from "../../ai/fallback";
 
-const CLAIM_TYPES: { id: Scheme; icon: string; key: string }[] = [
-  { id: "FINAL_SETTLEMENT", icon: "🧾", key: "claim_final" },
-  { id: "PF_ADVANCE", icon: "🏥", key: "claim_advance" },
-  { id: "PENSION_EPS", icon: "👵", key: "claim_pension" },
+const CLAIM_TYPES: { id: Scheme; key: string }[] = [
+  { id: "FINAL_SETTLEMENT", key: "claim_final" },
+  { id: "PF_ADVANCE", key: "claim_advance" },
+  { id: "PENSION_EPS", key: "claim_pension" },
 ];
 
 export interface GoldenCase {
@@ -19,54 +19,48 @@ export interface GoldenCase {
   badge: string;
 }
 
-// Exported (not just used locally) so tests/unit/golden-cases-consistency.test.ts
-// can catch drift against tests/fixtures/golden-cases.json and
-// tests/unit/classifier.test.ts's own goldenCases array — these demo cases are
-// necessarily duplicated across three shapes (UI demo buttons, the golden-case
-// gate, a JSON fixture), and a test enforcing consistency beats a comment
-// asking future edits to remember to update all three by hand.
 export const GOLDEN_CASES: GoldenCase[] = [
   {
     id: "GC-01",
     scheme: "FINAL_SETTLEMENT",
     text: "Claim rejected: Name mismatch as per Aadhaar",
-    badge: "RC01 · Name",
+    badge: "RC01: Name",
   },
   {
     id: "GC-02",
     scheme: "PF_ADVANCE",
     text: "Rejected: Name mismatch between UAN and bank KYC",
-    badge: "RC01 · Name",
+    badge: "RC01: Name",
   },
   {
     id: "GC-03",
     scheme: "FINAL_SETTLEMENT",
     text: "Claim rejected: Date of Birth not matching Aadhaar",
-    badge: "RC02 · DOB",
+    badge: "RC02: DOB",
   },
   {
     id: "GC-04",
     scheme: "PF_ADVANCE",
     text: "Rejected: Bank KYC not verified / account inactive",
-    badge: "RC03 · Bank",
+    badge: "RC03: Bank",
   },
   {
     id: "GC-05",
     scheme: "FINAL_SETTLEMENT",
     text: "Rejected: Date of Exit not updated by employer",
-    badge: "RC04 · Exit date",
+    badge: "RC04: Exit date",
   },
   {
     id: "GC-06",
     scheme: "PENSION_EPS",
     text: "Claim rejected: IFSC mismatch, payment returned by bank",
-    badge: "RC03 · Bank",
+    badge: "RC03: Bank",
   },
   {
     id: "GC-07",
     scheme: "FINAL_SETTLEMENT",
     text: "Claim rejected: Multiple UAN found, previous PF account not transferred",
-    badge: "RC05 · Multiple UAN",
+    badge: "RC05: Multiple UAN",
   },
 ];
 
@@ -74,10 +68,8 @@ function IntakeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { lang, t } = useLanguage();
+  const hi = lang === "hi";
 
-  // useSearchParams already returns the parsed URL state synchronously, so
-  // the initial tab/scheme can be derived directly in the lazy initializer —
-  // no effect needed, no flash of the wrong tab on first paint.
   const [scheme, setScheme] = useState<Scheme>(() => {
     const s = searchParams.get("scheme") as Scheme;
     return s && CLAIM_TYPES.some((c) => c.id === s) ? s : "FINAL_SETTLEMENT";
@@ -107,7 +99,6 @@ function IntakeContent() {
     const file = e.target.files?.[0];
     if (!file) return;
     setFileName(file.name);
-    // Simulated OCR — deterministic demo text by claim type.
     const demo =
       scheme === "PF_ADVANCE"
         ? "Rejected: Bank KYC not verified / account inactive"
@@ -143,172 +134,209 @@ function IntakeContent() {
   };
 
   const tabs: { id: typeof activeTab; label: string }[] = [
-    { id: "samples", label: `✨ ${t("intake_tab_samples")}` },
-    { id: "paste", label: `✍️ ${t("intake_tab_paste")}` },
-    { id: "upload", label: `📷 ${t("intake_tab_upload")}` },
+    { id: "samples", label: t("intake_tab_samples") },
+    { id: "paste", label: t("intake_tab_paste") },
+    { id: "upload", label: t("intake_tab_upload") },
   ];
 
   return (
-    <div className="max-w-3xl mx-auto px-6 sm:px-8 py-10">
+    <div className="max-w-[880px] mx-auto px-6 sm:px-8 py-10">
+      {/* Step Badge */}
       <div className="cr-badge fade-up" style={{ ["--d" as string]: "0s" }}>
-        <span className="cr-tick" />
-        <span>{lang === "hi" ? "चरण 1 / 4 · दावा इनपुट" : "Step 1 / 4 · Claim intake"}</span>
+        <span>{hi ? "चरण 1 / 4: दावा इनपुट" : "Step 1 of 4: Claim Intake"}</span>
       </div>
+
       <h1
-        className="fade-up mt-5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em]"
+        className="fade-up mt-4 text-2xl sm:text-3xl font-semibold tracking-[-0.03em] text-[#1b1d20]"
         style={{ ["--d" as string]: "0.05s" }}
       >
-        {lang === "hi" ? "अपने दावे की जांच करें" : "Check your claim"}
+        {hi ? "अपने दावे की जांच करें" : "Check Your Claim"}
       </h1>
-      <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
-        {lang === "hi"
-          ? "दावा प्रकार चुनें, फिर डेमो केस आज़माएं या अपनी अस्वीकृति टिप्पणी पेस्ट करें।"
-          : "Pick your claim type, then try a demo case or paste your own rejection remark."}
+      <p
+        className="fade-up mt-1.5 text-[15px] text-[#6e6e6e] max-w-[640px]"
+        style={{ ["--d" as string]: "0.1s" }}
+      >
+        {hi
+          ? "दावा प्रकार चुनें, फिर डेमो केस आज़माएं या अपनी अस्वीकृति टिप्पणी दर्ज करें।"
+          : "Select your claim type, then test a common rejection scenario or paste your actual EPFO error remark."}
       </p>
 
-      {/* Claim type */}
+      {/* Claim Type Selector */}
       <fieldset className="fade-up mt-7 border-0 p-0 m-0" style={{ ["--d" as string]: "0.15s" }}>
-        <legend className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
+        <legend className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6e6e6e] mb-2.5">
           {t("select_scheme")}
         </legend>
         <div
-          className="grid grid-cols-3 gap-px bg-black/[0.08] mt-2 border border-black/10"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3"
           role="radiogroup"
           aria-label={t("select_scheme")}
         >
-          {CLAIM_TYPES.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              role="radio"
-              aria-checked={scheme === c.id}
-              onClick={() => setScheme(c.id)}
-              className={`p-3 text-left transition-colors cursor-pointer ${
-                scheme === c.id
-                  ? "bg-[#1f6fe5] text-white"
-                  : "bg-white text-neutral-700 hover:bg-[#1f6fe5]/[0.06]"
-              }`}
-            >
-              <span className="text-lg">{c.icon}</span>
-              <span className="block text-xs font-semibold mt-1">{t(c.key as never)}</span>
-            </button>
-          ))}
+          {CLAIM_TYPES.map((c) => {
+            const isSelected = scheme === c.id;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                role="radio"
+                aria-checked={isSelected}
+                onClick={() => setScheme(c.id)}
+                className={`p-4 rounded-[16px] text-left transition-all cursor-pointer border ${
+                  isSelected
+                    ? "bg-[#5196fe] text-white border-[#5196fe] shadow-sm"
+                    : "bg-[#f2f1ec] text-[#1b1d20] border-[#e1dfd8] hover:bg-[#e8e6df]"
+                }`}
+              >
+                <div className="text-[15px] font-semibold leading-tight">{t(c.key as never)}</div>
+                <div className={`text-[12px] mt-1.5 leading-snug ${isSelected ? "text-white/80" : "text-[#6e6e6e]"}`}>
+                  {c.id === "FINAL_SETTLEMENT"
+                    ? (hi ? "नौकरी छोड़ने के बाद पूरा सेटलमेंट (Form 19 / 10C)" : "Full PF withdrawal (Form 19 / 10C)")
+                    : c.id === "PF_ADVANCE"
+                      ? (hi ? "आंशिक निकासी: चिकित्सा, आवास (Form 31)" : "Partial advance (Form 31)")
+                      : (hi ? "पेंशन व स्कीम सर्टिफिकेट (Form 10D)" : "EPS pension (Form 10D)")}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </fieldset>
 
-      {/* Tabs */}
+      {/* Mode Selection Tabs. flex-nowrap + overflow-x-auto rather than
+          flex-wrap: a 9999px-radius pill wrapping its own content onto a
+          second line renders as a broken stadium shape (verified on a
+          375px viewport) — scrolling horizontally keeps the pill intact,
+          which is the more common mobile tab-bar pattern anyway. */}
       <div
-        className="fade-up mt-7 flex gap-6 border-b border-black/10"
+        className="fade-up mt-7 flex flex-nowrap gap-2 p-1.5 rounded-[9999px] bg-[#f2f1ec] border border-[#e1dfd8] w-fit max-w-full overflow-x-auto"
         style={{ ["--d" as string]: "0.2s" }}
         role="tablist"
       >
-        {tabs.map((tb) => (
-          <button
-            key={tb.id}
-            role="tab"
-            aria-selected={activeTab === tb.id}
-            onClick={() => setActiveTab(tb.id)}
-            className={`pb-2.5 text-xs font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
-              activeTab === tb.id
-                ? "border-[#1f6fe5] text-[#1f6fe5]"
-                : "border-transparent text-neutral-500 hover:text-neutral-800"
-            }`}
-          >
-            {tb.label}
-          </button>
-        ))}
+        {tabs.map((tb) => {
+          const isActive = activeTab === tb.id;
+          return (
+            <button
+              key={tb.id}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setActiveTab(tb.id)}
+              className={`shrink-0 px-4 py-1.5 rounded-[9999px] text-[13px] sm:text-[14px] font-medium transition-all cursor-pointer ${
+                isActive
+                  ? "bg-white text-[#1b1d20] shadow-sm font-semibold"
+                  : "text-[#6e6e6e] hover:text-[#1b1d20]"
+              }`}
+            >
+              {tb.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Samples */}
+      {/* 1. Samples Grid */}
       {activeTab === "samples" && (
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-px bg-black/[0.08] border border-black/10">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {GOLDEN_CASES.map((gc) => (
             <button
               key={gc.id}
               onClick={() => handleGolden(gc)}
-              className="bg-white p-4 text-left hover:bg-[#1f6fe5]/[0.05] transition-colors cursor-pointer group"
+              className="cr-card p-5 text-left bg-white hover:border-[#5196fe] hover:bg-[#f2f1ec]/40 transition-all cursor-pointer group flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-neutral-100 text-[#1f6fe5] border border-black/10">
-                  {gc.id}
-                </span>
-                <span className="text-[10px] text-neutral-500 font-medium">{gc.badge}</span>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-[9999px] bg-[#5196fe]/10 text-[#3f75c6]">
+                    {gc.id}
+                  </span>
+                  <span className="text-[11px] text-[#6e6e6e] font-medium">{gc.badge}</span>
+                </div>
+                <p className="text-[14px] font-medium text-[#1b1d20] group-hover:text-[#3f75c6] leading-relaxed">
+                  &ldquo;{gc.text}&rdquo;
+                </p>
               </div>
-              <p className="text-sm font-medium text-[#1b1d20] group-hover:text-[#14449e]">
-                &ldquo;{gc.text}&rdquo;
-              </p>
-              <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#1f6fe5]">
-                {lang === "hi" ? "जांचें" : "Diagnose"} →
-              </span>
+              <div className="mt-3.5 pt-3 border-t border-[#e1dfd8] flex items-center justify-between text-[12px] font-semibold text-[#5196fe]">
+                <span>{hi ? "निदान चलाएं" : "Diagnose this case"}</span>
+                <span>→</span>
+              </div>
             </button>
           ))}
         </div>
       )}
 
-      {/* Paste */}
+      {/* 2. Paste Rejection Remark */}
       {activeTab === "paste" && (
-        <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-          <textarea
-            rows={4}
-            value={errorText}
-            onChange={(e) => setErrorText(e.target.value)}
-            placeholder={t("intake_paste_placeholder")}
-            aria-label={t("intake_tab_paste")}
-            className="w-full cr-card p-3.5 text-sm text-[#1b1d20] placeholder:text-neutral-500 transition-colors"
-            required
-          />
-          <div className="flex flex-wrap gap-1.5">
-            {COMMON_ERROR_OPTIONS.slice(0, 5).map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => {
-                  setErrorText(opt.phrase_en);
-                  setScheme(opt.scheme);
-                }}
-                className="text-[11px] px-2.5 py-1 bg-white border border-black/10 text-neutral-600 hover:border-[#1f6fe5] hover:text-[#1f6fe5] cursor-pointer"
-              >
-                {opt.phrase_en}
-              </button>
-            ))}
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <div className="cr-card p-6 bg-white space-y-4">
+            <label className="block text-xs font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+              {hi ? "अस्वीकृति टिप्पणी दर्ज करें" : "Paste Rejection Remark"}
+            </label>
+            <textarea
+              rows={4}
+              value={errorText}
+              onChange={(e) => setErrorText(e.target.value)}
+              placeholder={t("intake_paste_placeholder")}
+              aria-label={t("intake_tab_paste")}
+              className="w-full p-3.5 text-[15px] text-[#1b1d20] placeholder:text-[#797876] rounded-[12.8px] border border-[#a3a3a3] focus:border-[#5196fe] transition-all bg-white"
+              required
+            />
+
+            <div>
+              <span className="text-[12px] font-semibold text-[#6e6e6e] block mb-2">
+                {hi ? "सामान्य त्रुटि उदाहरण:" : "Common error quick select:"}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {COMMON_ERROR_OPTIONS.slice(0, 5).map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => {
+                      setErrorText(opt.phrase_en);
+                      setScheme(opt.scheme);
+                    }}
+                    className="text-[12px] px-3 py-1.5 rounded-[9999px] bg-[#f2f1ec] border border-[#e1dfd8] text-[#1b1d20] hover:border-[#5196fe] hover:text-[#5196fe] cursor-pointer transition-colors"
+                  >
+                    {opt.phrase_en}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
+
           <button
             type="submit"
             disabled={isSubmitting || !errorText.trim()}
-            className="cr-btn cr-btn--primary w-full"
+            className="cr-btn cr-btn--primary w-full !min-h-[48px] !text-[15px]"
           >
             <span>{isSubmitting ? t("analyzing_step") : `${t("diagnose_button")} →`}</span>
           </button>
         </form>
       )}
 
-      {/* Upload */}
+      {/* 3. Upload Screenshot */}
       {activeTab === "upload" && (
-        <div className="mt-5 space-y-4">
-          <label className="block border-2 border-dashed border-black/15 hover:border-[#1f6fe5]/50 p-8 text-center cursor-pointer transition-colors bg-[#1f6fe5]/[0.02]">
+        <div className="mt-6 space-y-4">
+          <label className="cr-card p-8 block text-center cursor-pointer transition-all hover:border-[#5196fe] bg-[#f2f1ec]/40 border-2 border-dashed border-[#e1dfd8]">
             <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
-            <div className="text-2xl">📁</div>
-            <p className="mt-2 text-sm font-medium text-neutral-700">
+            <p className="text-[15px] font-semibold text-[#1b1d20]">
               {fileName || t("intake_upload_label")}
             </p>
-            <p className="text-xs text-neutral-500 mt-1">
-              {lang === "hi" ? "सिम्युलेटेड OCR — डेमो" : "Simulated OCR — demo only"}
+            <p className="text-xs text-[#6e6e6e] mt-1">
+              {hi ? "सिम्युलेटेड OCR: डेमो हेतु" : "Simulated OCR: instant demo extraction"}
             </p>
           </label>
+
           {errorText && (
-            <div className="cr-card p-3.5 flex items-center justify-between gap-3">
-              <p className="text-xs text-neutral-700 line-clamp-1">
-                <span className="font-semibold text-[#1f6fe5]">
-                  {lang === "hi" ? "पढ़ा गया: " : "Read: "}
+            <div className="cr-card p-4 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-xs text-[#1b1d20]">
+                <span className="font-semibold text-[#5196fe] mr-1">
+                  {hi ? "पढ़ा गया: " : "Extracted: "}
                 </span>
-                {errorText}
-              </p>
+                <span className="font-mono bg-[#f2f1ec] px-2 py-0.5 rounded text-[#1b1d20]">
+                  {errorText}
+                </span>
+              </div>
               <button
                 onClick={() => handleSubmit()}
                 disabled={isSubmitting}
-                className="cr-btn cr-btn--primary !min-h-[38px] !px-4 !text-[13px]"
+                className="cr-btn cr-btn--primary !min-h-[38px] !px-4 !text-[13px] w-full sm:w-auto"
               >
-                <span>{isSubmitting ? "..." : lang === "hi" ? "आगे →" : "Proceed →"}</span>
+                <span>{isSubmitting ? "..." : hi ? "आगे बढ़ें →" : "Proceed →"}</span>
               </button>
             </div>
           )}

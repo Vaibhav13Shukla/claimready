@@ -1,25 +1,42 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import { useLanguage } from "../i18n/context";
 
 export function DisclosureBanner() {
   const { lang, t } = useLanguage();
+  const [dismissed, setDismissed] = useState(false);
+
+  if (dismissed) return null;
 
   return (
     <div
       role="region"
       aria-label={lang === "hi" ? "सूचना" : "Disclosure"}
-      id="compliance-disclosure-banner"
-      className="w-full bg-[#1f6fe5]/[0.06] border-b border-[#1f6fe5]/15 px-4 py-1.5 text-center text-[11px] sm:text-xs font-medium text-[#14449e]"
+      id="announcement-banner"
+      className="w-full bg-[#5196fe] text-white text-[12px] sm:text-[13px] font-medium min-h-[40px] py-1.5 flex items-center justify-between px-4 sm:px-6 relative z-50 transition-all"
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-center gap-2">
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#1f6fe5] pulse-dot shrink-0" />
-        <p>
+      <div className="flex-1 flex items-center justify-center gap-2 text-center">
+        <p className="leading-snug">
           <span className="font-semibold">{lang === "hi" ? "सूचना: " : "Notice: "}</span>
           {t("disclosure_banner")}
+          <Link
+            href="/transparency"
+            className="text-white underline underline-offset-2 font-semibold hover:opacity-90 transition-opacity ml-1.5"
+          >
+            {lang === "hi" ? "विवरण देखें" : "Learn more"}
+          </Link>
         </p>
       </div>
+
+      <button
+        onClick={() => setDismissed(true)}
+        aria-label={lang === "hi" ? "बंद करें" : "Dismiss"}
+        className="text-white/80 hover:text-white p-1 ml-2 transition-colors cursor-pointer text-lg leading-none shrink-0"
+      >
+        &times;
+      </button>
     </div>
   );
 }

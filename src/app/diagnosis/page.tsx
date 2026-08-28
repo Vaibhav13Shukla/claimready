@@ -43,16 +43,9 @@ function DiagnosisContent() {
     [diagnosis.root_cause_code],
   );
 
-  // Deterministic explanation is pure derived state — no effect needed, and
-  // it renders instantly while the (optional) AI-assisted version loads.
   const deterministicExplanation = isHindi ? diagnosis.explanation_hi : diagnosis.explanation_en;
   const requestKey = `${diagnosis.root_cause_code}|${lang}|${scheme}`;
 
-  // aiState is only ever written from inside the async callback below (after
-  // an await), never synchronously in the effect body, so this doesn't cause
-  // the cascading-render pattern the set-state-in-effect rule warns about.
-  // Its `key` is compared against the current requestKey before use, so a
-  // slow response for a stale diagnosis/language never flashes onto screen.
   const [aiState, setAiState] = useState<{
     key: string;
     explanation: string;
@@ -93,135 +86,131 @@ function DiagnosisContent() {
   const isFresh = aiState?.key === requestKey;
   const explanation = isFresh ? aiState.explanation : deterministicExplanation;
   const aiSource = isFresh ? aiState.source : "deterministic";
-
   const isUnknown = diagnosis.root_cause_code === "UNKNOWN";
 
   return (
-    <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">
+    <div className="max-w-[720px] mx-auto px-6 sm:px-8 py-10">
+      {/* Step Badge */}
       <div className="flex items-center justify-between fade-up">
         <div className="cr-badge">
-          <span className="cr-tick" />
-          <span>{isHindi ? "चरण 3 / 4 · निदान" : "Step 3 / 4 · Diagnosis"}</span>
+          <span>{isHindi ? "चरण 3 / 4: निदान" : "Step 3 of 4: Diagnosis"}</span>
         </div>
         {goldenId && (
-          <span className="text-[10px] font-mono font-bold px-2 py-1 bg-[#1f6fe5]/10 text-[#14449e] border border-[#1f6fe5]/20">
+          <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-[9999px] bg-[#5196fe]/10 text-[#3f75c6] border border-[#5196fe]/25">
             {goldenId}
           </span>
         )}
       </div>
 
       <h1
-        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        className="fade-up mt-4 text-2xl sm:text-3xl font-semibold tracking-[-0.03em] text-[#1b1d20]"
         style={{ ["--d" as string]: "0.05s" }}
       >
-        {isHindi ? "मूल कारण एवं समाधान मार्ग" : "Root cause & resolution path"}
+        {isHindi ? "मूल कारण और समाधान मार्ग" : "Root Cause and Remedy Path"}
       </h1>
 
-      <div className="fade-up cr-card mt-6 p-6 space-y-6" style={{ ["--d" as string]: "0.12s" }}>
+      <div className="fade-up cr-card mt-6 p-6 sm:p-7 bg-white space-y-5" style={{ ["--d" as string]: "0.12s" }}>
         {/* Root cause header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/10 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#e1dfd8] pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-black px-2.5 py-1 bg-[#1f6fe5] text-white">
+              <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-[4px] bg-[#5196fe] text-white">
                 {diagnosis.root_cause_code}
               </span>
-              <span className="text-xs font-semibold text-neutral-500">
-                {isHindi ? "वर्गीकृत मूल कारण" : "Classified root cause"}
+              <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+                {isHindi ? "वर्गीकृत मूल कारण" : "Classified Cause"}
               </span>
             </div>
-            <h2 className="text-lg sm:text-xl font-semibold mt-2 tracking-tight">
+            <h2 className="text-lg sm:text-xl font-semibold mt-1.5 tracking-tight text-[#1b1d20]">
               {isHindi ? diagnosis.label_hi : diagnosis.label_en}
             </h2>
           </div>
           <span
-            className={`text-xs font-bold px-3 py-1 border self-start ${
+            className={`text-xs font-bold px-3 py-1 rounded-[9999px] border self-start ${
               isUnknown
-                ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/30"
-                : "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/30"
+                ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/25"
+                : "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/25"
             }`}
           >
-            {Math.round(diagnosis.confidence * 100)}%{" "}
-            {isHindi ? "निदान विश्वसनीयता" : "diagnosis confidence"}
+            {Math.round(diagnosis.confidence * 100)}% {isHindi ? "विश्वसनीयता" : "Confidence"}
           </span>
         </div>
 
-        {/* Explanation — role="status" + aria-live so screen reader users are
-            told when the deterministic text is replaced by the AI-fetched
-            one a moment later, instead of it silently changing under them. */}
+        {/* Explanation */}
         <div
           role="status"
           aria-live="polite"
-          className="p-4 bg-[#1f6fe5]/[0.04] border border-[#1f6fe5]/15 space-y-2"
+          className="p-4 rounded-[16px] bg-[#5196fe]/[0.05] border border-[#5196fe]/20 space-y-2"
         >
-          <div className="flex items-center gap-2 text-xs font-bold text-[#14449e]">
-            <span aria-hidden="true">💡</span>
+          <div className="flex items-center gap-2 text-xs font-bold text-[#1b5bb5]">
             <span>
               {isHindi
-                ? "यह आपकी गलती नहीं — सरल भाषा में:"
-                : "This isn't your fault — in plain words:"}
+                ? "सरल भाषा में समझें:"
+                : "What this means in plain words:"}
             </span>
             <span
-              className={`ml-auto text-[10px] font-semibold px-1.5 py-0.5 border ${
+              className={`ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-[9999px] border ${
                 aiSource === "ai_assisted"
-                  ? "bg-[#1f6fe5]/10 text-[#1f6fe5] border-[#1f6fe5]/25"
-                  : "bg-neutral-100 text-neutral-500 border-black/10"
+                  ? "bg-[#5196fe]/10 text-[#5196fe] border-[#5196fe]/25"
+                  : "bg-white text-[#6e6e6e] border-[#e1dfd8]"
               }`}
             >
-              {aiSource === "ai_assisted" ? "OpenAI" : isHindi ? "क्यूरेटेड" : "curated"}
+              {aiSource === "ai_assisted" ? "AI Model" : isHindi ? "क्यूरेटेड" : "Rules Engine"}
             </span>
           </div>
-          <p className="text-sm text-[#1b1d20] leading-relaxed font-medium">{explanation}</p>
+          <p className="text-[14px] text-[#1b1d20] leading-relaxed">{explanation}</p>
         </div>
 
-        {/* Owner + timeline */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-black/[0.08] border border-black/10">
-          <div className="bg-white p-4 space-y-1">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-neutral-500">
-              {isHindi ? "कौन ठीक करेगा" : "Who fixes it"}
+        {/* 2-Column Who Fixes + Timeline */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div className="bg-[#f2f1ec] p-4 rounded-[16px] border border-[#e1dfd8] space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+              {isHindi ? "कार्रवाई कौन करेगा" : "Who Must Act"}
             </span>
-            <p className="text-sm font-semibold text-[#14449e]">
+            <p className="text-[14px] font-semibold text-[#1b1d20]">
               {isHindi ? OWNER_LABEL[diagnosis.owner].hi : OWNER_LABEL[diagnosis.owner].en}
             </p>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[12px] text-[#6e6e6e]">
               {route.can_self_service
                 ? isHindi
-                  ? "✓ ज़्यादातर ऑनलाइन स्वयं हो सकता है"
-                  : "✓ Mostly doable online yourself"
+                  ? "ऑनलाइन स्वयं हो सकता है"
+                  : "Can be done online yourself"
                 : isHindi
-                  ? "⚠️ किसी और की कार्रवाई ज़रूरी"
-                  : "⚠️ Needs someone else to act"}
+                  ? "बाहरी पक्ष की कार्रवाई आवश्यक"
+                  : "Requires employer or bank action"}
             </p>
           </div>
-          <div className="bg-white p-4 space-y-1">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-neutral-500">
-              {isHindi ? "अनुमानित समय" : "Estimated timeline"}
+
+          <div className="bg-[#f2f1ec] p-4 rounded-[16px] border border-[#e1dfd8] space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#6e6e6e]">
+              {isHindi ? "अनुमानित समयसीमा" : "Estimated Timeline"}
             </span>
-            <p className="text-sm font-semibold text-[#b45309]">
-              ⏱ {isHindi ? timeline.display_hi : timeline.display_en}
+            <p className="text-[14px] font-semibold text-[#b45309]">
+              {isHindi ? timeline.display_hi : timeline.display_en}
             </p>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[12px] text-[#6e6e6e]">
               {isHindi ? timeline.next_cycle_window_hi : timeline.next_cycle_window_en}
             </p>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="space-y-3 pt-1">
+        {/* Action Button & Links */}
+        <div className="space-y-2.5 pt-1">
           <Link
             href={`/action?scheme=${scheme}&rc=${diagnosis.root_cause_code}&owner=${diagnosis.owner}&remedy=${diagnosis.remedy_type}`}
-            className="cr-btn cr-btn--primary w-full"
+            className="cr-btn cr-btn--primary w-full !min-h-[48px] !text-[14px]"
           >
             <span>
               {isHindi
-                ? `समाधान प्लान बनाएं · ${REMEDY_LABEL[diagnosis.remedy_type].hi}`
-                : `Build my resolution plan · ${REMEDY_LABEL[diagnosis.remedy_type].en}`}
+                ? `समाधान प्लान बनाएं: ${REMEDY_LABEL[diagnosis.remedy_type].hi}`
+                : `Build Resolution Plan: ${REMEDY_LABEL[diagnosis.remedy_type].en}`}
             </span>
           </Link>
-          <div className="flex items-center justify-between text-xs text-neutral-500">
-            <Link href="/intake" className="inline-block py-2 hover:text-[#1f6fe5]">
+          <div className="flex items-center justify-between text-xs text-[#6e6e6e] px-1">
+            <Link href="/intake" className="py-1.5 hover:text-[#5196fe] transition-colors">
               ← {t("start_over")}
             </Link>
-            <Link href="/tracker" className="inline-block py-2 hover:text-[#1f6fe5]">
+            <Link href="/tracker" className="py-1.5 hover:text-[#5196fe] transition-colors">
               {t("view_tracker")} →
             </Link>
           </div>

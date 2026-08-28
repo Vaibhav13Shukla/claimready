@@ -18,7 +18,6 @@ export default function TrackerPage() {
     desc_en: string;
     desc_hi: string;
     when: string;
-    icon: string;
   }[] = [
     {
       id: "diagnosed",
@@ -28,67 +27,64 @@ export default function TrackerPage() {
       desc_en: "The exact rejection cause is identified and routed to who must act.",
       desc_hi: "सटीक अस्वीकृति कारण की पहचान और जिम्मेदार पक्ष तक मार्ग।",
       when: isHindi ? "आज" : "Today",
-      icon: "🔍",
     },
     {
       id: "action_taken",
       n: "2",
       title_en: "Fix submitted",
       title_hi: "सुधार प्रस्तुत",
-      desc_en: "Correction raised on the portal, or the letter handed to bank / employer.",
+      desc_en: "Correction raised on the portal, or the letter handed to bank or employer.",
       desc_hi: "पोर्टल पर सुधार दर्ज, या बैंक / नियोक्ता को पत्र प्रस्तुत।",
       when: isHindi ? "आज" : "Today",
-      icon: "📄",
     },
     {
       id: "awaiting_cycle",
       n: "3",
-      title_en: "Approval & sync",
+      title_en: "Approval and sync",
       title_hi: "स्वीकृति व सिंक",
-      desc_en: "Employer / EPFO approval reflects the corrected record on the portal.",
+      desc_en: "Employer or EPFO approval reflects the corrected record on the portal.",
       desc_hi: "नियोक्ता / ईपीएफओ स्वीकृति सही रिकॉर्ड को पोर्टल पर दिखाती है।",
-      when: isHindi ? "3–20 दिनों में" : "in 3–20 days",
-      icon: "⏳",
+      when: isHindi ? "3 से 20 दिनों में" : "in 3 to 20 days",
     },
     {
       id: "resolved",
       n: "4",
-      title_en: "Re-filed & settled",
+      title_en: "Re-filed and settled",
       title_hi: "पुनः दावा व निपटान",
       desc_en: "You re-file; the claim clears the check and the amount is credited.",
       desc_hi: "आप पुनः दावा करते हैं; दावा जांच पास करता है और राशि जमा होती है।",
       when: isHindi ? "अगले दावे पर" : "on re-file",
-      icon: "✅",
     },
   ];
 
   const currentIndex = stages.findIndex((s) => s.id === current);
 
   return (
-    <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">
+    <div className="max-w-[720px] mx-auto px-6 sm:px-8 py-10">
+      {/* Step Badge */}
       <div className="flex items-center justify-between fade-up">
         <div className="cr-badge">
-          <span className="cr-tick" />
-          <span>{isHindi ? "सिमुलेशन" : "Simulation"}</span>
+          <span>{isHindi ? "सिमुलेशन ट्रैकर" : "Lifecycle Simulation"}</span>
         </div>
-        <span className="text-[11px] font-semibold text-[#b45309]">
-          🛡 {isHindi ? "सिंथेटिक समयरेखा" : "SYNTHETIC TIMELINE"}
+        <span className="text-[11px] font-bold px-2.5 py-1 rounded-[9999px] bg-[#b45309]/10 text-[#b45309] border border-[#b45309]/25">
+          {isHindi ? "सिंथेटिक समयरेखा" : "SYNTHETIC TIMELINE"}
         </span>
       </div>
+
       <h1
-        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        className="fade-up mt-4 text-2xl sm:text-3xl font-semibold tracking-[-0.03em] text-[#1b1d20]"
         style={{ ["--d" as string]: "0.05s" }}
       >
-        {isHindi ? "समाधान ट्रैकर" : "Resolution tracker"}
+        {isHindi ? "समाधान समयरेखा ट्रैकर" : "Resolution Lifecycle Tracker"}
       </h1>
-      <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
+      <p className="fade-up mt-1.5 text-[15px] text-[#6e6e6e]" style={{ ["--d" as string]: "0.1s" }}>
         {isHindi
-          ? "सुझाई गई कार्रवाई के बाद आपका दावा सरकारी सिस्टम में कैसे साफ़ होता है।"
-          : "How your claim clears through the system once you act on the plan."}
+          ? "सुझाई गई कार्रवाई के बाद आपका दावा कैसे साफ़ होता है और राशि कब जमा होती है।"
+          : "How your claim clears through the system once you submit the remedy."}
       </p>
 
-      <div className="fade-up cr-card mt-6 p-6 space-y-4" style={{ ["--d" as string]: "0.15s" }}>
-        <div className="space-y-3">
+      <div className="fade-up cr-card mt-6 p-6 sm:p-7 bg-white space-y-5" style={{ ["--d" as string]: "0.15s" }}>
+        <div className="space-y-2.5">
           {stages.map((s, idx) => {
             const done = idx <= currentIndex;
             const isCur = idx === currentIndex;
@@ -97,33 +93,33 @@ export default function TrackerPage() {
                 key={s.id}
                 onClick={() => setCurrent(s.id)}
                 aria-current={isCur ? "step" : undefined}
-                className={`w-full text-left p-4 border transition-colors cursor-pointer flex items-start gap-4 ${
+                className={`w-full text-left p-4 rounded-[16px] border transition-all cursor-pointer flex items-start gap-3.5 ${
                   isCur
-                    ? "border-[#1f6fe5] bg-[#1f6fe5]/[0.04]"
+                    ? "border-[#5196fe] bg-[#5196fe]/[0.05] shadow-sm"
                     : done
-                      ? "border-black/10 bg-white"
-                      : "border-black/[0.06] bg-neutral-50"
+                      ? "border-[#e1dfd8] bg-white hover:bg-[#f2f1ec]/40"
+                      : "border-[#e1dfd8]/60 bg-[#f2f1ec]/30 opacity-70"
                 }`}
               >
                 <span
-                  className={`w-9 h-9 flex items-center justify-center text-sm font-bold shrink-0 ${
-                    done ? "bg-[#1f6fe5] text-white" : "bg-neutral-200 text-neutral-500"
+                  className={`w-8 h-8 rounded-[9999px] flex items-center justify-center text-xs font-bold shrink-0 transition-colors ${
+                    done ? "bg-[#5196fe] text-white" : "bg-[#e1dfd8] text-[#6e6e6e]"
                   }`}
                 >
-                  {done ? s.icon : s.n}
+                  {s.n}
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <h2
-                      className={`text-sm font-semibold ${done ? "text-[#1b1d20]" : "text-neutral-500"}`}
+                      className={`text-[15px] font-semibold ${done ? "text-[#1b1d20]" : "text-[#6e6e6e]"}`}
                     >
                       {isHindi ? s.title_hi : s.title_en}
                     </h2>
-                    <span className="text-[11px] font-mono text-neutral-500 shrink-0">
+                    <span className="text-[11px] font-mono text-[#6e6e6e] shrink-0 bg-[#f2f1ec] px-2 py-0.5 rounded-[9999px]">
                       {s.when}
                     </span>
                   </div>
-                  <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                  <p className="text-[13px] text-[#6e6e6e] mt-0.5 leading-relaxed">
                     {isHindi ? s.desc_hi : s.desc_en}
                   </p>
                 </div>
@@ -132,34 +128,36 @@ export default function TrackerPage() {
           })}
         </div>
 
-        <div className="flex items-center gap-2 pt-2 border-t border-black/10">
-          <span className="text-xs text-neutral-500 mr-1">
-            {isHindi ? "चरण आगे बढ़ाएं:" : "Advance:"}
+        <div className="flex items-center gap-2 pt-2.5 border-t border-[#e1dfd8]">
+          <span className="text-xs font-semibold text-[#6e6e6e] mr-1">
+            {isHindi ? "चरण चुनें:" : "Select stage:"}
           </span>
-          {stages.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => setCurrent(s.id)}
-              className={`px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
-                current === s.id
-                  ? "bg-[#1f6fe5] text-white"
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
-              }`}
-            >
-              {s.n}
-            </button>
-          ))}
+          <div className="flex gap-1.5">
+            {stages.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => setCurrent(s.id)}
+                className={`w-7 h-7 rounded-[9999px] text-xs font-bold transition-all cursor-pointer ${
+                  current === s.id
+                    ? "bg-[#5196fe] text-white shadow-sm"
+                    : "bg-[#f2f1ec] text-[#1b1d20] hover:bg-[#e1dfd8]"
+                }`}
+              >
+                {s.n}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <div
-        className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6"
+        className="fade-up flex items-center justify-between text-xs text-[#6e6e6e] mt-6 px-1"
         style={{ ["--d" as string]: "0.2s" }}
       >
-        <Link href="/intake" className="inline-block py-2 hover:text-[#1f6fe5]">
+        <Link href="/intake" className="py-1.5 hover:text-[#5196fe] transition-colors">
           ← {t("start_over")}
         </Link>
-        <Link href="/transparency" className="inline-block py-2 hover:text-[#1f6fe5]">
+        <Link href="/transparency" className="py-1.5 hover:text-[#5196fe] transition-colors">
           {t("transparency_link")} →
         </Link>
       </div>

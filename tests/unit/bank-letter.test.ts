@@ -9,7 +9,7 @@ describe("Bank Letter Generator", () => {
     expect(letter.body).toContain("XXXX-DEMO-5678");
     expect(letter.body).toContain("100-DEMO-0000");
     expect(letter.printableText).toBe(`${letter.subject}\n\n${letter.body}`);
-    expect(letter.whatsappText).toContain("ClaimReady");
+    expect(letter.whatsappText).toContain("PF X-Ray");
   });
 
   it("generates Hindi letter with sensible synthetic defaults", () => {

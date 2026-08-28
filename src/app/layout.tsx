@@ -21,20 +21,20 @@ const sourceSerif = Source_Serif_4({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://claimready.example.com";
-const TITLE = "ClaimReady: EPFO PF Claim Intelligence and Rejection Prevention";
+const TITLE = "PF X-Ray: EPFO PF Claim Intelligence and Rejection Prevention";
 const DESCRIPTION =
-  "1 in 5 EPFO claims is rejected for a small, fixable mismatch. ClaimReady runs pre-flight checks, decodes rejection remarks, and provides deterministic resolution packets.";
+  "1 in 5 EPFO claims is rejected for a small, fixable mismatch. PF X-Ray runs pre-flight checks, decodes rejection remarks, and provides deterministic resolution packets.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: TITLE, template: "%s · ClaimReady" },
+  title: { default: TITLE, template: "%s · PF X-Ray" },
   description: DESCRIPTION,
   manifest: "/manifest.json",
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: "ClaimReady",
+    siteName: "PF X-Ray",
     locale: "en_IN",
     type: "website",
   },
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="border-t border-[#e1dfd8] bg-[#f2f1ec] py-8 text-[13px] text-[#6e6e6e]">
             <div className="max-w-[1200px] mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="font-semibold text-[#1b1d20]">ClaimReady</span>
+                <span className="font-semibold text-[#1b1d20]">PF X-Ray</span>
                 <span className="text-[#e1dfd8]">•</span>
                 <span>Build What Moves India 2026</span>
               </div>

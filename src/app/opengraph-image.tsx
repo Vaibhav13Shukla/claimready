@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "ClaimReady: check your EPFO PF claim before it gets rejected";
+export const alt = "PF X-Ray: check your EPFO PF claim before it gets rejected";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,7 +42,7 @@ export default async function OpengraphImage() {
           CR
         </div>
         <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#1b1d20" }}>
-          ClaimReady
+          PF X-Ray
         </div>
         <div
           style={{

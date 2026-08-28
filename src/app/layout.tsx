@@ -25,7 +25,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: TITLE, template: "%s · ClaimReady" },
   description: DESCRIPTION,
-  icons: { icon: "/favicon.ico" },
+  // No explicit `icons` entry — Next auto-detects icon.tsx/apple-icon.tsx
+  // and injects the right <link> tags itself.
   manifest: "/manifest.json",
   openGraph: {
     title: TITLE,

@@ -51,5 +51,8 @@ Generic "ask EPFO anything" chatbot · PF balance/returns tracker · admin/offic
 - Zero ESLint errors/warnings, clean TypeScript strict typecheck, zero known WCAG 2.2 AA violations (audited Day 2).
 - API routes validate all input against Zod schemas, are rate-limited, and never let client-supplied free text reach the LLM prompt unvalidated.
 
+## 9a. Production readiness
+`error.tsx`/`not-found.tsx`/`global-error.tsx` cover every failure path; `robots.ts`/`sitemap.ts`/a generated Open Graph image cover discoverability and link-sharing; `docs/DEPLOY_CHECKLIST.md` covers the Vercel deploy steps that need a human (repo push, env vars, the post-deploy `NEXT_PUBLIC_SITE_URL` redeploy). MIT-licensed (`LICENSE`).
+
 ## 10. Demo (60s)
 Real EPFO rejection screen ("1 in 3 end like this") → ClaimReady pre-flight: "2 issues will get you rejected" → tap each → plain fix → all green "Ready to file" → split-screen vs the 20-day-wait-then-reject path → *"Catch it in 30 seconds, not 30 days."*

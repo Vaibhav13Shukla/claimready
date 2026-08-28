@@ -51,3 +51,10 @@ The intelligence is the **workflow + state model**, not a chatbot. A general LLM
 
 ## Accessibility
 Audited against WCAG 2.2 AA (Day 2) and brought to zero known violations: labeled form controls, `aria-live` on the async AI-explanation swap, visible focus rings preserved on every input, `role="radiogroup"`/`"tablist"` on the claim-type and tab controls, correct heading hierarchy, and ≥24px touch targets on nav/footer links.
+
+## Production readiness
+- **Error handling**: `src/app/error.tsx` (segment-level boundary), `not-found.tsx` (404), `global-error.tsx` (root-layout crash) — all use this Next.js version's actual API (`{ error, retry }`, confirmed against `node_modules/next/dist/docs/`, not the `reset` name from older versions).
+- **Fonts**: self-hosted via `next/font/google` (no external request, no CSP dependency on `fonts.googleapis.com`), exposed as the `--font-inter` CSS variable feeding the existing `--font` custom property.
+- **SEO/sharing**: `robots.ts`, `sitemap.ts` (Next metadata file conventions), `opengraph-image.tsx` (generated via `next/og`'s `ImageResponse`, on-brand — no static asset to keep in sync).
+- **Dependencies**: `sharp` and `lenis` were installed but never imported anywhere — removed. `engines.node >=20` pinned. Verified with a real `npm ci` (not just `npm install`) that the lockfile is fully self-consistent.
+- **Deploy**: see `docs/DEPLOY_CHECKLIST.md` for the Vercel steps that need a human.

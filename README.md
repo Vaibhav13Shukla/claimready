@@ -45,20 +45,26 @@ npm run dev                  # http://localhost:3000
 
 ## Test & build
 ```bash
-npm run test:ci    # 53 unit tests incl. the 7/7 golden-case gate
-npm run build      # Next.js production build (type-checked)
+npm run test:ci        # 100 unit tests incl. the 7/7 golden-case gate
+npm run test:coverage  # same, with a coverage report (89% statements)
+npm run test:e2e       # Playwright: the full judge critical path, real browser
+npm run build          # Next.js production build (type-checked)
 ```
 
-## Quality bar (Day 2)
-- Zero ESLint errors/warnings, clean `tsc --noEmit`, all 53 tests green, `next build` green.
+## Quality bar
+- Zero ESLint errors/warnings, clean `tsc --noEmit`, 100/100 unit tests + 5/5 e2e tests green, `next build` green, verified against a clean `npm ci`.
+- 89% statement coverage / 80% branch coverage on `src/` (core rules engine at 97%; UI components covered by the e2e suite instead of shallow unit renders).
 - Zero known WCAG 2.2 AA violations — audited and fixed (see git log for the full findings list).
 - API routes (`/api/extract`, `/api/explain`) validate every field against Zod schemas, cap free-text
   input length, rate-limit per IP, and never let client-supplied text reach the LLM prompt unvalidated.
 - Security headers (CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy) on every response.
+- `error.tsx` / `not-found.tsx` / `global-error.tsx` — no route ever falls through to Next's raw default error UI.
+- `robots.ts` / `sitemap.ts` / a generated Open Graph image — a shared demo link renders a real preview card.
 
 ## Deploy (Vercel)
-1. Push `claimready/` to a Git repo, import into Vercel.
-2. Set `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) in Vercel project env.
+See [`docs/DEPLOY_CHECKLIST.md`](docs/DEPLOY_CHECKLIST.md) for the full walkthrough. Short version:
+1. Push this repo to GitHub, import into Vercel.
+2. Set `OPENAI_API_KEY` (optional — the demo works without it) and `NEXT_PUBLIC_SITE_URL` (your Vercel URL, once you have it) in Vercel project env.
 3. Deploy → you get the public browser URL for submission.
 
 ## Privacy & safety

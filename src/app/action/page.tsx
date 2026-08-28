@@ -284,6 +284,9 @@ function ActionContent() {
         <Link href="/intake" className="py-1.5 hover:text-[#5196fe] transition-colors">
           ← {t("start_over")}
         </Link>
+        <Link href="/intake?tab=preflight&stage=ready" className="font-semibold text-[#067a54] hover:underline">
+          {isHindi ? "डेमो में तैयार स्थिति देखें" : "See the demo ready state"} →
+        </Link>
         <Link href="/tracker" className="py-1.5 hover:text-[#5196fe] transition-colors">
           {t("view_tracker")} →
         </Link>

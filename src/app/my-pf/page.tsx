@@ -127,7 +127,7 @@ function MyPfContent() {
               ? "आपका खाता ठीक है — एक दावा प्री-फ्लाइट जांच पास कर लेगा।"
               : "Your account is in order — a claim would pass the pre-flight check."}
           </p>
-          <Link href="/intake" className="cr-btn cr-btn--ghost mt-4 !min-h-[44px] !text-[13px]">
+          <Link href="/intake?tab=preflight" className="cr-btn cr-btn--ghost mt-4 !min-h-[44px] !text-[13px]">
             <span>{hi ? "प्री-फ्लाइट जांच चलाएं" : "Run a pre-flight check anyway"}</span>
           </Link>
         </div>

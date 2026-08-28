@@ -166,7 +166,6 @@ function DiagnosisContent() {
         <ClaimXray
           rc={diagnosis.root_cause_code}
           confidence={diagnosis.confidence}
-          scheme={scheme}
           isHindi={isHindi}
         />
 

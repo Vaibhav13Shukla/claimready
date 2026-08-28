@@ -19,7 +19,7 @@
 ---
 
 ### 0:20 – 0:45 | Pre-Flight & Intake (The 30-Second Check)
-- **Visual:** Click **"Run a pre-flight check"** -> Lands on `/intake?tab=samples`. Click on sample case **RC04 (Missing Date of Exit)**.
+- **Visual:** Click **"Run a pre-flight check"** -> Lands on `/intake?tab=preflight`. Show the two concrete blockers, then open the missing Date of Exit blocker.
 - **Voiceover:**
   > "With PF X-Ray, you don't need to understand government jargon. You just tell us what you're trying to do.
   > You can paste your exact rejection remark, or test a pre-flight check before submitting.

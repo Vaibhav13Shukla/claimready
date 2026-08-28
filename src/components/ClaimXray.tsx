@@ -1,5 +1,5 @@
 import React from "react";
-import type { RootCauseCode, Scheme } from "../core/taxonomy/taxonomy.schema";
+import type { RootCauseCode } from "../core/taxonomy/taxonomy.schema";
 import { buildXray, TIER_LABEL, type ConfidenceTier } from "../core/xray";
 
 const STATUS: Record<string, { cls: string; sym: string }> = {
@@ -18,15 +18,13 @@ const TIER_CHIP: Record<ConfidenceTier, string> = {
 export function ClaimXray({
   rc,
   confidence,
-  scheme,
   isHindi,
 }: {
   rc: RootCauseCode;
   confidence: number;
-  scheme?: Scheme;
   isHindi: boolean;
 }) {
-  const x = buildXray(rc, confidence, scheme);
+  const x = buildXray(rc, confidence);
   const tier = TIER_LABEL[x.tier];
 
   return (

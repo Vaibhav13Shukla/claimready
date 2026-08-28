@@ -16,7 +16,7 @@ export function Navbar({
   onOpenServiceHistory?: () => void;
   onOpenSecurity?: () => void;
 }) {
-  const { lang, t } = useLanguage();
+  const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHindi = lang === "hi";
@@ -62,7 +62,7 @@ export function Navbar({
           </Link>
 
           <Link
-            href="/intake?tab=samples"
+            href="/intake?tab=preflight"
             className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
               pathname.startsWith("/intake") || pathname.startsWith("/diagnosis")
                 ? "text-blue-600"
@@ -137,12 +137,21 @@ export function Navbar({
           )}
 
           <Link
-            href="/intake?tab=samples"
+            href="/intake?tab=preflight"
             className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all hover:scale-[1.02] cursor-pointer"
           >
             <span>🔎</span>
             <span>{isHindi ? "एक्स-रे चलाएं" : "Run Claim X-Ray"}</span>
           </Link>
+
+          <button
+            type="button"
+            onClick={() => setLang(isHindi ? "en" : "hi")}
+            className="inline-flex min-h-10 items-center rounded-xl border border-slate-300 bg-white px-3 text-xs font-bold text-slate-900 transition-colors hover:border-blue-400 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            aria-label={isHindi ? "Switch to English" : "हिंदी में बदलें"}
+          >
+            {t("switch_lang")}
+          </button>
 
           {/* Mobile hamburger */}
           <button
@@ -169,7 +178,7 @@ export function Navbar({
             {isHindi ? "माय ईपीएफओ (होम)" : "My EPFO (Home)"}
           </Link>
           <Link
-            href="/intake?tab=samples"
+            href="/intake?tab=preflight"
             onClick={() => setOpen(false)}
             className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
           >

@@ -1,0 +1,62 @@
+{
+  "GC-01": {
+    "id": "GC-01",
+    "scheme": "FINAL_SETTLEMENT",
+    "input_type": "text",
+    "input_text": "Claim rejected: Name mismatch as per Aadhaar",
+    "expected_root_cause": "RC01",
+    "expected_owner": "MEMBER_SELF",
+    "expected_remedy_type": "member_correction",
+    "expected_timeline": "7-20"
+  },
+  "GC-02": {
+    "id": "GC-02",
+    "scheme": "PF_ADVANCE",
+    "input_type": "text",
+    "input_text": "Rejected: Name mismatch between UAN and bank KYC",
+    "expected_root_cause": "RC01",
+    "expected_owner": "MEMBER_SELF",
+    "expected_remedy_type": "member_correction",
+    "expected_timeline": "7-20"
+  },
+  "GC-03": {
+    "id": "GC-03",
+    "scheme": "FINAL_SETTLEMENT",
+    "input_type": "text",
+    "input_text": "Claim rejected: Date of Birth not matching Aadhaar",
+    "expected_root_cause": "RC02",
+    "expected_owner": "MEMBER_SELF",
+    "expected_remedy_type": "member_correction",
+    "expected_timeline": "7-20"
+  },
+  "GC-04": {
+    "id": "GC-04",
+    "scheme": "PF_ADVANCE",
+    "input_type": "text",
+    "input_text": "Rejected: Bank KYC not verified / account inactive",
+    "expected_root_cause": "RC03",
+    "expected_owner": "BANK",
+    "expected_remedy_type": "bank_fix",
+    "expected_timeline": "3-10"
+  },
+  "GC-05": {
+    "id": "GC-05",
+    "scheme": "FINAL_SETTLEMENT",
+    "input_type": "text",
+    "input_text": "Rejected: Date of Exit not updated by employer",
+    "expected_root_cause": "RC04",
+    "expected_owner": "EMPLOYER",
+    "expected_remedy_type": "employer_request",
+    "expected_timeline": "7-30"
+  },
+  "GC-06": {
+    "id": "GC-06",
+    "scheme": "PENSION_EPS",
+    "input_type": "text",
+    "input_text": "Claim rejected: IFSC mismatch, payment returned by bank",
+    "expected_root_cause": "RC03",
+    "expected_owner": "BANK",
+    "expected_remedy_type": "bank_fix",
+    "expected_timeline": "3-10"
+  }
+}

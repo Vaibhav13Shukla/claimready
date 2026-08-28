@@ -1,0 +1,17 @@
+{
+  "name": "SubsidySetu — DBT Payment Failure Diagnostic & Recovery",
+  "short_name": "SubsidySetu",
+  "description": "Mobile-first DBT payment failure diagnostic and recovery engine for Indian citizens.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

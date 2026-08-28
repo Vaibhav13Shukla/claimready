@@ -1,0 +1,60 @@
+# ClaimReady
+### Check your EPFO PF claim before it gets rejected — and decode it if it already was
+*Built for the "Build What Moves India" Hackathon 2026 · Platform: EPFO · Independent prototype*
+
+---
+
+## What it is
+**1 in 5 EPFO claims is rejected — almost always for a small, fixable mismatch** (a one-letter name difference, a DOB mismatch, unverified bank KYC, or an employer that never marked your Date of Exit). Citizens wait 15–20 days only to be bounced, then guess and retry.
+
+ClaimReady is a **pre-flight check + rejection decoder** for PF claims:
+1. **Pre-flight** — pick your claim type / paste your details, and it tells you which rejection reason will hit you and the exact fix, *before* you file.
+2. **Decode** — already rejected? Paste the remark; it classifies the cause, explains it in plain language, and hands you a resolution plan (steps, documents, who must act, timeline, and a ready-to-send bank/employer letter).
+
+**The blue ocean:** every other resource is *reactive* ("your claim was rejected, here's how to reapply"). Nobody ships an interactive *preventive* check, and no government hackathon has targeted PF rejection.
+
+## Architecture
+> **AI INTERPRETS → RULES DECIDE → TEMPLATES EXPLAIN → MOCKS RESOLVE**
+
+- **AI interprets** — an OpenAI model extracts structured fields from messy rejection text and writes the plain-language explanation.
+- **Rules decide** — a deterministic, Zod-typed classifier maps the text to a root cause (`RC01`–`RC04`). The model never decides the diagnosis or the fix, so there are no hallucinated remedies. 100% covered by golden tests.
+- **Templates explain** — bilingual (English/Hindi) resolution steps, document checklists, and bank/employer letters.
+- **Mocks resolve** — a 4-stage simulated lifecycle shows how the claim clears once you act.
+
+## Root-cause taxonomy (v1)
+| Code | Cause | Who fixes it | Timeline |
+|---|---|---|---|
+| RC01 | Name mismatch (UAN/Aadhaar/PAN/bank) | You (self-service) | 7–20d |
+| RC02 | Date of Birth mismatch vs Aadhaar | You (self-service) | 7–20d |
+| RC03 | Bank KYC unverified / inactive / IFSC | Your bank | 3–10d |
+| RC04 | Date of Exit not updated by employer | Previous employer | 7–30d |
+
+## OpenAI / hackathon compliance
+The prototype is **genuinely powered by an OpenAI model at runtime** (via `@ai-sdk/openai`) for the two interpretation steps — satisfying the hackathon's "powered by an OpenAI model" requirement. It **degrades gracefully** to a deterministic engine when no key is present, so the demo never breaks. See [`docs/AI_USAGE.md`](docs/AI_USAGE.md) for an honest account of the toolchain and how to make an AI coding agent's contribution explicit in your submission.
+
+No login is required (it is a public citizen tool), so **no credentials are needed** to test it.
+
+## Run locally
+```bash
+cd claimready
+npm install
+cp .env.example .env.local   # optional: add OPENAI_API_KEY to enable live OpenAI calls
+npm run dev                  # http://localhost:3000
+```
+
+## Test & build
+```bash
+npm run test:ci    # 46 unit tests incl. the 6/6 golden-case gate
+npm run build      # Next.js production build (type-checked)
+```
+
+## Deploy (Vercel)
+1. Push `claimready/` to a Git repo, import into Vercel.
+2. Set `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) in Vercel project env.
+3. Deploy → you get the public browser URL for submission.
+
+## Privacy & safety
+- **100% synthetic data** — obviously fake identifiers (`Demo Member`, `XXXX-DEMO-…`).
+- No scraping, no live EPFO/UIDAI APIs, no real UAN/Aadhaar/PAN/bank/OTP data.
+- Persistent disclosure banner + a `/transparency` page detailing real vs mocked layers.
+- Not affiliated with EPFO or any government body.

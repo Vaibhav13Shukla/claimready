@@ -6,7 +6,7 @@ import { useLanguage } from "../i18n/context";
 
 function Logo() {
   return (
-    <span className="inline-flex items-center justify-center w-8 h-8 bg-[#006cd2] text-white font-bold text-sm tracking-tight shrink-0">
+    <span className="inline-flex items-center justify-center w-8 h-8 bg-[#1f6fe5] text-white font-bold text-sm tracking-tight shrink-0">
       CR
     </span>
   );
@@ -35,7 +35,7 @@ export function Navbar() {
           <Logo />
           <span className="flex items-center gap-1.5">
             <span className="text-base font-bold tracking-tight">{t("app_name")}</span>
-            <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
+            <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 bg-[#1f6fe5]/10 text-[#14449e] border border-[#1f6fe5]/20">
               EPFO
             </span>
           </span>
@@ -52,7 +52,7 @@ export function Navbar() {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
-            className="text-xs font-semibold px-3 py-2 cr-glass text-[#0a0a0a] hover:text-[#006cd2] transition-colors cursor-pointer"
+            className="text-xs font-semibold px-3 py-2 cr-glass text-[#1b1d20] hover:text-[#1f6fe5] transition-colors cursor-pointer"
           >
             <span aria-hidden="true">🌐</span> {t("switch_lang")}
           </button>
@@ -76,9 +76,9 @@ export function Navbar() {
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
           >
-            <span className="block w-[18px] h-[1.5px] bg-[#0a0a0a]" />
-            <span className="block w-[18px] h-[1.5px] bg-[#0a0a0a]" />
-            <span className="block w-[18px] h-[1.5px] bg-[#0a0a0a]" />
+            <span className="block w-[18px] h-[1.5px] bg-[#1b1d20]" />
+            <span className="block w-[18px] h-[1.5px] bg-[#1b1d20]" />
+            <span className="block w-[18px] h-[1.5px] bg-[#1b1d20]" />
           </button>
         </div>
       </div>

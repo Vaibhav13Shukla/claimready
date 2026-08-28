@@ -104,7 +104,7 @@ function DiagnosisContent() {
           <span>{isHindi ? "चरण 3 / 4 · निदान" : "Step 3 / 4 · Diagnosis"}</span>
         </div>
         {goldenId && (
-          <span className="text-[10px] font-mono font-bold px-2 py-1 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
+          <span className="text-[10px] font-mono font-bold px-2 py-1 bg-[#1f6fe5]/10 text-[#14449e] border border-[#1f6fe5]/20">
             {goldenId}
           </span>
         )}
@@ -122,7 +122,7 @@ function DiagnosisContent() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/10 pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-black px-2.5 py-1 bg-[#006cd2] text-white">
+              <span className="font-mono text-xs font-black px-2.5 py-1 bg-[#1f6fe5] text-white">
                 {diagnosis.root_cause_code}
               </span>
               <span className="text-xs font-semibold text-neutral-500">
@@ -151,9 +151,9 @@ function DiagnosisContent() {
         <div
           role="status"
           aria-live="polite"
-          className="p-4 bg-[#006cd2]/[0.04] border border-[#006cd2]/15 space-y-2"
+          className="p-4 bg-[#1f6fe5]/[0.04] border border-[#1f6fe5]/15 space-y-2"
         >
-          <div className="flex items-center gap-2 text-xs font-bold text-[#0053a3]">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#14449e]">
             <span aria-hidden="true">💡</span>
             <span>
               {isHindi
@@ -163,14 +163,14 @@ function DiagnosisContent() {
             <span
               className={`ml-auto text-[10px] font-semibold px-1.5 py-0.5 border ${
                 aiSource === "ai_assisted"
-                  ? "bg-[#006cd2]/10 text-[#006cd2] border-[#006cd2]/25"
+                  ? "bg-[#1f6fe5]/10 text-[#1f6fe5] border-[#1f6fe5]/25"
                   : "bg-neutral-100 text-neutral-500 border-black/10"
               }`}
             >
               {aiSource === "ai_assisted" ? "OpenAI" : isHindi ? "क्यूरेटेड" : "curated"}
             </span>
           </div>
-          <p className="text-sm text-[#0a0a0a] leading-relaxed font-medium">{explanation}</p>
+          <p className="text-sm text-[#1b1d20] leading-relaxed font-medium">{explanation}</p>
         </div>
 
         {/* Owner + timeline */}
@@ -179,7 +179,7 @@ function DiagnosisContent() {
             <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-neutral-500">
               {isHindi ? "कौन ठीक करेगा" : "Who fixes it"}
             </span>
-            <p className="text-sm font-semibold text-[#0053a3]">
+            <p className="text-sm font-semibold text-[#14449e]">
               {isHindi ? OWNER_LABEL[diagnosis.owner].hi : OWNER_LABEL[diagnosis.owner].en}
             </p>
             <p className="text-[11px] text-neutral-500">
@@ -218,10 +218,10 @@ function DiagnosisContent() {
             </span>
           </Link>
           <div className="flex items-center justify-between text-xs text-neutral-500">
-            <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
+            <Link href="/intake" className="inline-block py-2 hover:text-[#1f6fe5]">
               ← {t("start_over")}
             </Link>
-            <Link href="/tracker" className="inline-block py-2 hover:text-[#006cd2]">
+            <Link href="/tracker" className="inline-block py-2 hover:text-[#1f6fe5]">
               {t("view_tracker")} →
             </Link>
           </div>

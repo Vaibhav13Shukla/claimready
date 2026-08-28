@@ -185,8 +185,8 @@ function IntakeContent() {
               onClick={() => setScheme(c.id)}
               className={`p-3 text-left transition-colors cursor-pointer ${
                 scheme === c.id
-                  ? "bg-[#006cd2] text-white"
-                  : "bg-white text-neutral-700 hover:bg-[#006cd2]/[0.06]"
+                  ? "bg-[#1f6fe5] text-white"
+                  : "bg-white text-neutral-700 hover:bg-[#1f6fe5]/[0.06]"
               }`}
             >
               <span className="text-lg">{c.icon}</span>
@@ -210,7 +210,7 @@ function IntakeContent() {
             onClick={() => setActiveTab(tb.id)}
             className={`pb-2.5 text-xs font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
               activeTab === tb.id
-                ? "border-[#006cd2] text-[#006cd2]"
+                ? "border-[#1f6fe5] text-[#1f6fe5]"
                 : "border-transparent text-neutral-500 hover:text-neutral-800"
             }`}
           >
@@ -226,18 +226,18 @@ function IntakeContent() {
             <button
               key={gc.id}
               onClick={() => handleGolden(gc)}
-              className="bg-white p-4 text-left hover:bg-[#006cd2]/[0.05] transition-colors cursor-pointer group"
+              className="bg-white p-4 text-left hover:bg-[#1f6fe5]/[0.05] transition-colors cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-neutral-100 text-[#006cd2] border border-black/10">
+                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-neutral-100 text-[#1f6fe5] border border-black/10">
                   {gc.id}
                 </span>
                 <span className="text-[10px] text-neutral-500 font-medium">{gc.badge}</span>
               </div>
-              <p className="text-sm font-medium text-[#0a0a0a] group-hover:text-[#0053a3]">
+              <p className="text-sm font-medium text-[#1b1d20] group-hover:text-[#14449e]">
                 &ldquo;{gc.text}&rdquo;
               </p>
-              <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#006cd2]">
+              <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[#1f6fe5]">
                 {lang === "hi" ? "जांचें" : "Diagnose"} →
               </span>
             </button>
@@ -254,7 +254,7 @@ function IntakeContent() {
             onChange={(e) => setErrorText(e.target.value)}
             placeholder={t("intake_paste_placeholder")}
             aria-label={t("intake_tab_paste")}
-            className="w-full cr-card p-3.5 text-sm text-[#0a0a0a] placeholder:text-neutral-500 transition-colors"
+            className="w-full cr-card p-3.5 text-sm text-[#1b1d20] placeholder:text-neutral-500 transition-colors"
             required
           />
           <div className="flex flex-wrap gap-1.5">
@@ -266,7 +266,7 @@ function IntakeContent() {
                   setErrorText(opt.phrase_en);
                   setScheme(opt.scheme);
                 }}
-                className="text-[11px] px-2.5 py-1 bg-white border border-black/10 text-neutral-600 hover:border-[#006cd2] hover:text-[#006cd2] cursor-pointer"
+                className="text-[11px] px-2.5 py-1 bg-white border border-black/10 text-neutral-600 hover:border-[#1f6fe5] hover:text-[#1f6fe5] cursor-pointer"
               >
                 {opt.phrase_en}
               </button>
@@ -285,7 +285,7 @@ function IntakeContent() {
       {/* Upload */}
       {activeTab === "upload" && (
         <div className="mt-5 space-y-4">
-          <label className="block border-2 border-dashed border-black/15 hover:border-[#006cd2]/50 p-8 text-center cursor-pointer transition-colors bg-[#006cd2]/[0.02]">
+          <label className="block border-2 border-dashed border-black/15 hover:border-[#1f6fe5]/50 p-8 text-center cursor-pointer transition-colors bg-[#1f6fe5]/[0.02]">
             <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
             <div className="text-2xl">📁</div>
             <p className="mt-2 text-sm font-medium text-neutral-700">
@@ -298,7 +298,7 @@ function IntakeContent() {
           {errorText && (
             <div className="cr-card p-3.5 flex items-center justify-between gap-3">
               <p className="text-xs text-neutral-700 line-clamp-1">
-                <span className="font-semibold text-[#006cd2]">
+                <span className="font-semibold text-[#1f6fe5]">
                   {lang === "hi" ? "पढ़ा गया: " : "Read: "}
                 </span>
                 {errorText}

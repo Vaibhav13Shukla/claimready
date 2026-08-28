@@ -36,7 +36,7 @@ The intelligence is the **workflow + state model**, not a chatbot. A general LLM
 
 ## Frontend
 
-- Next.js (App Router) + Tailwind v4. Light "fintech" design system in `globals.css` (Inter, sharp corners, `#006cd2` accent, glass, wipe/rise/paint-on animations).
+- Next.js (App Router) + Tailwind v4. Light "fintech" design system in `globals.css` (Inter, pill buttons + soft-radius cards, `#1f6fe5` accent, glass, wipe/rise/paint-on animations).
 - Flow: `/` → `/intake` → `/confirm` → `/diagnosis` → `/action` → `/tracker`, plus `/transparency`.
 - Bilingual via `src/i18n/` (English/Hindi), persisted to `localStorage`.
 

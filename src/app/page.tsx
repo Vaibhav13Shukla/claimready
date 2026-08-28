@@ -72,7 +72,7 @@ export default function LandingPage() {
           </div>
 
           <h1
-            className="mt-6 font-semibold tracking-[-0.038em] leading-[1.12] text-[#0a0a0a]"
+            className="mt-6 font-semibold tracking-[-0.038em] leading-[1.12] text-[#1b1d20]"
             style={{ fontSize: "calc(clamp(2.6rem, 5.8vw, 4.9rem) + 2px)" }}
           >
             <span className="headline-mask">
@@ -81,12 +81,19 @@ export default function LandingPage() {
               </span>
             </span>
             <span className="headline-mask">
-              <span className="rise whitespace-nowrap" style={{ ["--d" as string]: "0.4s" }}>
+              <span className="rise" style={{ ["--d" as string]: "0.4s" }}>
                 <span className="text-[#6b7378] font-semibold">
                   {hi ? "अस्वीकृत होता है। इसे " : "gets rejected. Catch yours "}
                 </span>
                 <span className="accent-paint font-semibold">
-                  {hi ? "पहले पकड़ें।" : "before you file."}
+                  {hi ? (
+                    "पहले पकड़ें।"
+                  ) : (
+                    <>
+                      <span className="font-serif-accent italic font-medium">before</span> you
+                      file.
+                    </>
+                  )}
                 </span>
               </span>
             </span>
@@ -141,8 +148,8 @@ export default function LandingPage() {
                 className="fade-up bg-white p-6 sm:p-7"
                 style={{ ["--d" as string]: `${0.1 + i * 0.08}s` }}
               >
-                <div className="text-[#006cd2] font-semibold text-sm tracking-tight">{s.k}</div>
-                <h3 className="mt-3 text-lg font-semibold tracking-tight text-[#0a0a0a]">{s.t}</h3>
+                <div className="text-[#1f6fe5] font-semibold text-sm tracking-tight">{s.k}</div>
+                <h3 className="mt-3 text-lg font-semibold tracking-tight text-[#1b1d20]">{s.t}</h3>
                 <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{s.d}</p>
               </div>
             ))}
@@ -150,15 +157,15 @@ export default function LandingPage() {
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-500">
             <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#006cd2]" />
+              <span className="w-1.5 h-1.5 bg-[#1f6fe5]" />
               {hi ? "एआई व्याख्या करता है · नियम निर्णय लेते हैं" : "AI interprets · rules decide"}
             </span>
             <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#006cd2]" />
+              <span className="w-1.5 h-1.5 bg-[#1f6fe5]" />
               {hi ? "100% सिंथेटिक डेटा" : "100% synthetic data"}
             </span>
             <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#006cd2]" />
+              <span className="w-1.5 h-1.5 bg-[#1f6fe5]" />
               {hi ? "हिंदी + अंग्रेज़ी" : "Hindi + English"}
             </span>
           </div>

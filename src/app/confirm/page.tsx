@@ -123,7 +123,7 @@ function ConfirmContent() {
               className="w-full cr-card p-3 text-sm"
             />
           ) : (
-            <div className="cr-card p-3.5 text-sm font-medium text-[#0053a3]">
+            <div className="cr-card p-3.5 text-sm font-medium text-[#14449e]">
               &ldquo;{errorText}&rdquo;
             </div>
           )}
@@ -146,7 +146,7 @@ function ConfirmContent() {
                     setErrorText(opt.phrase_en);
                     setScheme(opt.scheme);
                   }}
-                  className="text-left text-xs p-2 bg-white border border-black/10 hover:border-[#006cd2] hover:text-[#006cd2] transition-colors"
+                  className="text-left text-xs p-2 bg-white border border-black/10 hover:border-[#1f6fe5] hover:text-[#1f6fe5] transition-colors"
                 >
                   {opt.phrase_en}
                 </button>

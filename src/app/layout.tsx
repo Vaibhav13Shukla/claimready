@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "../i18n/context";
 import { DisclosureBanner } from "../components/DisclosureBanner";
@@ -13,6 +13,16 @@ import { Navbar } from "../components/Navbar";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Italic serif accent for a single word in the landing hero — the one
+// deliberately-borrowed typographic flourish from the Parker design
+// reference (its own stated Gambetta substitute for open-source use).
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  style: ["italic"],
+  variable: "--font-serif-accent",
   display: "swap",
 });
 
@@ -53,12 +63,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={inter.variable}>
-      <body className="min-h-screen flex flex-col bg-white text-[#0a0a0a] selection:bg-[#006cd2]/15 selection:text-[#0053a3]">
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${sourceSerif.variable}`}
+    >
+      <body className="min-h-screen flex flex-col bg-white text-[#1b1d20] selection:bg-[#1f6fe5]/15 selection:text-[#14449e]">
         <LanguageProvider>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:bg-[#006cd2] focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:bg-[#1f6fe5] focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
           >
             Skip to content
           </a>

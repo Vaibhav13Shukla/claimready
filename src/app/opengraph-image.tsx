@@ -31,7 +31,7 @@ export default async function OpengraphImage() {
             display: "flex",
             width: 56,
             height: 56,
-            background: "#006cd2",
+            background: "#1f6fe5",
             color: "#fff",
             fontSize: 26,
             fontWeight: 700,
@@ -41,7 +41,7 @@ export default async function OpengraphImage() {
         >
           CR
         </div>
-        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#0a0a0a" }}>
+        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#1b1d20" }}>
           ClaimReady
         </div>
         <div
@@ -49,9 +49,9 @@ export default async function OpengraphImage() {
             display: "flex",
             fontSize: 15,
             fontWeight: 600,
-            color: "#0053a3",
-            background: "rgba(0,108,210,0.1)",
-            border: "1px solid rgba(0,108,210,0.25)",
+            color: "#14449e",
+            background: "rgba(31,111,229,0.1)",
+            border: "1px solid rgba(31,111,229,0.25)",
             padding: "6px 12px",
             marginLeft: 6,
           }}
@@ -66,7 +66,7 @@ export default async function OpengraphImage() {
           fontWeight: 600,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
-          color: "#0a0a0a",
+          color: "#1b1d20",
           maxWidth: 980,
         }}
       >
@@ -79,7 +79,7 @@ export default async function OpengraphImage() {
           fontWeight: 600,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
-          color: "#006cd2",
+          color: "#1f6fe5",
           maxWidth: 980,
           marginBottom: 32,
         }}

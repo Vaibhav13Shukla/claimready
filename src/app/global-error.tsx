@@ -21,7 +21,7 @@ export default function GlobalError({
           justifyContent: "center",
           fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
           background: "#ffffff",
-          color: "#0a0a0a",
+          color: "#1b1d20",
         }}
       >
         <div style={{ maxWidth: 420, textAlign: "center", padding: 24 }}>
@@ -35,7 +35,7 @@ export default function GlobalError({
           <button
             onClick={() => retry()}
             style={{
-              background: "#006cd2",
+              background: "#1f6fe5",
               color: "#fff",
               border: "none",
               padding: "12px 22px",

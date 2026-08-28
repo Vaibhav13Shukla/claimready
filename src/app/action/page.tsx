@@ -78,7 +78,7 @@ function ActionContent() {
       {walkthrough && (
         <div className="fade-up cr-card mt-6 p-6 space-y-5" style={{ ["--d" as string]: "0.15s" }}>
           <div className="flex items-center justify-between border-b border-black/10 pb-3">
-            <span className="text-[11px] font-bold px-2 py-0.5 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
+            <span className="text-[11px] font-bold px-2 py-0.5 bg-[#1f6fe5]/10 text-[#14449e] border border-[#1f6fe5]/20">
               {isHindi ? "ईपीएफओ पोर्टल — सिम्युलेटेड" : "EPFO PORTAL — SIMULATED"}
             </span>
             <span className="text-[10px] font-semibold px-2 py-0.5 bg-[#b45309]/10 text-[#b45309] border border-[#b45309]/20">
@@ -93,7 +93,7 @@ function ActionContent() {
                 onClick={() => setActiveStep(i)}
                 aria-current={i === activeStep ? "step" : undefined}
                 className={`flex-1 h-1.5 transition-colors cursor-pointer ${
-                  i <= activeStep ? "bg-[#006cd2]" : "bg-black/10"
+                  i <= activeStep ? "bg-[#1f6fe5]" : "bg-black/10"
                 }`}
                 aria-label={`${isHindi ? "चरण" : "Step"} ${i + 1} ${isHindi ? "में से" : "of"} ${
                   walkthrough.steps.length
@@ -103,10 +103,10 @@ function ActionContent() {
           </div>
 
           {walkthrough.steps[activeStep] && (
-            <div className="bg-[#006cd2]/[0.03] border border-[#006cd2]/12 p-5 space-y-4">
+            <div className="bg-[#1f6fe5]/[0.03] border border-[#1f6fe5]/12 p-5 space-y-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#006cd2]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#1f6fe5]">
                     {walkthrough.steps[activeStep].screenName}
                   </span>
                   <h2 className="text-base font-semibold mt-0.5">
@@ -130,7 +130,7 @@ function ActionContent() {
                   <span>🔒 SIMULATED</span>
                 </div>
                 <div className="text-neutral-800">
-                  <span className="text-[#006cd2] font-bold">
+                  <span className="text-[#1f6fe5] font-bold">
                     {isHindi ? "करें: " : "Action: "}
                   </span>
                   {isHindi
@@ -185,7 +185,7 @@ function ActionContent() {
               style={{ ["--d" as string]: "0.15s" }}
             >
               <div className="flex items-center justify-between border-b border-black/10 pb-3">
-                <span className="text-[11px] font-bold px-2 py-0.5 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
+                <span className="text-[11px] font-bold px-2 py-0.5 bg-[#1f6fe5]/10 text-[#14449e] border border-[#1f6fe5]/20">
                   {rc === "RC03"
                     ? isHindi
                       ? "बैंक अनुरोध पत्र"
@@ -196,7 +196,7 @@ function ActionContent() {
                 </span>
                 <button
                   onClick={() => copy(letter.printableText)}
-                  className="px-3 py-1.5 bg-white border border-black/10 text-xs font-bold text-[#006cd2] cursor-pointer"
+                  className="px-3 py-1.5 bg-white border border-black/10 text-xs font-bold text-[#1f6fe5] cursor-pointer"
                 >
                   {copied
                     ? `✓ ${isHindi ? "कॉपी हुआ" : "Copied"}`
@@ -232,11 +232,11 @@ function ActionContent() {
         <ol className="space-y-3">
           {remedy.steps.map((s, i) => (
             <li key={i} className="flex gap-3">
-              <span className="shrink-0 w-6 h-6 bg-[#006cd2] text-white text-xs font-bold flex items-center justify-center">
+              <span className="shrink-0 w-6 h-6 bg-[#1f6fe5] text-white text-xs font-bold flex items-center justify-center">
                 {i + 1}
               </span>
               <div>
-                <p className="text-sm font-semibold text-[#0a0a0a]">
+                <p className="text-sm font-semibold text-[#1b1d20]">
                   {isHindi ? s.action_hi : s.action}
                 </p>
                 <p className="text-xs text-neutral-600 mt-0.5 leading-relaxed">
@@ -255,7 +255,7 @@ function ActionContent() {
             <ul className="mt-1.5 space-y-1">
               {(isHindi ? remedy.required_documents_hi : remedy.required_documents).map((d, i) => (
                 <li key={i} className="text-xs text-neutral-700 flex gap-1.5">
-                  <span className="text-[#006cd2]">•</span>
+                  <span className="text-[#1f6fe5]">•</span>
                   {d}
                 </li>
               ))}
@@ -279,10 +279,10 @@ function ActionContent() {
         className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6"
         style={{ ["--d" as string]: "0.25s" }}
       >
-        <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
+        <Link href="/intake" className="inline-block py-2 hover:text-[#1f6fe5]">
           ← {t("start_over")}
         </Link>
-        <Link href="/tracker" className="inline-block py-2 hover:text-[#006cd2]">
+        <Link href="/tracker" className="inline-block py-2 hover:text-[#1f6fe5]">
           {t("view_tracker")} →
         </Link>
       </div>

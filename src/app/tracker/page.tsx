@@ -99,7 +99,7 @@ export default function TrackerPage() {
                 aria-current={isCur ? "step" : undefined}
                 className={`w-full text-left p-4 border transition-colors cursor-pointer flex items-start gap-4 ${
                   isCur
-                    ? "border-[#006cd2] bg-[#006cd2]/[0.04]"
+                    ? "border-[#1f6fe5] bg-[#1f6fe5]/[0.04]"
                     : done
                       ? "border-black/10 bg-white"
                       : "border-black/[0.06] bg-neutral-50"
@@ -107,7 +107,7 @@ export default function TrackerPage() {
               >
                 <span
                   className={`w-9 h-9 flex items-center justify-center text-sm font-bold shrink-0 ${
-                    done ? "bg-[#006cd2] text-white" : "bg-neutral-200 text-neutral-500"
+                    done ? "bg-[#1f6fe5] text-white" : "bg-neutral-200 text-neutral-500"
                   }`}
                 >
                   {done ? s.icon : s.n}
@@ -115,7 +115,7 @@ export default function TrackerPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <h2
-                      className={`text-sm font-semibold ${done ? "text-[#0a0a0a]" : "text-neutral-500"}`}
+                      className={`text-sm font-semibold ${done ? "text-[#1b1d20]" : "text-neutral-500"}`}
                     >
                       {isHindi ? s.title_hi : s.title_en}
                     </h2>
@@ -142,7 +142,7 @@ export default function TrackerPage() {
               onClick={() => setCurrent(s.id)}
               className={`px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
                 current === s.id
-                  ? "bg-[#006cd2] text-white"
+                  ? "bg-[#1f6fe5] text-white"
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
               }`}
             >
@@ -156,10 +156,10 @@ export default function TrackerPage() {
         className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6"
         style={{ ["--d" as string]: "0.2s" }}
       >
-        <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
+        <Link href="/intake" className="inline-block py-2 hover:text-[#1f6fe5]">
           ← {t("start_over")}
         </Link>
-        <Link href="/transparency" className="inline-block py-2 hover:text-[#006cd2]">
+        <Link href="/transparency" className="inline-block py-2 hover:text-[#1f6fe5]">
           {t("transparency_link")} →
         </Link>
       </div>

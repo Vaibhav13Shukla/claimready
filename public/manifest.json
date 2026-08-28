@@ -1,6 +1,6 @@
 {
-  "name": "ClaimReady — EPFO PF Claim Pre-flight Check",
-  "short_name": "ClaimReady",
+  "name": "PF X-Ray — EPFO Claim Pre-flight Check",
+  "short_name": "PF X-Ray",
   "description": "Check your EPFO provident fund claim against every common rejection reason before you file — and decode it if it was already rejected. Independent hackathon prototype, not affiliated with EPFO.",
   "start_url": "/",
   "display": "standalone",

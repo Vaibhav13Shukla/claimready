@@ -16,7 +16,7 @@ export default function NotFound() {
         यह पृष्ठ मौजूद नहीं है या स्थानांतरित हो गया है। अपने दावे की जांच वहीं से शुरू करें।
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Link href="/intake" className="cr-btn cr-btn--primary">
+        <Link href="/intake?tab=preflight" className="cr-btn cr-btn--primary">
           <span>Run a pre-flight check →</span>
         </Link>
         <Link href="/" className="cr-btn cr-btn--ghost">

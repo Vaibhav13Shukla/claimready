@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "../i18n/context";
 import { DisclosureBanner } from "../components/DisclosureBanner";
 import { Navbar } from "../components/Navbar";
+import { AssistantWidget } from "../components/AssistantWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -92,6 +93,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </p>
             </div>
           </footer>
+
+          <AssistantWidget />
         </LanguageProvider>
       </body>
     </html>

@@ -135,7 +135,7 @@ export default function LandingPage() {
               style={{ ["--d" as string]: "0.6s" }}
             >
               <Link
-                href="/intake?tab=samples"
+                href="/intake?tab=preflight"
                 className="cr-btn cr-btn--primary wipe-in shadow-sm"
                 style={{ ["--d" as string]: "0.62s" }}
               >
@@ -241,7 +241,7 @@ export default function LandingPage() {
                 </div>
                 <div className="mt-4 pt-3 border-t border-[#e1dfd8]">
                   <Link
-                    href={`/intake?tab=samples`}
+                    href={`/intake?tab=preflight`}
                     className="text-xs font-semibold text-[#5196fe] hover:underline flex items-center justify-between"
                   >
                     <span>{hi ? "डेमो केस जांचें" : "Test sample case"}</span>

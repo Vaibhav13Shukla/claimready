@@ -2,7 +2,7 @@
 
 > Word count: 248. Paste as-is, or edit to taste. Just recount if you change it.
 
-ClaimReady is a pre-flight check and rejection decoder for EPFO Provident Fund claims.
+PF X-Ray is a pre-flight check and rejection decoder for EPFO Provident Fund claims.
 
 The problem: roughly 1 in 5 EPFO claims gets rejected, almost always for a small, fixable mismatch: a name spelling difference, a DOB mismatch, unverified bank KYC, or an employer who never updated the exit date. Citizens wait 15-20 days only to be bounced, then guess and retry blind. Every existing resource is reactive; nothing checks before you file.
 
@@ -12,4 +12,4 @@ Why it's better: EPFO's portal only tells you a claim failed, not why or what to
 
 What's real vs. mocked: the classification engine, OpenAI-powered explanation, and resolution content are fully functional. The EPFO portal walkthrough and lifecycle tracker are simulated with synthetic data. No live government system is touched, and no real Aadhaar, PAN, UAN, or OTP data is accepted.
 
-Built with Claude Code, spec-first and test-driven; runtime is genuinely OpenAI-powered per the hackathon's AI-usage rule.
+Built with Claude Code, spec-first and test-driven; runtime is genuinely OpenAI-powered for everyone per the hackathon's AI-usage rule.

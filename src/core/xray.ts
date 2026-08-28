@@ -1,4 +1,4 @@
-import type { RootCauseCode, Scheme } from "./taxonomy/taxonomy.schema";
+import type { RootCauseCode } from "./taxonomy/taxonomy.schema";
 
 /**
  * Claim X-Ray — deterministic case reconstruction.
@@ -164,7 +164,6 @@ const UNKNOWN_RECON: Recon = {
 export function buildXray(
   rc: RootCauseCode,
   confidence: number,
-  _scheme?: Scheme,
 ): XrayReconstruction {
   const base = rc === "UNKNOWN" ? UNKNOWN_RECON : RECON[rc];
   return {

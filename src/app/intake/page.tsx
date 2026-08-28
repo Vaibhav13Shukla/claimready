@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "../../i18n/context";
 import { Scheme } from "../../core/taxonomy/taxonomy.schema";
@@ -74,9 +75,9 @@ function IntakeContent() {
     const s = searchParams.get("scheme") as Scheme;
     return s && CLAIM_TYPES.some((c) => c.id === s) ? s : "FINAL_SETTLEMENT";
   });
-  const [activeTab, setActiveTab] = useState<"samples" | "paste" | "upload">(() => {
+  const [activeTab, setActiveTab] = useState<"preflight" | "samples" | "paste" | "upload">(() => {
     const tab = searchParams.get("tab");
-    return tab === "paste" || tab === "upload" || tab === "samples" ? tab : "samples";
+    return tab === "paste" || tab === "upload" || tab === "samples" || tab === "preflight" ? tab : "preflight";
   });
   const [errorText, setErrorText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,7 +134,9 @@ function IntakeContent() {
     }
   };
 
+  const isReadyPreview = searchParams.get("stage") === "ready";
   const tabs: { id: typeof activeTab; label: string }[] = [
+    { id: "preflight", label: hi ? "प्री-फ्लाइट जांच" : "Pre-flight check" },
     { id: "samples", label: t("intake_tab_samples") },
     { id: "paste", label: t("intake_tab_paste") },
     { id: "upload", label: t("intake_tab_upload") },
@@ -229,6 +232,65 @@ function IntakeContent() {
           );
         })}
       </div>
+
+      {activeTab === "preflight" && (
+        <section className="mt-6 space-y-4" aria-label={hi ? "डेमो प्री-फ्लाइट जांच" : "Demo pre-flight check"}>
+          <div className={`rounded-[20px] border p-5 sm:p-6 ${isReadyPreview ? "border-[#067a54]/35 bg-[#067a54]/[0.04]" : "border-[#5196fe]/30 bg-[#5196fe]/[0.04]"}`}>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#3f75c6]">{hi ? "सिंथेटिक डेमो प्रोफाइल" : "Synthetic demo profile"}</p>
+                <h2 className="mt-1 text-lg font-semibold text-[#1b1d20]">{hi ? "राहुल कुमार · अंतिम भुगतान" : "Rahul Kumar · Final settlement"}</h2>
+                <p className="mt-1 text-sm text-[#6e6e6e]">{hi ? "कोई वास्तविक UAN, आधार या बैंक डेटा नहीं।" : "No real UAN, Aadhaar, PAN, or bank data is used."}</p>
+              </div>
+              <span className={`rounded-full border px-3 py-1 text-xs font-bold ${isReadyPreview ? "border-[#067a54]/25 bg-[#067a54]/10 text-[#067a54]" : "border-[#d21f3c]/25 bg-[#d21f3c]/10 text-[#d21f3c]"}`}>
+                {isReadyPreview ? (hi ? "✓ फाइल करने के लिए तैयार" : "✓ Ready to file") : (hi ? "2 चीज़ें ठीक करें" : "2 things to fix")}
+              </span>
+            </div>
+          </div>
+
+          <div className="cr-card overflow-hidden bg-white">
+            <div className="border-b border-[#e1dfd8] px-5 py-3 text-xs font-bold uppercase tracking-[0.1em] text-[#6e6e6e]">
+              {hi ? "हमने क्या मिलाया" : "What we checked"}
+            </div>
+            <ul className="divide-y divide-[#e1dfd8]">
+              {[
+                ["Name across UAN, Aadhaar & bank", "UAN: RAHUL K · Aadhaar: RAHUL KUMAR", "RC01", false],
+                ["Date of birth", "14 Mar 1992 on both records", "", true],
+                ["Bank KYC", "Verified · active account", "", true],
+                ["Previous employment exit date", "Northwind Systems: not updated", "RC04", false],
+              ].map(([label, detail, code, ok]) => (
+                <li key={String(label)} className="flex items-center justify-between gap-3 px-5 py-3.5">
+                  <div>
+                    <p className="text-sm font-semibold text-[#1b1d20]">{label}</p>
+                    <p className="mt-0.5 text-xs text-[#6e6e6e]">{detail}</p>
+                  </div>
+                  <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-bold ${isReadyPreview || ok ? "border-[#067a54]/25 bg-[#067a54]/10 text-[#067a54]" : "border-[#d21f3c]/25 bg-[#d21f3c]/10 text-[#d21f3c]"}`}>
+                    {isReadyPreview || ok ? (hi ? "✓ ठीक" : "✓ Clear") : `${code} · ${hi ? "ठीक करें" : "Fix"}`}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {isReadyPreview ? (
+            <div className="flex flex-wrap gap-3">
+              <Link href="/intake?tab=samples" className="cr-btn cr-btn--primary">
+                <span>{hi ? "अस्वीकृति भी डिकोड करें" : "Also decode a rejection"}</span><span aria-hidden="true">→</span>
+              </Link>
+              <Link href="/demo" className="cr-btn cr-btn--ghost">{hi ? "एक और डेमो प्रोफाइल" : "Try another demo profile"}</Link>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-3">
+              <button type="button" onClick={() => goToConfirm({ scheme: "FINAL_SETTLEMENT", raw_error_text: "Claim rejected: Name mismatch as per Aadhaar", confidence: "0.98", golden_id: "GC-01", source: "preflight_demo" })} className="cr-btn cr-btn--primary">
+                <span>{hi ? "पहली समस्या समझें" : "Understand the first blocker"}</span><span aria-hidden="true">→</span>
+              </button>
+              <button type="button" onClick={() => goToConfirm({ scheme: "FINAL_SETTLEMENT", raw_error_text: "Rejected: Date of Exit not updated by employer", confidence: "0.98", golden_id: "GC-05", source: "preflight_demo" })} className="cr-btn cr-btn--ghost">
+                {hi ? "एग्जिट डेट देखें" : "Inspect missing exit date"}
+              </button>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* 1. Samples Grid */}
       {activeTab === "samples" && (

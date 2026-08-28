@@ -15,8 +15,9 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     await page.getByRole("link", { name: /run a pre-flight check/i }).click();
     await expect(page).toHaveURL(/\/intake/);
 
-    // Samples tab is the default; pick the GC-01 demo case.
-    await page.getByRole("button", { name: /name mismatch as per aadhaar/i }).click();
+    // The pre-flight profile finds two concrete blockers; inspect the first.
+    await expect(page.getByText(/2 things to fix/i)).toBeVisible();
+    await page.getByRole("button", { name: /understand the first blocker/i }).click();
     await expect(page).toHaveURL(/\/confirm/);
 
     // Confirm step shows what was "read" and lets the judge proceed.
@@ -45,6 +46,7 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     page,
   }) => {
     await page.goto("/intake");
+    await page.getByRole("tab", { name: /demo case/i }).click();
     await page.getByRole("button", { name: /multiple uan found/i }).click();
     await expect(page).toHaveURL(/\/confirm/);
 

@@ -38,6 +38,14 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // A sibling project one directory up (Hackathon/) also has its own
+  // package-lock.json, which makes Turbopack's automatic root-detection
+  // (it walks up looking for a lockfile) guess the wrong workspace root and
+  // warn on every build. This *is* the actual project root — pin it
+  // explicitly instead of ignoring the warning.
+  turbopack: {
+    root: __dirname,
+  },
   async headers() {
     return [
       {

@@ -21,13 +21,14 @@ Shared pipeline (the moat is the workflow model, not the LLM):
 > **AI INTERPRETS → RULES DECIDE → TEMPLATES EXPLAIN → MOCKS RESOLVE**
 AI does interpretation/plain-language only; a **deterministic rules engine** makes every diagnosis (no hallucinated remedies).
 
-## 5. Rejection taxonomy (v1 — 4 root causes + UNKNOWN)
+## 5. Rejection taxonomy (v1.1 — 5 root causes + UNKNOWN)
 | Code | Cause | Owner | Remedy | Timeline |
 |---|---|---|---|---|
 | RC01 | Name mismatch (UAN/Aadhaar/PAN/bank) | Member (self) | Joint-declaration / member correction | 7–20d |
 | RC02 | Date of Birth mismatch vs Aadhaar | Member (self) | Member correction + proof | 7–20d |
 | RC03 | Bank KYC unverified / inactive / IFSC | Bank | Bank re-KYC / activation | 3–10d |
 | RC04 | Date of Exit not updated by employer | Employer | Employer request → EPFiGMS escalation | 7–30d |
+| RC05 | Multiple / duplicate UAN not merged | Member (self) | Online transfer claim (Form 13 / One Member-One EPF Account) | 10–30d |
 | UNKNOWN | Unclassified | EPFO office | EPFiGMS grievance with claim ID | 7–15d |
 
 ## 6. AI role (genuine, OpenAI-powered at runtime)
@@ -42,11 +43,13 @@ Generic "ask EPFO anything" chatbot · PF balance/returns tracker · admin/offic
 100% synthetic data (`Demo`, `XXXX-DEMO-…`). Persistent disclosure banner + `/transparency` page (real vs mocked). No real PII collected. "Informational prototype — verify final action on the official EPFO portal."
 
 ## 9. Success criteria (verifiable)
-- Golden gate: 6/6 golden EPFO cases classify deterministically (Vitest).
+- Golden gate: 7/7 golden EPFO cases classify deterministically (Vitest) — 53/53 tests total.
 - Taxonomy validates against Zod schema; every RC has ≥4 error phrases, EN+HI content.
 - `next build` passes; `/`, `/intake`, `/confirm`, `/diagnosis`, `/action`, `/tracker`, `/transparency` render.
 - Judge can log in with printed demo creds and complete the pre-flight → resolution flow in <90s.
 - Hindi/English toggle works across the flow.
+- Zero ESLint errors/warnings, clean TypeScript strict typecheck, zero known WCAG 2.2 AA violations (audited Day 2).
+- API routes validate all input against Zod schemas, are rate-limited, and never let client-supplied free text reach the LLM prompt unvalidated.
 
 ## 10. Demo (60s)
 Real EPFO rejection screen ("1 in 3 end like this") → ClaimReady pre-flight: "2 issues will get you rejected" → tap each → plain fix → all green "Ready to file" → split-screen vs the 20-day-wait-then-reject path → *"Catch it in 30 seconds, not 30 days."*

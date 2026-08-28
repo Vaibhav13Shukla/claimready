@@ -3,7 +3,7 @@
 ## Judge quick path (no login required)
 1. Open the deployed URL → landing hero.
 2. Click **Run a pre-flight check** → **intake**.
-3. On the **Try a demo case** tab, click **GC-01 (Name mismatch)**.
+3. On the **Try a demo case** tab, click **GC-01 (Name mismatch)** — or **GC-07 (Multiple UAN)** to see the newest root cause, added Day 2.
 4. **Confirm** the extracted case → **Yes, run the diagnosis**.
 5. **Diagnosis**: RC01, plain-language explanation, who fixes it, timeline.
 6. **Build my resolution plan** → the EPFO portal walkthrough (name correction) + steps + documents.
@@ -33,4 +33,4 @@
 Cite the **EPFO 2024-25 annual-report figure (~1 in 5 claims rejected)** as the primary number. The rejection rate has ranged ~25–34% across recent years — don't headline the scariest year without noting it's older.
 
 ## Demo profiles (all synthetic)
-The 6 golden cases (GC-01…GC-06) cover: name mismatch (final settlement + advance), DOB mismatch, bank KYC/inactive, Date-of-Exit not updated, and IFSC/pension. Every one classifies deterministically (see `tests/unit/classifier.test.ts`).
+The 7 golden cases (GC-01…GC-07) cover: name mismatch (final settlement + advance), DOB mismatch, bank KYC/inactive, Date-of-Exit not updated, IFSC/pension, and multiple/duplicate UAN. Every one classifies deterministically (see `tests/unit/classifier.test.ts`).

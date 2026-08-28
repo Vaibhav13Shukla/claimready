@@ -14,7 +14,7 @@ The intelligence is the **workflow + state model**, not a chatbot. A general LLM
 - The model is fenced: it interprets and explains; it never decides the diagnosis or the remedy.
 
 ### 2. Rules decide (`src/core/`)
-- `taxonomy/error-taxonomy.json` + `taxonomy.schema.ts` — Zod-validated root causes RC01–RC04, each with bilingual labels/explanations, error phrases, and confidence-boost phrases.
+- `taxonomy/error-taxonomy.json` + `taxonomy.schema.ts` — Zod-validated root causes RC01–RC05, each with bilingual labels/explanations, error phrases, and confidence-boost phrases.
 - `classifier.ts` — deterministic phrase-match + confidence gate → `DiagnosisResult`. No randomness (see determinism test).
 - `remedy-router.ts` — root cause → owner + remedy type + escalation tier.
 - `timeline.ts` — root cause → working-day window.
@@ -35,9 +35,19 @@ The intelligence is the **workflow + state model**, not a chatbot. A general LLM
 - Bilingual via `src/i18n/` (English/Hindi), persisted to `localStorage`.
 
 ## Testing (`tests/`)
-- `classifier.test.ts` — 6/6 golden-case gate + 12 adversarial/determinism cases.
+- `classifier.test.ts` — 7/7 golden-case gate + 14 adversarial/determinism cases.
 - `taxonomy-validate.test.ts`, `remedy-router.test.ts`, `timeline.test.ts`, `remedy.test.ts`, `case.test.ts`.
-- 46 tests total, run with `npm run test:ci`.
+- 53 tests total, run with `npm run test:ci`.
 
 ## Safety
 100% synthetic data. No live government systems, no real PII. Persistent disclosure + `/transparency`. Not affiliated with EPFO.
+
+## Security (`src/lib/rate-limit.ts`, `next.config.ts`)
+- Both API routes validate their full request body against a Zod schema before touching the AI layer — including a hard length cap on free text — so malformed/oversized input is rejected before it costs an OpenAI call.
+- `/api/explain`'s `labelHint` is derived server-side from the taxonomy (keyed off the validated `root_cause_code`), never accepted from the client, removing the prompt-injection surface rather than just filtering it.
+- Both system prompts (`src/ai/prompts.ts`) explicitly frame request fields as untrusted data, not instructions, as defense in depth.
+- A per-IP fixed-window rate limit (20 req/min) guards both routes against runaway OpenAI spend; it's in-memory (single-instance only) by design for a prototype — see the file header for what a production version would need.
+- `next.config.ts` sets CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy on every response.
+
+## Accessibility
+Audited against WCAG 2.2 AA (Day 2) and brought to zero known violations: labeled form controls, `aria-live` on the async AI-explanation swap, visible focus rings preserved on every input, `role="radiogroup"`/`"tablist"` on the claim-type and tab controls, correct heading hierarchy, and ≥24px touch targets on nav/footer links.

@@ -21,13 +21,14 @@ ClaimReady is a **pre-flight check + rejection decoder** for PF claims:
 - **Templates explain** — bilingual (English/Hindi) resolution steps, document checklists, and bank/employer letters.
 - **Mocks resolve** — a 4-stage simulated lifecycle shows how the claim clears once you act.
 
-## Root-cause taxonomy (v1)
+## Root-cause taxonomy (v1.1)
 | Code | Cause | Who fixes it | Timeline |
 |---|---|---|---|
 | RC01 | Name mismatch (UAN/Aadhaar/PAN/bank) | You (self-service) | 7–20d |
 | RC02 | Date of Birth mismatch vs Aadhaar | You (self-service) | 7–20d |
 | RC03 | Bank KYC unverified / inactive / IFSC | Your bank | 3–10d |
 | RC04 | Date of Exit not updated by employer | Previous employer | 7–30d |
+| RC05 | Multiple / duplicate UAN not merged | You (self-service, EPFO verifies) | 10–30d |
 
 ## OpenAI / hackathon compliance
 The prototype is **genuinely powered by an OpenAI model at runtime** (via `@ai-sdk/openai`) for the two interpretation steps — satisfying the hackathon's "powered by an OpenAI model" requirement. It **degrades gracefully** to a deterministic engine when no key is present, so the demo never breaks. See [`docs/AI_USAGE.md`](docs/AI_USAGE.md) for an honest account of the toolchain and how to make an AI coding agent's contribution explicit in your submission.
@@ -44,9 +45,16 @@ npm run dev                  # http://localhost:3000
 
 ## Test & build
 ```bash
-npm run test:ci    # 46 unit tests incl. the 6/6 golden-case gate
+npm run test:ci    # 53 unit tests incl. the 7/7 golden-case gate
 npm run build      # Next.js production build (type-checked)
 ```
+
+## Quality bar (Day 2)
+- Zero ESLint errors/warnings, clean `tsc --noEmit`, all 53 tests green, `next build` green.
+- Zero known WCAG 2.2 AA violations — audited and fixed (see git log for the full findings list).
+- API routes (`/api/extract`, `/api/explain`) validate every field against Zod schemas, cap free-text
+  input length, rate-limit per IP, and never let client-supplied text reach the LLM prompt unvalidated.
+- Security headers (CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy) on every response.
 
 ## Deploy (Vercel)
 1. Push `claimready/` to a Git repo, import into Vercel.

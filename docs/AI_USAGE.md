@@ -13,9 +13,15 @@ ClaimReady satisfies this **honestly, via the "powered by an OpenAI model" claus
 - **Graceful fallback.** With no `OPENAI_API_KEY`, both routes fall back to a deterministic engine, so the live demo never breaks. The diagnosis UI shows an `OpenAI` vs `curated` badge so reviewers can see which path ran.
 
 ## Build toolchain — the honest version
-This build was produced with an **AI coding assistant** driving spec-first, test-driven development: a Zod-typed domain schema, a deterministic rules engine, and a 6/6 golden-case gate written before/with the feature code.
+This build was produced with an **AI coding assistant (Claude Code)** driving spec-first, test-driven development: a Zod-typed domain schema, a deterministic rules engine, and a golden-case gate written before/with the feature code (6/6 on Day 1, 7/7 after Day 2's addition below).
 
-> **Note for the submitting team:** if you want to make a *Codex* contribution explicit (the brief encourages Codex specifically), run Codex to do a real, meaningful slice of work on this repo before submitting — e.g. add a new root cause (`RC05`, multiple-UAN / transfer) end-to-end with its golden test, or generate the Playwright e2e flow — and then describe *that specific contribution* here. **Do not claim Codex did work it did not do.** The runtime OpenAI usage above already satisfies the rule on its own.
+**Day 2 changes, for the record:**
+- Added `RC05` (multiple/duplicate UAN not merged) end-to-end — taxonomy entry, router, timeline, bilingual remedy template, golden test + 2 adversarial cases, UI wiring — via a failing-test-first (red→green) loop.
+- Fixed a broken CI workflow, several genuine React 19 anti-patterns (synchronous `setState` inside `useEffect`, since fixed with `useSyncExternalStore` / derived state instead), and all ESLint findings.
+- A dedicated security review pass found and fixed one HIGH finding (client-supplied fields reaching the OpenAI prompt on `/api/explain` unvalidated — now derived server-side from the validated taxonomy) plus input-length caps, rate limiting, and security headers.
+- A dedicated WCAG 2.2 AA accessibility audit found and fixed 18 issues (4 critical) — unlabeled form controls, a missing `aria-live` region on the async AI-explanation swap, and more. See git history for the full list.
+
+> **Note for the submitting team:** if you want to make a *Codex* contribution explicit (the brief encourages Codex specifically), run Codex to do a real, meaningful slice of work on this repo before submitting — e.g. the Playwright e2e flow, or a further RC06 candidate — and then describe *that specific contribution* here. **Do not claim Codex did work it did not do**; the work above was Claude Code, not Codex, and is described accordingly. The runtime OpenAI usage described above already satisfies the hackathon's AI-usage rule on its own, independent of which coding assistant wrote the code.
 
 ## What is NOT AI
 - Root-cause decisions, remedy steps, documents, timelines, and letters are deterministic templates and rules — auditable and testable.

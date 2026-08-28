@@ -17,7 +17,7 @@ export default function TransparencyPage() {
       points: [
         {
           t: "Deterministic rules engine",
-          d: "A zero-hallucination classifier maps EPFO rejection text to root causes (RC01–RC04) with phrase matching and confidence gating. Covered by golden tests.",
+          d: "A zero-hallucination classifier maps EPFO rejection text to root causes (RC01–RC05) with phrase matching and confidence gating. Covered by golden tests.",
         },
         {
           t: "OpenAI-powered interpretation",

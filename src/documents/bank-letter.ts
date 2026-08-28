@@ -48,12 +48,12 @@ ${bank}, ${branch}
 ${name}
 मो.: 98XXXXXXXX`;
 
-    const whatsappText = `*ClaimReady — बैंक केवाईसी सुधार अनुरोध*
+    const whatsappText = `*ClaimReady: बैंक केवाईसी सुधार अनुरोध*
 खाता: ${account}
 बैंक: ${bank}
 UAN: ${uan}
 कार्य: शाखा में जाकर खाता सक्रिय कराएं, केवाईसी अपडेट कराएं, फिर UAN पोर्टल पर बैंक केवाईसी पुनः जोड़ें।
-(स्वतंत्र प्रोटोटाइप — सभी डेटा सिंथेटिक हैं)`;
+(स्वतंत्र प्रोटोटाइप, सभी डेटा सिंथेटिक हैं)`;
 
     return { subject, body, printableText: `${subject}\n\n${body}`, whatsappText };
   }
@@ -82,12 +82,12 @@ Yours faithfully,
 ${name}
 Contact: 98XXXXXXXX`;
 
-  const whatsappText = `*ClaimReady — Bank KYC Correction Request*
+  const whatsappText = `*ClaimReady: Bank KYC Correction Request*
 Account: ${account}
 Bank: ${bank}
 UAN: ${uan}
 Action: Visit branch to activate the account + update KYC, then re-add bank KYC on the UAN portal.
-(Independent Hackathon Prototype — Synthetic Data Only)`;
+(Independent Hackathon Prototype, Synthetic Data Only)`;
 
   return { subject, body, printableText: `${subject}\n\n${body}`, whatsappText };
 }

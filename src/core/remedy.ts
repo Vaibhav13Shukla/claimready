@@ -244,9 +244,9 @@ const remedyTemplates: Record<RemedyType, RemedyOutput> = {
     title_en: "Merge Your Duplicate UAN via Online Transfer Claim",
     title_hi: "ऑनलाइन ट्रांसफर क्लेम से अपना डुप्लीकेट यूएएन मर्ज करें",
     summary_en:
-      "Your claim is blocked because you have more than one UAN — usually from a previous employer issuing a fresh one instead of reusing your existing UAN. You raise the transfer/merge request yourself; EPFO verifies both service histories and marks the older UAN inoperative, after which you re-file the claim on your active UAN.",
+      "Your claim is blocked because you have more than one UAN. This usually happens when a previous employer issues a fresh one instead of reusing your existing UAN. You raise the transfer/merge request yourself; EPFO verifies both service histories and marks the older UAN inoperative, after which you re-file the claim on your active UAN.",
     summary_hi:
-      "आपका दावा इसलिए रुका है क्योंकि आपके पास एक से अधिक यूएएन हैं — आमतौर पर किसी पिछले नियोक्ता द्वारा मौजूदा यूएएन के बजाय नया यूएएन जारी करने से। आप स्वयं ट्रांसफर/मर्ज अनुरोध दर्ज करते हैं; ईपीएफओ दोनों सेवा इतिहास सत्यापित कर पुराने यूएएन को निष्क्रिय करता है, फिर आप सक्रिय यूएएन पर दावा पुनः फाइल करें।",
+      "आपका दावा इसलिए रुका है क्योंकि आपके पास एक से अधिक यूएएन हैं। यह आमतौर पर तब होता है जब कोई पिछला नियोक्ता मौजूदा यूएएन के बजाय नया यूएएन जारी कर देता है। आप स्वयं ट्रांसफर/मर्ज अनुरोध दर्ज करते हैं; ईपीएफओ दोनों सेवा इतिहास सत्यापित कर पुराने यूएएन को निष्क्रिय करता है, फिर आप सक्रिय यूएएन पर दावा पुनः फाइल करें।",
     steps: [
       {
         order: 1,
@@ -331,9 +331,9 @@ const remedyTemplates: Record<RemedyType, RemedyOutput> = {
         action: "Read the exact rejection remark on the portal",
         action_hi: "पोर्टल पर सटीक अस्वीकृति टिप्पणी पढ़ें",
         details:
-          "On the member portal, Online Services → Track Claim Status. Read the exact remark in the 'Remarks' field — it names the specific field that failed.",
+          "On the member portal, Online Services → Track Claim Status. Read the exact remark in the 'Remarks' field; it names the specific field that failed.",
         details_hi:
-          "मेंबर पोर्टल पर, Online Services → Track Claim Status। 'Remarks' फ़ील्ड में सटीक टिप्पणी पढ़ें — यह विफल हुए विशिष्ट फ़ील्ड का नाम बताती है।",
+          "मेंबर पोर्टल पर, Online Services → Track Claim Status। 'Remarks' फ़ील्ड में सटीक टिप्पणी पढ़ें; यह विफल हुए विशिष्ट फ़ील्ड का नाम बताती है।",
         estimated_hours: 0.25,
       },
       {

@@ -29,8 +29,8 @@ export default function GlobalError({
             ClaimReady hit an unexpected error.
           </h1>
           <p style={{ fontSize: 14, color: "#525252", marginBottom: 24 }}>
-            नो claim data का नुकसान नहीं हुआ — यह डेमो केवल आपके ब्राउज़र सत्र में चलता है। फिर से
-            कोशिश करें, या पेज रीलोड करें।
+            आपके दावे का कोई डेटा नहीं खोया। यह डेमो केवल आपके ब्राउज़र सत्र में चलता है। फिर से कोशिश
+            करें, या पेज रीलोड करें।
           </p>
           <button
             onClick={() => retry()}

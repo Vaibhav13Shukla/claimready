@@ -37,13 +37,8 @@ export function Navbar() {
         {/* Wordmark */}
         <Link href="/" className="flex items-center gap-2.5 group" aria-label="ClaimReady home">
           <Logo />
-          <span className="flex items-center gap-2">
-            <span className="text-[19px] font-semibold tracking-[-0.03em] text-[#1b1d20]">
-              {t("app_name")}
-            </span>
-            <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-[9999px] bg-[#5196fe]/10 text-[#3f75c6]">
-              EPFO
-            </span>
+          <span className="text-[19px] font-semibold tracking-[-0.03em] text-[#1b1d20]">
+            {t("app_name")}
           </span>
         </Link>
 

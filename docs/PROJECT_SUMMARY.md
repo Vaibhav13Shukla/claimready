@@ -1,6 +1,6 @@
 # Project Summary (for the submission form, <250 words)
 
-> Word count: 248. Paste as-is, or edit to taste — just recount if you change it.
+> Word count: 248. Paste as-is, or edit to taste. Just recount if you change it.
 
 ClaimReady is a pre-flight check and rejection decoder for EPFO Provident Fund claims.
 

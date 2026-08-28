@@ -73,6 +73,30 @@ export default function TransparencyPage() {
         },
       ],
     },
+    {
+      title: isHindi ? "बड़े पैमाने पर सुरक्षित रूप से कैसे काम करेगा" : "How this could work safely at scale",
+      badge: isHindi ? "प्रस्तावित मार्ग" : "PROPOSED PATH",
+      accent: "border-[#5196fe]/25 bg-[#5196fe]/[0.03]",
+      dot: "bg-[#5196fe]",
+      points: [
+        {
+          t: "Consent-based claim status, not scraping",
+          d: "A real deployment would read claim status through an official consent gateway (UMANG or a DigiLocker-style API), the same way a bank pulls your credit report only after you approve it. No credentials are ever typed into this app.",
+        },
+        {
+          t: "The model never makes the call",
+          d: "This same split holds at any scale: a rules engine decides the root cause, and only known, tested causes get an automated fix path. Anything the classifier does not recognize routes to a human at a CSC or EPFO field office, the same fallback that exists today.",
+        },
+        {
+          t: "Nothing to breach",
+          d: "The app is stateless: no citizen database, no stored Aadhaar or bank numbers, an in-memory rate limit that resets on its own. Less data held means less risk if any single part of the system is compromised.",
+        },
+        {
+          t: "Built to add causes, not rebuild",
+          d: "Root causes live in one typed taxonomy file, tested end to end by golden test cases. Adding RC06 for a new rejection reason, or a new state's language, is a data change, not a rewrite.",
+        },
+      ],
+    },
   ];
 
   return (

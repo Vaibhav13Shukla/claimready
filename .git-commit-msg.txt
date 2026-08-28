@@ -1,0 +1,48 @@
+Remove AI-slop tells, drop the EPFO nav chip, add the scale story
+
+Verified the earlier audit against current reality first rather than
+trusting it: the hero video it flagged as an unlicensed-asset risk was
+already removed in an earlier commit this session, so that part of the
+audit was stale. Confirmed via direct file read before acting on anything.
+
+Content cleanup (the actual, current gaps):
+
+- Removed the "EPFO" chip badge next to the ClaimReady wordmark in the
+  Navbar. It showed on every page and read like an EPFO sub-brand or
+  endorsement mark, exactly what the brief's "don't suggest official
+  affiliation" rule warns against. The disclosure banner and page copy
+  already say "not affiliated with EPFO" in plain words; a badge that
+  visually implies the opposite worked against that.
+- Stripped em dashes from every user-facing string: the root-cause
+  taxonomy (explanations a citizen reads on the diagnosis page), the
+  bank/employer/grievance letter templates (real WhatsApp/print text a
+  citizen sends), the AI fallback explanations, error and 404 pages, the
+  Open Graph image/alt text, and the AI system prompts. Rewrote each as
+  two sentences or a colon instead, whichever read more like something a
+  person would actually write. Left code comments alone; nobody
+  submitting or judging this reads inline engineering rationale.
+- Confirmed separately that no emoji remain anywhere in src/ (already
+  clean from an earlier pass, verified by direct search rather than
+  assumed).
+- Cleaned README.md the same way, and fixed stale numbers while in there:
+  it said 100 tests / 89% coverage from before RC05 and the redesign
+  landed; it's 116 tests / 87% statement coverage now, re-measured this
+  session, not guessed.
+
+Added the one judging-criterion gap that was real: "how could this work
+safely at a larger scale" had no answer anywhere in the product, only
+implicitly in architecture docs nobody judging this would open. Added a
+fourth section to /transparency, same visual pattern as the existing
+Real/Simulated/Never-accessed groups: consent-based claim status instead
+of scraping, the rules-engine-decides / model-never-decides split holding
+at any scale, a stateless app with nothing worth breaching, and a
+taxonomy structure that takes a new rejection code as a data change
+rather than a rewrite.
+
+Re-verified after every content edit, not just at the end: lint,
+typecheck, 116 unit tests (confirms the taxonomy/remedy copy edits didn't
+silently break a golden-case assertion), production build, and all 6
+Playwright e2e specs. One e2e run failed 5/6 mid-session on a stale
+leftover dev server still bound to port 3000 from earlier manual
+testing; diagnosed via netstat/taskkill rather than editing tests to
+route around a real environment problem, then reran clean.

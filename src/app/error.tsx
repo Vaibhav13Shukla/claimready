@@ -29,10 +29,10 @@ export default function ErrorBoundary({
       </h1>
       <p className="mt-2 text-sm text-neutral-600">
         यह पृष्ठ लोड करते समय एक अनपेक्षित त्रुटि हुई। आपके दावे का कोई डेटा सहेजा नहीं गया है,
-        क्योंकि सब कुछ केवल आपके ब्राउज़र सत्र में है — कोशिश फिर से करें।
+        क्योंकि सब कुछ केवल आपके ब्राउज़र सत्र में है। कोशिश फिर से करें।
       </p>
       <p className="mt-2 text-xs text-neutral-500">
-        No claim data was lost — everything in this demo lives only in your browser session.
+        No claim data was lost. Everything in this demo lives only in your browser session.
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <button onClick={() => retry()} className="cr-btn cr-btn--primary">

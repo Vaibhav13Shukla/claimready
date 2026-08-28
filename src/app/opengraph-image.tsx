@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "ClaimReady — Check your EPFO PF claim before it gets rejected";
+export const alt = "ClaimReady: check your EPFO PF claim before it gets rejected";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -87,8 +87,8 @@ export default async function OpengraphImage() {
         Catch yours before you file.
       </div>
       <div style={{ display: "flex", fontSize: 24, color: "#525252", maxWidth: 820 }}>
-        A pre-flight check + rejection decoder for EPFO claims — independent hackathon prototype,
-        not affiliated with EPFO.
+        A pre-flight check and rejection decoder for EPFO claims. Independent hackathon
+        prototype, not affiliated with EPFO.
       </div>
     </div>,
     { ...size },

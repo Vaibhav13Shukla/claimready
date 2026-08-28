@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useLanguage } from "../i18n/context";
 
@@ -21,21 +21,6 @@ function ArrowIcon() {
 export default function LandingPage() {
   const { lang } = useLanguage();
   const hi = lang === "hi";
-
-  // Pause the decorative hero video for users who prefer reduced motion
-  // (WCAG 2.2.2), and keep listening — a user can flip this OS setting
-  // mid-session and an already-playing video should stop retroactively.
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const applyPreference = () => {
-      if (mq.matches) videoRef.current?.pause();
-      else videoRef.current?.play().catch(() => {});
-    };
-    applyPreference();
-    mq.addEventListener("change", applyPreference);
-    return () => mq.removeEventListener("change", applyPreference);
-  }, []);
 
   const steps = [
     {
@@ -65,22 +50,16 @@ export default function LandingPage() {
     <div>
       {/* ---------------- HERO ---------------- */}
       <section className="relative overflow-hidden">
-        {/* Full-bleed atmospheric background with gradient fallback + light scrim */}
+        {/* Full-bleed atmospheric gradient background. There used to be a
+            decorative background video here (22% opacity, further washed
+            out by the gradient overlay below it — barely visible either
+            way). A benchmark run measured it taking 16s+ to load from its
+            CDN and pulling real mobile data for a citizen-facing tool where
+            that matters, for an effect this gradient alone already
+            delivers. Removed rather than optimized — the visual job was
+            already done for free. */}
         <div className="absolute inset-0 -z-10" aria-hidden="true">
           <div className="absolute inset-0 bg-gradient-to-br from-[#eaf3fb] via-white to-[#eef4fa]" />
-          <video
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.22]"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
-            <source
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_075824_7c8a2ef3-826c-43ca-81a1-162429faa306.mp4"
-              type="video/mp4"
-            />
-          </video>
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/75 to-white/45" />
         </div>
 

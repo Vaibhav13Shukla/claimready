@@ -29,6 +29,13 @@ describe("Remedy Router Unit Tests", () => {
     expect(r.can_self_service).toBe(false);
   });
 
+  it("routes RC05 to MEMBER_SELF with uan_transfer_merge (self-service)", () => {
+    const r = routeRemedy("RC05");
+    expect(r.owner).toBe("MEMBER_SELF");
+    expect(r.remedy_type).toBe("uan_transfer_merge");
+    expect(r.can_self_service).toBe(true);
+  });
+
   it("routes UNKNOWN to EPFO_OFFICE with epfigms_grievance", () => {
     const r = routeRemedy("UNKNOWN");
     expect(r.owner).toBe("EPFO_OFFICE");

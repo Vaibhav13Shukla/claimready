@@ -58,5 +58,15 @@
     "expected_owner": "BANK",
     "expected_remedy_type": "bank_fix",
     "expected_timeline": "3-10"
+  },
+  "GC-07": {
+    "id": "GC-07",
+    "scheme": "FINAL_SETTLEMENT",
+    "input_type": "text",
+    "input_text": "Claim rejected: Multiple UAN found, previous PF account not transferred",
+    "expected_root_cause": "RC05",
+    "expected_owner": "MEMBER_SELF",
+    "expected_remedy_type": "uan_transfer_merge",
+    "expected_timeline": "10-30"
   }
 }

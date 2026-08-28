@@ -26,6 +26,10 @@ const DETERMINISTIC_EXPLANATIONS: Record<RootCauseCode, { en: string; hi: string
     en: "Your previous employer hasn't marked your last working day (Date of Exit) in EPFO. Until they do, EPFO still treats you as employed there and won't release a final settlement. Your employer needs to update this.",
     hi: "आपके पिछले नियोक्ता ने ईपीएफओ में आपका अंतिम कार्य दिवस (Date of Exit) दर्ज नहीं किया है। जब तक वे नहीं करते, ईपीएफओ आपको वहीं कार्यरत मानता है और अंतिम भुगतान जारी नहीं करता। आपके नियोक्ता को इसे अपडेट करना होगा।",
   },
+  RC05: {
+    en: "You have more than one UAN, usually because a previous employer issued a fresh one instead of reusing your existing UAN. EPFO can't settle a claim while your service history is split across two accounts, so one UAN needs to be merged into the other first.",
+    hi: "आपके पास एक से अधिक यूएएन हैं, आमतौर पर इसलिए क्योंकि किसी पिछले नियोक्ता ने मौजूदा यूएएन के बजाय नया यूएएन जारी किया। जब तक आपकी सेवा दो खातों में बंटी है, ईपीएफओ दावा निपटा नहीं सकता, इसलिए पहले एक यूएएन को दूसरे में मर्ज करना होगा।",
+  },
   UNKNOWN: {
     en: "We couldn't safely pin the exact reason from the text. Don't worry — read the exact remark on the member portal's claim status, and an EPFiGMS grievance with your claim ID will get an officer to review it.",
     hi: "हम पाठ से सटीक कारण की सुरक्षित पहचान नहीं कर सके। चिंता न करें — मेंबर पोर्टल की क्लेम स्थिति पर सटीक टिप्पणी पढ़ें, और आपके claim ID के साथ EPFiGMS शिकायत से कोई अधिकारी इसकी समीक्षा करेगा।",

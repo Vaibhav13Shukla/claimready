@@ -26,6 +26,7 @@ const GOLDEN_CASES: GoldenCase[] = [
   { id: "GC-04", scheme: "PF_ADVANCE", text: "Rejected: Bank KYC not verified / account inactive", badge: "RC03 · Bank" },
   { id: "GC-05", scheme: "FINAL_SETTLEMENT", text: "Rejected: Date of Exit not updated by employer", badge: "RC04 · Exit date" },
   { id: "GC-06", scheme: "PENSION_EPS", text: "Claim rejected: IFSC mismatch, payment returned by bank", badge: "RC03 · Bank" },
+  { id: "GC-07", scheme: "FINAL_SETTLEMENT", text: "Claim rejected: Multiple UAN found, previous PF account not transferred", badge: "RC05 · Multiple UAN" },
 ];
 
 function IntakeContent() {

@@ -20,6 +20,7 @@ const REMEDY_LABEL: Record<RemedyType, { en: string; hi: string }> = {
   member_correction: { en: "Member correction (Joint Declaration)", hi: "सदस्य सुधार (जॉइंट डिक्लेरेशन)" },
   bank_fix: { en: "Bank KYC / account fix", hi: "बैंक केवाईसी / खाता सुधार" },
   employer_request: { en: "Employer Date-of-Exit request", hi: "नियोक्ता निकास-तिथि अनुरोध" },
+  uan_transfer_merge: { en: "UAN transfer / merge request", hi: "यूएएन ट्रांसफर / मर्ज अनुरोध" },
   epfigms_grievance: { en: "EPFiGMS grievance", hi: "EPFiGMS शिकायत" },
 };
 

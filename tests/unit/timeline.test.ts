@@ -28,6 +28,12 @@ describe("Timeline Calculator Unit Tests", () => {
     expect(t.max_days).toBe(30);
   });
 
+  it("RC05 → 10–30", () => {
+    const t = calculateTimeline("RC05");
+    expect(t.min_days).toBe(10);
+    expect(t.max_days).toBe(30);
+  });
+
   it("UNKNOWN → 7–15", () => {
     const t = calculateTimeline("UNKNOWN");
     expect(t.min_days).toBe(7);

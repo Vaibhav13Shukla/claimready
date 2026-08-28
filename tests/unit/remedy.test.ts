@@ -26,6 +26,18 @@ describe("Remedy Generator", () => {
     expect(remedy.steps.length).toBeGreaterThan(0);
   });
 
+  it("generates uan_transfer_merge remedy for multiple/duplicate UAN (RC05)", () => {
+    const d = diagnose({
+      rawErrorText: "Multiple UAN found, previous PF account not transferred",
+      scheme: "FINAL_SETTLEMENT",
+    });
+    expect(d.root_cause_code).toBe("RC05");
+    const remedy = generateRemedy(d);
+    expect(remedy.type).toBe("uan_transfer_merge");
+    expect(remedy.steps.length).toBeGreaterThan(0);
+    expect(remedy.required_documents.length).toBeGreaterThan(0);
+  });
+
   it("generates English letter content", () => {
     const d = diagnose({ rawErrorText: "Name mismatch as per Aadhaar", scheme: "FINAL_SETTLEMENT" });
     const content = generateLetterContent(generateRemedy(d), "en");

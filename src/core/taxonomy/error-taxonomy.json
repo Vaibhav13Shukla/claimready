@@ -150,5 +150,43 @@
       "not updated by employer",
       "exit date nahi"
     ]
+  },
+  "RC05": {
+    "code": "RC05",
+    "label_en": "Multiple / duplicate UAN — previous PF account not merged",
+    "label_hi": "एकाधिक / डुप्लीकेट यूएएन — पिछला पीएफ खाता मर्ज नहीं हुआ",
+    "owner": "MEMBER_SELF",
+    "remedy_type": "uan_transfer_merge",
+    "estimated_timeline_days": "10-30",
+    "explanation_en": "You have more than one UAN — usually because a previous employer issued a new one instead of reusing your existing UAN. EPFO cannot settle a claim while your service history is split across two UANs, because it cannot tell which balance belongs to which employment. One UAN needs to be marked inoperative and its service transferred into the other before the claim can go through.",
+    "explanation_hi": "आपके पास एक से अधिक यूएएन हैं — आमतौर पर इसलिए क्योंकि किसी पिछले नियोक्ता ने आपके मौजूदा यूएएन का उपयोग करने के बजाय एक नया यूएएन जारी कर दिया। जब तक आपकी सेवा दो यूएएन में बंटी है, ईपीएफओ दावा निपटाने में असमर्थ रहता है क्योंकि यह तय नहीं कर पाता कि कौन सी राशि किस नियोक्ता से जुड़ी है। दावा पास होने से पहले एक यूएएन को निष्क्रिय कर उसकी सेवा दूसरे में स्थानांतरित करनी होगी।",
+    "error_phrases": [
+      "multiple uan",
+      "duplicate uan",
+      "two uan numbers",
+      "more than one uan",
+      "previous pf account not transferred",
+      "pf not transferred from previous uan",
+      "uan not merged",
+      "uan merger pending",
+      "member id linked to another uan",
+      "duplicate member id",
+      "kyc already exists on another uan",
+      "one employee one epf account",
+      "uan transfer claim pending",
+      "do uan number hai",
+      "purana pf transfer nahi hua",
+      "uan merge nahi hua",
+      "duplicate uan mila"
+    ],
+    "scheme_applicable": ["FINAL_SETTLEMENT", "PF_ADVANCE", "PENSION_EPS"],
+    "confidence_boost_phrases": [
+      "multiple uan",
+      "duplicate uan",
+      "two uan",
+      "uan not merged",
+      "not transferred",
+      "uan merge nahi"
+    ]
   }
 }

@@ -46,6 +46,12 @@ const goldenCases: GoldenCase[] = [
     input: "Claim rejected: IFSC mismatch, payment returned by bank",
     expected: { root_cause: "RC03", owner: "BANK", remedy_type: "bank_fix", min_confidence: 0.5 },
   },
+  {
+    id: "GC-07",
+    scheme: "FINAL_SETTLEMENT",
+    input: "Claim rejected: Multiple UAN found, previous PF account not transferred",
+    expected: { root_cause: "RC05", owner: "MEMBER_SELF", remedy_type: "uan_transfer_merge", min_confidence: 0.5 },
+  },
 ];
 
 describe("Golden Case Gate — classifier must pass all 6/6 EPFO cases deterministically", () => {
@@ -138,6 +144,23 @@ describe("Adversarial & Edge Cases", () => {
   it("ADV-11: weird casing → RC01", () => {
     const r = diagnose({ rawErrorText: "NaMe MiSmAtCh As PeR aAdHaAr", scheme: "FINAL_SETTLEMENT" });
     expect(r.root_cause_code).toBe("RC01");
+  });
+
+  it("ADV-13: Hinglish multiple-UAN phrasing → RC05", () => {
+    const r = diagnose({
+      rawErrorText: "do UAN number hai, dusra PF account transfer nahi hua - multiple uan not merged",
+      scheme: "FINAL_SETTLEMENT",
+    });
+    expect(r.root_cause_code).toBe("RC05");
+    expect(r.owner).toBe("MEMBER_SELF");
+  });
+
+  it("ADV-14: duplicate UAN / previous member ID linked → RC05", () => {
+    const r = diagnose({
+      rawErrorText: "Claim rejected: duplicate UAN detected, previous member ID not linked to current UAN",
+      scheme: "PF_ADVANCE",
+    });
+    expect(r.root_cause_code).toBe("RC05");
   });
 
   it("ADV-12: determinism over 100 iterations", () => {

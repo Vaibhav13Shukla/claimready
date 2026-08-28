@@ -42,6 +42,14 @@ const ROUTING_MAP: Record<RootCauseCode, RemedyRoute> = {
     can_self_service: false,
     escalation_tier: "Previous Employer HR → EPFiGMS Grievance → Regional PF Commissioner (RPFC)",
   },
+  RC05: {
+    root_cause_code: "RC05",
+    owner: "MEMBER_SELF",
+    remedy_type: "uan_transfer_merge",
+    requires_in_person: false,
+    can_self_service: true,
+    escalation_tier: "Member self-service (online transfer claim) → EPFO Field Office → EPFiGMS Grievance",
+  },
   UNKNOWN: {
     root_cause_code: "UNKNOWN",
     owner: "EPFO_OFFICE",

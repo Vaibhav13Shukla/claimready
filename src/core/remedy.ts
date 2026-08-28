@@ -239,6 +239,84 @@ const remedyTemplates: Record<RemedyType, RemedyOutput> = {
     escalation_contact_hi:
       "पिछला नियोक्ता HR → EPFiGMS शिकायत (epfigms.gov.in) → क्षेत्रीय भविष्य निधि आयुक्त (RPFC)",
   },
+  uan_transfer_merge: {
+    type: "uan_transfer_merge",
+    title_en: "Merge Your Duplicate UAN via Online Transfer Claim",
+    title_hi: "ऑनलाइन ट्रांसफर क्लेम से अपना डुप्लीकेट यूएएन मर्ज करें",
+    summary_en:
+      "Your claim is blocked because you have more than one UAN — usually from a previous employer issuing a fresh one instead of reusing your existing UAN. You raise the transfer/merge request yourself; EPFO verifies both service histories and marks the older UAN inoperative, after which you re-file the claim on your active UAN.",
+    summary_hi:
+      "आपका दावा इसलिए रुका है क्योंकि आपके पास एक से अधिक यूएएन हैं — आमतौर पर किसी पिछले नियोक्ता द्वारा मौजूदा यूएएन के बजाय नया यूएएन जारी करने से। आप स्वयं ट्रांसफर/मर्ज अनुरोध दर्ज करते हैं; ईपीएफओ दोनों सेवा इतिहास सत्यापित कर पुराने यूएएन को निष्क्रिय करता है, फिर आप सक्रिय यूएएन पर दावा पुनः फाइल करें।",
+    steps: [
+      {
+        order: 1,
+        action: "Confirm you have more than one UAN",
+        action_hi: "पुष्टि करें कि आपके पास एक से अधिक यूएएन हैं",
+        details:
+          "On the member portal, Manage → View → check 'Member ID' history against your Aadhaar-linked mobile/PAN. If a second UAN exists, note both UAN numbers and which one is currently KYC-verified and active.",
+        details_hi:
+          "मेंबर पोर्टल पर, Manage → View → अपने आधार-लिंक्ड मोबाइल/पैन के विरुद्ध 'Member ID' इतिहास जांचें। यदि दूसरा यूएएन मौजूद है, तो दोनों यूएएन संख्याएं नोट करें और यह देखें कि कौन सा वर्तमान में केवाईसी-सत्यापित व सक्रिय है।",
+        estimated_hours: 0.5,
+      },
+      {
+        order: 2,
+        action: "Raise an online Transfer Claim (Form 13) on your active UAN",
+        action_hi: "अपने सक्रिय यूएएन पर ऑनलाइन ट्रांसफर क्लेम (फॉर्म 13) दर्ज करें",
+        details:
+          "Log in with your CURRENT (active, KYC-verified) UAN → Online Services → One Member - One EPF Account (Transfer Request). Enter the previous UAN/Member ID; the system pulls its details for you to confirm.",
+        details_hi:
+          "अपने वर्तमान (सक्रिय, केवाईसी-सत्यापित) यूएएन से लॉगिन करें → Online Services → One Member - One EPF Account (Transfer Request)। पिछला यूएएन/मेंबर आईडी दर्ज करें; सिस्टम पुष्टि के लिए उसका विवरण दिखाएगा।",
+        estimated_hours: 0.5,
+      },
+      {
+        order: 3,
+        action: "Get the request attested (self, or via employer) and submit",
+        action_hi: "अनुरोध सत्यापित कराएं (स्वयं, या नियोक्ता के माध्यम से) और सबमिट करें",
+        details:
+          "Choose self-attestation via Aadhaar OTP if eligible, or route through your current/previous employer for digital approval. Submit and save the Transfer Claim ID (TRRN) to track it.",
+        details_hi:
+          "यदि पात्र हैं तो आधार ओटीपी से स्व-सत्यापन चुनें, या अपने वर्तमान/पिछले नियोक्ता के माध्यम से डिजिटल स्वीकृति भेजें। सबमिट करें और ट्रैक करने के लिए Transfer Claim ID (TRRN) सुरक्षित रखें।",
+        estimated_hours: 0.5,
+      },
+      {
+        order: 4,
+        action: "Wait for the old UAN to show 'Inoperative' with balance merged",
+        action_hi: "पुराने यूएएन के 'Inoperative' दिखने और शेष राशि मर्ज होने की प्रतीक्षा करें",
+        details:
+          "EPFO verifies both service records and transfers the balance into your active UAN, marking the older one inoperative. Track status under Online Services → Track Claim Status using the TRRN.",
+        details_hi:
+          "ईपीएफओ दोनों सेवा रिकॉर्ड सत्यापित कर शेष राशि आपके सक्रिय यूएएन में स्थानांतरित करता है और पुराने को निष्क्रिय चिह्नित करता है। TRRN का उपयोग कर Online Services → Track Claim Status में स्थिति ट्रैक करें।",
+        estimated_hours: 0.5,
+      },
+      {
+        order: 5,
+        action: "Once merged, re-file your original claim",
+        action_hi: "मर्ज होने के बाद, अपना मूल दावा पुनः फाइल करें",
+        details:
+          "When the transferred balance reflects in your active UAN's passbook, submit the final settlement / advance / pension claim again on that UAN.",
+        details_hi:
+          "जब स्थानांतरित राशि आपके सक्रिय यूएएन की पासबुक में दिखे, तो उसी यूएएन पर अंतिम भुगतान / एडवांस / पेंशन दावा फिर से सबमिट करें।",
+        estimated_hours: 0.25,
+      },
+    ],
+    estimated_timeline_days: "10-30",
+    required_documents: [
+      "Both UAN numbers (active and previous)",
+      "Aadhaar and PAN",
+      "Previous employer Member ID / PF account number",
+      "Aadhaar-linked mobile for OTP self-attestation",
+    ],
+    required_documents_hi: [
+      "दोनों यूएएन संख्याएं (सक्रिय और पिछला)",
+      "आधार और पैन",
+      "पिछला नियोक्ता मेंबर आईडी / पीएफ खाता संख्या",
+      "ओटीपी स्व-सत्यापन हेतु आधार-लिंक्ड मोबाइल",
+    ],
+    escalation_contact:
+      "EPFO Field Office (transfer processing) → EPFiGMS grievance (epfigms.gov.in) with TRRN → EPFO helpline 1800-118-005",
+    escalation_contact_hi:
+      "ईपीएफओ फील्ड ऑफिस (ट्रांसफर प्रोसेसिंग) → TRRN के साथ EPFiGMS शिकायत (epfigms.gov.in) → ईपीएफओ हेल्पलाइन 1800-118-005",
+  },
   epfigms_grievance: {
     type: "epfigms_grievance",
     title_en: "File an EPFiGMS Grievance",

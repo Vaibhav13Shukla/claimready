@@ -12,10 +12,10 @@ describe("Taxonomy Validation — error-taxonomy.json must pass Zod schema", () 
     expect(() => ErrorTaxonomy.parse(data)).not.toThrow();
   });
 
-  it("has exactly 4 root cause entries (RC01-RC04)", () => {
+  it("has exactly 5 root cause entries (RC01-RC05)", () => {
     const keys = Object.keys(data);
-    expect(keys).toHaveLength(4);
-    ["RC01", "RC02", "RC03", "RC04"].forEach((k) => expect(keys).toContain(k));
+    expect(keys).toHaveLength(5);
+    ["RC01", "RC02", "RC03", "RC04", "RC05"].forEach((k) => expect(keys).toContain(k));
   });
 
   it.each(Object.entries(data))("entry %s has all required fields", (code, entry) => {

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // --- Root Cause Code (why an EPFO PF claim was / would be rejected) ---
-export const RootCauseCode = z.enum(["RC01", "RC02", "RC03", "RC04", "UNKNOWN"]);
+export const RootCauseCode = z.enum(["RC01", "RC02", "RC03", "RC04", "RC05", "UNKNOWN"]);
 export type RootCauseCode = z.infer<typeof RootCauseCode>;
 
 // --- Owner (who must act to fix the rejection cause) ---
@@ -13,6 +13,7 @@ export const RemedyType = z.enum([
   "member_correction",
   "bank_fix",
   "employer_request",
+  "uan_transfer_merge",
   "epfigms_grievance",
 ]);
 export type RemedyType = z.infer<typeof RemedyType>;
@@ -43,7 +44,7 @@ export const TaxonomyEntry = z.object({
 });
 
 // --- Known Taxonomy Root Causes ---
-export const KnownRootCauseCode = z.enum(["RC01", "RC02", "RC03", "RC04"]);
+export const KnownRootCauseCode = z.enum(["RC01", "RC02", "RC03", "RC04", "RC05"]);
 export type KnownRootCauseCode = z.infer<typeof KnownRootCauseCode>;
 
 // --- Full taxonomy: keyed by known root cause code (RC01..RC04) ---

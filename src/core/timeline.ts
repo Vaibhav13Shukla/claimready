@@ -47,6 +47,15 @@ const TIMELINE_MAP: Record<RootCauseCode, TimelineEstimate> = {
     next_cycle_window_en: "Employer must update Date of Exit; escalate via EPFiGMS if unresponsive",
     next_cycle_window_hi: "नियोक्ता को निकास तिथि अपडेट करनी होगी; प्रतिक्रिया न मिलने पर EPFiGMS से escalate करें",
   },
+  RC05: {
+    root_cause_code: "RC05",
+    min_days: 10,
+    max_days: 30,
+    display_en: "10–30 Working Days",
+    display_hi: "10–30 कार्य दिवस",
+    next_cycle_window_en: "UAN merger needs EPFO's manual verification of both service histories before you re-file",
+    next_cycle_window_hi: "यूएएन मर्जर के लिए ईपीएफओ को दोनों सेवा इतिहास का मैन्युअल सत्यापन करना होता है, फिर पुनः दावा करें",
+  },
   UNKNOWN: {
     root_cause_code: "UNKNOWN",
     min_days: 7,

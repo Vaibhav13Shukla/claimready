@@ -19,9 +19,15 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run dev",
+    // Dev mode (HMR, on-demand per-route compilation) is noticeably slower
+    // and less stable under Playwright's parallel workers than a built
+    // production server — use the production server whenever a fresh one is
+    // being started (CI, or no server already running locally); reuse
+    // whatever's already up in local dev for a fast inner loop.
+    command: process.env.CI ? "npm run build && npm run start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
     stdout: "pipe",
     stderr: "pipe",
   },

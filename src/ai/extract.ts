@@ -91,7 +91,7 @@ export function heuristicExtract(input: ExtractionInput): ExtractionOutput {
 // Genuine OpenAI-powered extraction. Falls back to the deterministic heuristic
 // when no API key is configured or the model call fails — so the demo never breaks.
 export async function aiExtract(
-  input: ExtractionInput
+  input: ExtractionInput,
 ): Promise<{ result: ExtractionOutput; source: "ai_assisted" | "fixture_rules" }> {
   const fallback = heuristicExtract(input);
 

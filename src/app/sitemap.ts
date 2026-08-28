@@ -8,7 +8,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://claimready.example
 // deliberately excluded here the same way a checkout flow's mid-steps
 // wouldn't appear in a sitemap.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+  const routes: {
+    path: string;
+    priority: number;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }[] = [
     { path: "", priority: 1, changeFrequency: "monthly" },
     { path: "/intake", priority: 0.9, changeFrequency: "monthly" },
     { path: "/transparency", priority: 0.5, changeFrequency: "monthly" },

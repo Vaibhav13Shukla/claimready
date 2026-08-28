@@ -75,7 +75,10 @@ export default function TrackerPage() {
           🛡 {isHindi ? "सिंथेटिक समयरेखा" : "SYNTHETIC TIMELINE"}
         </span>
       </div>
-      <h1 className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]" style={{ ["--d" as string]: "0.05s" }}>
+      <h1
+        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        style={{ ["--d" as string]: "0.05s" }}
+      >
         {isHindi ? "समाधान ट्रैकर" : "Resolution tracker"}
       </h1>
       <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
@@ -98,8 +101,8 @@ export default function TrackerPage() {
                   isCur
                     ? "border-[#006cd2] bg-[#006cd2]/[0.04]"
                     : done
-                    ? "border-black/10 bg-white"
-                    : "border-black/[0.06] bg-neutral-50"
+                      ? "border-black/10 bg-white"
+                      : "border-black/[0.06] bg-neutral-50"
                 }`}
               >
                 <span
@@ -111,10 +114,14 @@ export default function TrackerPage() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <h2 className={`text-sm font-semibold ${done ? "text-[#0a0a0a]" : "text-neutral-500"}`}>
+                    <h2
+                      className={`text-sm font-semibold ${done ? "text-[#0a0a0a]" : "text-neutral-500"}`}
+                    >
                       {isHindi ? s.title_hi : s.title_en}
                     </h2>
-                    <span className="text-[11px] font-mono text-neutral-500 shrink-0">{s.when}</span>
+                    <span className="text-[11px] font-mono text-neutral-500 shrink-0">
+                      {s.when}
+                    </span>
                   </div>
                   <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
                     {isHindi ? s.desc_hi : s.desc_en}
@@ -134,7 +141,9 @@ export default function TrackerPage() {
               key={s.id}
               onClick={() => setCurrent(s.id)}
               className={`px-3 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
-                current === s.id ? "bg-[#006cd2] text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                current === s.id
+                  ? "bg-[#006cd2] text-white"
+                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
               }`}
             >
               {s.n}
@@ -143,7 +152,10 @@ export default function TrackerPage() {
         </div>
       </div>
 
-      <div className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6" style={{ ["--d" as string]: "0.2s" }}>
+      <div
+        className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6"
+        style={{ ["--d" as string]: "0.2s" }}
+      >
         <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
           ← {t("start_over")}
         </Link>

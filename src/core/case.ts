@@ -21,13 +21,10 @@ export function canTransition(current: CaseStatus, target: CaseStatus): boolean 
   return VALID_TRANSITIONS[current]?.includes(target) ?? false;
 }
 
-export function transitionCase(
-  caseObj: CaseObject,
-  targetStatus: CaseStatus
-): CaseObject {
+export function transitionCase(caseObj: CaseObject, targetStatus: CaseStatus): CaseObject {
   if (!canTransition(caseObj.status, targetStatus)) {
     throw new Error(
-      `Invalid case status transition from '${caseObj.status}' to '${targetStatus}'.`
+      `Invalid case status transition from '${caseObj.status}' to '${targetStatus}'.`,
     );
   }
   return {

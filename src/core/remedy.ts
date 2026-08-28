@@ -376,8 +376,7 @@ const remedyTemplates: Record<RemedyType, RemedyOutput> = {
 };
 
 export function generateRemedy(diagnosis: DiagnosisResult): RemedyOutput {
-  const template =
-    remedyTemplates[diagnosis.remedy_type] ?? remedyTemplates.epfigms_grievance;
+  const template = remedyTemplates[diagnosis.remedy_type] ?? remedyTemplates.epfigms_grievance;
 
   return {
     ...template,
@@ -385,10 +384,7 @@ export function generateRemedy(diagnosis: DiagnosisResult): RemedyOutput {
   };
 }
 
-export function generateLetterContent(
-  remedy: RemedyOutput,
-  language: "en" | "hi"
-): string {
+export function generateLetterContent(remedy: RemedyOutput, language: "en" | "hi"): string {
   const isHindi = language === "hi";
   const title = isHindi ? remedy.title_hi : remedy.title_en;
   const summary = isHindi ? remedy.summary_hi : remedy.summary_en;

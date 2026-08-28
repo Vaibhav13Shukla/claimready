@@ -20,13 +20,48 @@ interface GoldenCase {
 }
 
 const GOLDEN_CASES: GoldenCase[] = [
-  { id: "GC-01", scheme: "FINAL_SETTLEMENT", text: "Claim rejected: Name mismatch as per Aadhaar", badge: "RC01 · Name" },
-  { id: "GC-02", scheme: "PF_ADVANCE", text: "Rejected: Name mismatch between UAN and bank KYC", badge: "RC01 · Name" },
-  { id: "GC-03", scheme: "FINAL_SETTLEMENT", text: "Claim rejected: Date of Birth not matching Aadhaar", badge: "RC02 · DOB" },
-  { id: "GC-04", scheme: "PF_ADVANCE", text: "Rejected: Bank KYC not verified / account inactive", badge: "RC03 · Bank" },
-  { id: "GC-05", scheme: "FINAL_SETTLEMENT", text: "Rejected: Date of Exit not updated by employer", badge: "RC04 · Exit date" },
-  { id: "GC-06", scheme: "PENSION_EPS", text: "Claim rejected: IFSC mismatch, payment returned by bank", badge: "RC03 · Bank" },
-  { id: "GC-07", scheme: "FINAL_SETTLEMENT", text: "Claim rejected: Multiple UAN found, previous PF account not transferred", badge: "RC05 · Multiple UAN" },
+  {
+    id: "GC-01",
+    scheme: "FINAL_SETTLEMENT",
+    text: "Claim rejected: Name mismatch as per Aadhaar",
+    badge: "RC01 · Name",
+  },
+  {
+    id: "GC-02",
+    scheme: "PF_ADVANCE",
+    text: "Rejected: Name mismatch between UAN and bank KYC",
+    badge: "RC01 · Name",
+  },
+  {
+    id: "GC-03",
+    scheme: "FINAL_SETTLEMENT",
+    text: "Claim rejected: Date of Birth not matching Aadhaar",
+    badge: "RC02 · DOB",
+  },
+  {
+    id: "GC-04",
+    scheme: "PF_ADVANCE",
+    text: "Rejected: Bank KYC not verified / account inactive",
+    badge: "RC03 · Bank",
+  },
+  {
+    id: "GC-05",
+    scheme: "FINAL_SETTLEMENT",
+    text: "Rejected: Date of Exit not updated by employer",
+    badge: "RC04 · Exit date",
+  },
+  {
+    id: "GC-06",
+    scheme: "PENSION_EPS",
+    text: "Claim rejected: IFSC mismatch, payment returned by bank",
+    badge: "RC03 · Bank",
+  },
+  {
+    id: "GC-07",
+    scheme: "FINAL_SETTLEMENT",
+    text: "Claim rejected: Multiple UAN found, previous PF account not transferred",
+    badge: "RC05 · Multiple UAN",
+  },
 ];
 
 function IntakeContent() {
@@ -71,8 +106,8 @@ function IntakeContent() {
       scheme === "PF_ADVANCE"
         ? "Rejected: Bank KYC not verified / account inactive"
         : scheme === "PENSION_EPS"
-        ? "Claim rejected: IFSC mismatch, payment returned by bank"
-        : "Claim rejected: Name mismatch as per Aadhaar";
+          ? "Claim rejected: IFSC mismatch, payment returned by bank"
+          : "Claim rejected: Name mismatch as per Aadhaar";
     setErrorText(demo);
   };
 
@@ -130,7 +165,11 @@ function IntakeContent() {
         <legend className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
           {t("select_scheme")}
         </legend>
-        <div className="grid grid-cols-3 gap-px bg-black/[0.08] mt-2 border border-black/10" role="radiogroup" aria-label={t("select_scheme")}>
+        <div
+          className="grid grid-cols-3 gap-px bg-black/[0.08] mt-2 border border-black/10"
+          role="radiogroup"
+          aria-label={t("select_scheme")}
+        >
           {CLAIM_TYPES.map((c) => (
             <button
               key={c.id}
@@ -139,7 +178,9 @@ function IntakeContent() {
               aria-checked={scheme === c.id}
               onClick={() => setScheme(c.id)}
               className={`p-3 text-left transition-colors cursor-pointer ${
-                scheme === c.id ? "bg-[#006cd2] text-white" : "bg-white text-neutral-700 hover:bg-[#006cd2]/[0.06]"
+                scheme === c.id
+                  ? "bg-[#006cd2] text-white"
+                  : "bg-white text-neutral-700 hover:bg-[#006cd2]/[0.06]"
               }`}
             >
               <span className="text-lg">{c.icon}</span>
@@ -150,7 +191,11 @@ function IntakeContent() {
       </fieldset>
 
       {/* Tabs */}
-      <div className="fade-up mt-7 flex gap-6 border-b border-black/10" style={{ ["--d" as string]: "0.2s" }} role="tablist">
+      <div
+        className="fade-up mt-7 flex gap-6 border-b border-black/10"
+        style={{ ["--d" as string]: "0.2s" }}
+        role="tablist"
+      >
         {tabs.map((tb) => (
           <button
             key={tb.id}

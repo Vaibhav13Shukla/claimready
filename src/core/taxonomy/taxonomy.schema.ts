@@ -35,9 +35,7 @@ export const TaxonomyEntry = z.object({
   error_phrases: z
     .array(z.string().min(1, "error_phrases entries must not be empty"))
     .min(1, "must have at least one error_phrase"),
-  scheme_applicable: z
-    .array(Scheme)
-    .min(1, "must apply to at least one claim type"),
+  scheme_applicable: z.array(Scheme).min(1, "must apply to at least one claim type"),
   confidence_boost_phrases: z
     .array(z.string().min(1, "confidence_boost_phrases entries must not be empty"))
     .optional(),
@@ -70,12 +68,7 @@ export type DiagnosisResult = z.infer<typeof DiagnosisResult>;
 export const CaseInputType = z.enum(["screenshot", "text"]);
 export type CaseInputType = z.infer<typeof CaseInputType>;
 
-export const CaseStatus = z.enum([
-  "diagnosed",
-  "action_taken",
-  "awaiting_cycle",
-  "resolved",
-]);
+export const CaseStatus = z.enum(["diagnosed", "action_taken", "awaiting_cycle", "resolved"]);
 export type CaseStatus = z.infer<typeof CaseStatus>;
 
 export const CaseObject = z.object({

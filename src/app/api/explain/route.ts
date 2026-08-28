@@ -51,6 +51,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, explanation, source, language: resolvedLanguage });
   } catch {
     // Never leak internal error details to the client; server logs carry the detail.
-    return NextResponse.json({ error: "Failed to generate plain-language explanation" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to generate plain-language explanation" },
+      { status: 500 },
+    );
   }
 }

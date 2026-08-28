@@ -21,7 +21,9 @@ describe("heuristicExtract (deterministic fallback, no API key needed)", () => {
 
   it("infers FINAL_SETTLEMENT from 'Form 19' / 'full withdrawal' language", () => {
     expect(heuristicExtract({ text: "Form 19 rejected" }).scheme).toBe("FINAL_SETTLEMENT");
-    expect(heuristicExtract({ text: "full withdrawal claim failed" }).scheme).toBe("FINAL_SETTLEMENT");
+    expect(heuristicExtract({ text: "full withdrawal claim failed" }).scheme).toBe(
+      "FINAL_SETTLEMENT",
+    );
   });
 
   it("infers PF_ADVANCE from 'Form 31' / 'medical' / 'housing' language", () => {
@@ -131,7 +133,9 @@ describe("aiExtract (mocked OpenAI call, WITH an API key)", () => {
   it("falls back to fixture_rules when the OpenAI call throws", async () => {
     generateObjectMock.mockRejectedValue(new Error("network error"));
 
-    const { source, result } = await aiExtract({ text: "Claim rejected: Name mismatch as per Aadhaar" });
+    const { source, result } = await aiExtract({
+      text: "Claim rejected: Name mismatch as per Aadhaar",
+    });
     expect(source).toBe("fixture_rules");
     expect(result.raw_error_text).toBe("Claim rejected: Name mismatch as per Aadhaar");
   });

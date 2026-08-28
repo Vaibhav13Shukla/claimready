@@ -17,8 +17,10 @@ const TIMELINE_MAP: Record<RootCauseCode, TimelineEstimate> = {
     max_days: 20,
     display_en: "7–20 Working Days",
     display_hi: "7–20 कार्य दिवस",
-    next_cycle_window_en: "Name correction needs employer + EPFO approval before you re-file the claim",
-    next_cycle_window_hi: "नाम सुधार के लिए पुनः दावा करने से पहले नियोक्ता + ईपीएफओ की स्वीकृति आवश्यक है",
+    next_cycle_window_en:
+      "Name correction needs employer + EPFO approval before you re-file the claim",
+    next_cycle_window_hi:
+      "नाम सुधार के लिए पुनः दावा करने से पहले नियोक्ता + ईपीएफओ की स्वीकृति आवश्यक है",
   },
   RC02: {
     root_cause_code: "RC02",
@@ -27,7 +29,8 @@ const TIMELINE_MAP: Record<RootCauseCode, TimelineEstimate> = {
     display_en: "7–20 Working Days",
     display_hi: "7–20 कार्य दिवस",
     next_cycle_window_en: "DOB correction reflects after employer + EPFO approval; then re-file",
-    next_cycle_window_hi: "नियोक्ता + ईपीएफओ की स्वीकृति के बाद जन्म तिथि सुधार दिखेगा; फिर पुनः दावा करें",
+    next_cycle_window_hi:
+      "नियोक्ता + ईपीएफओ की स्वीकृति के बाद जन्म तिथि सुधार दिखेगा; फिर पुनः दावा करें",
   },
   RC03: {
     root_cause_code: "RC03",
@@ -45,7 +48,8 @@ const TIMELINE_MAP: Record<RootCauseCode, TimelineEstimate> = {
     display_en: "7–30 Working Days",
     display_hi: "7–30 कार्य दिवस",
     next_cycle_window_en: "Employer must update Date of Exit; escalate via EPFiGMS if unresponsive",
-    next_cycle_window_hi: "नियोक्ता को निकास तिथि अपडेट करनी होगी; प्रतिक्रिया न मिलने पर EPFiGMS से escalate करें",
+    next_cycle_window_hi:
+      "नियोक्ता को निकास तिथि अपडेट करनी होगी; प्रतिक्रिया न मिलने पर EPFiGMS से escalate करें",
   },
   RC05: {
     root_cause_code: "RC05",
@@ -53,8 +57,10 @@ const TIMELINE_MAP: Record<RootCauseCode, TimelineEstimate> = {
     max_days: 30,
     display_en: "10–30 Working Days",
     display_hi: "10–30 कार्य दिवस",
-    next_cycle_window_en: "UAN merger needs EPFO's manual verification of both service histories before you re-file",
-    next_cycle_window_hi: "यूएएन मर्जर के लिए ईपीएफओ को दोनों सेवा इतिहास का मैन्युअल सत्यापन करना होता है, फिर पुनः दावा करें",
+    next_cycle_window_en:
+      "UAN merger needs EPFO's manual verification of both service histories before you re-file",
+    next_cycle_window_hi:
+      "यूएएन मर्जर के लिए ईपीएफओ को दोनों सेवा इतिहास का मैन्युअल सत्यापन करना होता है, फिर पुनः दावा करें",
   },
   UNKNOWN: {
     root_cause_code: "UNKNOWN",

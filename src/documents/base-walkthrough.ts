@@ -143,7 +143,8 @@ export const BASE_WALKTHROUGH_FLOWS: Record<"RC01" | "RC02", BaseWalkthroughFlow
         simulatedAction_en: "Re-submit the claim after the DOB reflects as corrected.",
         simulatedAction_hi: "जन्म तिथि सही परिलक्षित होने के बाद दावा पुनः सबमिट करें।",
         tip_en: "Verify the corrected DOB shows on your passbook page before re-filing.",
-        tip_hi: "पुनः फाइल करने से पहले सत्यापित करें कि सही जन्म तिथि आपके पासबुक पृष्ठ पर दिखती है।",
+        tip_hi:
+          "पुनः फाइल करने से पहले सत्यापित करें कि सही जन्म तिथि आपके पासबुक पृष्ठ पर दिखती है।",
       },
     ],
   },

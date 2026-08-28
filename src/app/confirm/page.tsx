@@ -35,7 +35,7 @@ function ConfirmContent() {
         raw_error_text: errorText,
         confidence: String(confidence),
         ...(goldenId ? { golden_id: goldenId } : {}),
-      }).toString()}`
+      }).toString()}`,
     );
   };
 
@@ -47,7 +47,10 @@ function ConfirmContent() {
         <span className="cr-tick" />
         <span>{lang === "hi" ? "चरण 2 / 4 · पुष्टि" : "Step 2 / 4 · Verify"}</span>
       </div>
-      <h1 className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]" style={{ ["--d" as string]: "0.05s" }}>
+      <h1
+        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        style={{ ["--d" as string]: "0.05s" }}
+      >
         {lang === "hi" ? "निकाले गए केस की पुष्टि करें" : "Confirm the extracted case"}
       </h1>
       <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
@@ -60,16 +63,20 @@ function ConfirmContent() {
         <div className="flex items-center justify-between border-b border-black/10 pb-3">
           <span className="text-xs font-semibold text-neutral-500">
             {source === "ai_assisted"
-              ? lang === "hi" ? "एआई निष्कर्षण विश्वसनीयता" : "AI extraction confidence"
-              : lang === "hi" ? "मिलान विश्वसनीयता" : "Match confidence"}
+              ? lang === "hi"
+                ? "एआई निष्कर्षण विश्वसनीयता"
+                : "AI extraction confidence"
+              : lang === "hi"
+                ? "मिलान विश्वसनीयता"
+                : "Match confidence"}
           </span>
           <span
             className={`text-xs font-bold px-2.5 py-1 border ${
               confidence >= 0.8
                 ? "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/30"
                 : confidence >= 0.6
-                ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/30"
-                : "bg-[#d21f3c]/10 text-[#d21f3c] border-[#d21f3c]/30"
+                  ? "bg-[#b45309]/10 text-[#b45309] border-[#b45309]/30"
+                  : "bg-[#d21f3c]/10 text-[#d21f3c] border-[#d21f3c]/30"
             }`}
           >
             {Math.round(confidence * 100)}% {source === "ai_assisted" ? "AI" : "match"}
@@ -110,7 +117,9 @@ function ConfirmContent() {
               rows={3}
               value={errorText}
               onChange={(e) => setErrorText(e.target.value)}
-              aria-label={lang === "hi" ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"}
+              aria-label={
+                lang === "hi" ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"
+              }
               className="w-full cr-card p-3 text-sm"
             />
           ) : (
@@ -123,7 +132,10 @@ function ConfirmContent() {
         {isLow && (
           <div className="p-4 bg-[#b45309]/[0.06] border border-[#b45309]/25 space-y-2">
             <div className="text-xs font-bold text-[#b45309]">
-              ⚠️ {lang === "hi" ? "कम विश्वसनीयता — निकटतम कारण चुनें" : "Low confidence — pick the matching remark"}
+              ⚠️{" "}
+              {lang === "hi"
+                ? "कम विश्वसनीयता — निकटतम कारण चुनें"
+                : "Low confidence — pick the matching remark"}
             </div>
             <div className="grid gap-1.5">
               {COMMON_ERROR_OPTIONS.map((opt) => (
@@ -154,8 +166,12 @@ function ConfirmContent() {
           >
             <span>
               {isEditing
-                ? lang === "hi" ? "हो गया" : "Done"
-                : lang === "hi" ? "संपादित करें" : "Edit"}
+                ? lang === "hi"
+                  ? "हो गया"
+                  : "Done"
+                : lang === "hi"
+                  ? "संपादित करें"
+                  : "Edit"}
             </span>
           </button>
         </div>

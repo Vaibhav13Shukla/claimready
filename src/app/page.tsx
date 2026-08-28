@@ -87,7 +87,9 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-14 sm:pt-24 sm:pb-20">
           <div className="cr-badge wipe-in" style={{ ["--d" as string]: "0.15s" }}>
             <span className="cr-tick" />
-            <span>{hi ? "ईपीएफओ दावा अस्वीकृति इंटेलिजेंस" : "EPFO Claim-Rejection Intelligence"}</span>
+            <span>
+              {hi ? "ईपीएफओ दावा अस्वीकृति इंटेलिजेंस" : "EPFO Claim-Rejection Intelligence"}
+            </span>
           </div>
 
           <h1
@@ -100,10 +102,7 @@ export default function LandingPage() {
               </span>
             </span>
             <span className="headline-mask">
-              <span
-                className="rise whitespace-nowrap"
-                style={{ ["--d" as string]: "0.4s" }}
-              >
+              <span className="rise whitespace-nowrap" style={{ ["--d" as string]: "0.4s" }}>
                 <span className="text-[#6b7378] font-semibold">
                   {hi ? "अस्वीकृत होता है। इसे " : "gets rejected. Catch yours "}
                 </span>
@@ -163,12 +162,8 @@ export default function LandingPage() {
                 className="fade-up bg-white p-6 sm:p-7"
                 style={{ ["--d" as string]: `${0.1 + i * 0.08}s` }}
               >
-                <div className="text-[#006cd2] font-semibold text-sm tracking-tight">
-                  {s.k}
-                </div>
-                <h3 className="mt-3 text-lg font-semibold tracking-tight text-[#0a0a0a]">
-                  {s.t}
-                </h3>
+                <div className="text-[#006cd2] font-semibold text-sm tracking-tight">{s.k}</div>
+                <h3 className="mt-3 text-lg font-semibold tracking-tight text-[#0a0a0a]">{s.t}</h3>
                 <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{s.d}</p>
               </div>
             ))}

@@ -16,9 +16,7 @@ export function DisclosureBanner() {
       <div className="max-w-6xl mx-auto flex items-center justify-center gap-2">
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#006cd2] pulse-dot shrink-0" />
         <p>
-          <span className="font-semibold">
-            {lang === "hi" ? "सूचना: " : "Notice: "}
-          </span>
+          <span className="font-semibold">{lang === "hi" ? "सूचना: " : "Notice: "}</span>
           {t("disclosure_banner")}
         </p>
       </div>

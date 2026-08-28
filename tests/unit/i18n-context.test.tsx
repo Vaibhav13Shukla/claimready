@@ -23,7 +23,7 @@ describe("LanguageProvider / useLanguage", () => {
     render(
       <LanguageProvider>
         <Probe />
-      </LanguageProvider>
+      </LanguageProvider>,
     );
     expect(screen.getByTestId("lang").textContent).toBe("en");
   });
@@ -32,7 +32,7 @@ describe("LanguageProvider / useLanguage", () => {
     render(
       <LanguageProvider>
         <Probe />
-      </LanguageProvider>
+      </LanguageProvider>,
     );
 
     act(() => {
@@ -55,7 +55,7 @@ describe("LanguageProvider / useLanguage", () => {
     render(
       <LanguageProvider>
         <Probe />
-      </LanguageProvider>
+      </LanguageProvider>,
     );
     expect(screen.getByTestId("lang").textContent).toBe("hi");
   });
@@ -65,7 +65,7 @@ describe("LanguageProvider / useLanguage", () => {
     render(
       <LanguageProvider>
         <Probe />
-      </LanguageProvider>
+      </LanguageProvider>,
     );
     expect(screen.getByTestId("lang").textContent).toBe("en");
   });
@@ -79,7 +79,7 @@ describe("LanguageProvider / useLanguage", () => {
     render(
       <LanguageProvider>
         <BadKeyProbe />
-      </LanguageProvider>
+      </LanguageProvider>,
     );
     expect(screen.getByTestId("fallback").textContent).toBe("this_key_does_not_exist");
   });

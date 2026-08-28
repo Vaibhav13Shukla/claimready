@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useSyncExternalStore, useCallback, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useSyncExternalStore,
+  useCallback,
+  useEffect,
+} from "react";
 import en from "./en.json";
 import hi from "./hi.json";
 
@@ -81,13 +87,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const dict: Record<string, string> = lang === "hi" ? hi : en;
       return dict[key] || en[key] || (key as string);
     },
-    [lang]
+    [lang],
   );
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t }}>
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, setLang, t }}>{children}</LanguageContext.Provider>
   );
 }
 

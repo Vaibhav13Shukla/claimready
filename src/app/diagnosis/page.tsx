@@ -17,7 +17,10 @@ const OWNER_LABEL: Record<Owner, { en: string; hi: string }> = {
 };
 
 const REMEDY_LABEL: Record<RemedyType, { en: string; hi: string }> = {
-  member_correction: { en: "Member correction (Joint Declaration)", hi: "सदस्य सुधार (जॉइंट डिक्लेरेशन)" },
+  member_correction: {
+    en: "Member correction (Joint Declaration)",
+    hi: "सदस्य सुधार (जॉइंट डिक्लेरेशन)",
+  },
   bank_fix: { en: "Bank KYC / account fix", hi: "बैंक केवाईसी / खाता सुधार" },
   employer_request: { en: "Employer Date-of-Exit request", hi: "नियोक्ता निकास-तिथि अनुरोध" },
   uan_transfer_merge: { en: "UAN transfer / merge request", hi: "यूएएन ट्रांसफर / मर्ज अनुरोध" },
@@ -35,7 +38,10 @@ function DiagnosisContent() {
 
   const diagnosis = useMemo(() => diagnose({ rawErrorText, scheme }), [rawErrorText, scheme]);
   const route = useMemo(() => routeRemedy(diagnosis.root_cause_code), [diagnosis.root_cause_code]);
-  const timeline = useMemo(() => calculateTimeline(diagnosis.root_cause_code), [diagnosis.root_cause_code]);
+  const timeline = useMemo(
+    () => calculateTimeline(diagnosis.root_cause_code),
+    [diagnosis.root_cause_code],
+  );
 
   // Deterministic explanation is pure derived state — no effect needed, and
   // it renders instantly while the (optional) AI-assisted version loads.
@@ -104,7 +110,10 @@ function DiagnosisContent() {
         )}
       </div>
 
-      <h1 className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]" style={{ ["--d" as string]: "0.05s" }}>
+      <h1
+        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        style={{ ["--d" as string]: "0.05s" }}
+      >
         {isHindi ? "मूल कारण एवं समाधान मार्ग" : "Root cause & resolution path"}
       </h1>
 
@@ -145,7 +154,11 @@ function DiagnosisContent() {
         >
           <div className="flex items-center gap-2 text-xs font-bold text-[#0053a3]">
             <span aria-hidden="true">💡</span>
-            <span>{isHindi ? "यह आपकी गलती नहीं — सरल भाषा में:" : "This isn't your fault — in plain words:"}</span>
+            <span>
+              {isHindi
+                ? "यह आपकी गलती नहीं — सरल भाषा में:"
+                : "This isn't your fault — in plain words:"}
+            </span>
             <span
               className={`ml-auto text-[10px] font-semibold px-1.5 py-0.5 border ${
                 aiSource === "ai_assisted"
@@ -170,8 +183,12 @@ function DiagnosisContent() {
             </p>
             <p className="text-[11px] text-neutral-500">
               {route.can_self_service
-                ? isHindi ? "✓ ज़्यादातर ऑनलाइन स्वयं हो सकता है" : "✓ Mostly doable online yourself"
-                : isHindi ? "⚠️ किसी और की कार्रवाई ज़रूरी" : "⚠️ Needs someone else to act"}
+                ? isHindi
+                  ? "✓ ज़्यादातर ऑनलाइन स्वयं हो सकता है"
+                  : "✓ Mostly doable online yourself"
+                : isHindi
+                  ? "⚠️ किसी और की कार्रवाई ज़रूरी"
+                  : "⚠️ Needs someone else to act"}
             </p>
           </div>
           <div className="bg-white p-4 space-y-1">
@@ -215,7 +232,9 @@ function DiagnosisContent() {
 
 export default function DiagnosisPage() {
   return (
-    <Suspense fallback={<div className="text-center py-16 text-neutral-500">Running diagnosis…</div>}>
+    <Suspense
+      fallback={<div className="text-center py-16 text-neutral-500">Running diagnosis…</div>}
+    >
       <DiagnosisContent />
     </Suspense>
   );

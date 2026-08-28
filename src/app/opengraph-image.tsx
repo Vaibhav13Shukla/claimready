@@ -6,93 +6,91 @@ export const contentType = "image/png";
 
 export default async function OpengraphImage() {
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "80px 90px",
+        background: "linear-gradient(135deg, #eaf3fb 0%, #ffffff 55%, #eef4fa 100%)",
+        fontFamily: "sans-serif",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px 90px",
-          background: "linear-gradient(135deg, #eaf3fb 0%, #ffffff 55%, #eef4fa 100%)",
-          fontFamily: "sans-serif",
+          alignItems: "center",
+          gap: 14,
+          marginBottom: 40,
         }}
       >
         <div
           style={{
             display: "flex",
+            width: 56,
+            height: 56,
+            background: "#006cd2",
+            color: "#fff",
+            fontSize: 26,
+            fontWeight: 700,
             alignItems: "center",
-            gap: 14,
-            marginBottom: 40,
+            justifyContent: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              width: 56,
-              height: 56,
-              background: "#006cd2",
-              color: "#fff",
-              fontSize: 26,
-              fontWeight: 700,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            CR
-          </div>
-          <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#0a0a0a" }}>
-            ClaimReady
-          </div>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 15,
-              fontWeight: 600,
-              color: "#0053a3",
-              background: "rgba(0,108,210,0.1)",
-              border: "1px solid rgba(0,108,210,0.25)",
-              padding: "6px 12px",
-              marginLeft: 6,
-            }}
-          >
-            EPFO
-          </div>
+          CR
+        </div>
+        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#0a0a0a" }}>
+          ClaimReady
         </div>
         <div
           style={{
             display: "flex",
-            fontSize: 62,
+            fontSize: 15,
             fontWeight: 600,
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
-            color: "#0a0a0a",
-            maxWidth: 980,
+            color: "#0053a3",
+            background: "rgba(0,108,210,0.1)",
+            border: "1px solid rgba(0,108,210,0.25)",
+            padding: "6px 12px",
+            marginLeft: 6,
           }}
         >
-          1 in 5 PF claims gets rejected.
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 62,
-            fontWeight: 600,
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
-            color: "#006cd2",
-            maxWidth: 980,
-            marginBottom: 32,
-          }}
-        >
-          Catch yours before you file.
-        </div>
-        <div style={{ display: "flex", fontSize: 24, color: "#525252", maxWidth: 820 }}>
-          A pre-flight check + rejection decoder for EPFO claims — independent hackathon
-          prototype, not affiliated with EPFO.
+          EPFO
         </div>
       </div>
-    ),
-    { ...size }
+      <div
+        style={{
+          display: "flex",
+          fontSize: 62,
+          fontWeight: 600,
+          lineHeight: 1.15,
+          letterSpacing: "-0.02em",
+          color: "#0a0a0a",
+          maxWidth: 980,
+        }}
+      >
+        1 in 5 PF claims gets rejected.
+      </div>
+      <div
+        style={{
+          display: "flex",
+          fontSize: 62,
+          fontWeight: 600,
+          lineHeight: 1.15,
+          letterSpacing: "-0.02em",
+          color: "#006cd2",
+          maxWidth: 980,
+          marginBottom: 32,
+        }}
+      >
+        Catch yours before you file.
+      </div>
+      <div style={{ display: "flex", fontSize: 24, color: "#525252", maxWidth: 820 }}>
+        A pre-flight check + rejection decoder for EPFO claims — independent hackathon prototype,
+        not affiliated with EPFO.
+      </div>
+    </div>,
+    { ...size },
   );
 }

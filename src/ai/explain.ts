@@ -56,9 +56,7 @@ export async function generatePlainExplanation(req: ExplanationRequest): Promise
     const { text } = await generateText({
       model: openai(model),
       system: EXPLANATION_SYSTEM_PROMPT,
-      prompt: `Root cause code: ${req.root_cause_code}${
-        req.labelHint ? ` (${req.labelHint})` : ""
-      }.
+      prompt: `Root cause code: ${req.root_cause_code}${req.labelHint ? ` (${req.labelHint})` : ""}.
 Responsible party: ${req.owner}.
 Claim type: ${req.schemeName || "EPFO PF claim"}.
 Language: ${req.language === "hi" ? "Hindi" : "English"}.

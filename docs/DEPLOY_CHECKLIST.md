@@ -10,22 +10,23 @@ account, so they're written for you to run — each one is quick.
 gh repo create claimready --private --source=. --remote=origin
 git push -u origin main
 ```
+
 (No `gh` CLI? Create an empty repo on github.com, then `git remote add origin <url>` and `git push -u origin main`.)
 
 ## 2. Import into Vercel
 
 1. [vercel.com/new](https://vercel.com/new) → import the `claimready` repo.
 2. Framework preset: Vercel auto-detects **Next.js** — no config needed.
-3. Root directory: leave as `.` (this repo *is* the app root, not a monorepo subfolder).
+3. Root directory: leave as `.` (this repo _is_ the app root, not a monorepo subfolder).
 
 ## 3. Set environment variables
 
 In the Vercel project → **Settings → Environment Variables**:
 
-| Variable | Required? | Value |
-|---|---|---|
-| `OPENAI_API_KEY` | Optional | Your OpenAI key. Without it, the app runs entirely on the deterministic fallback — the demo still works, it just won't show the "OpenAI" badge on the diagnosis page. |
-| `OPENAI_MODEL` | Optional | Defaults to `gpt-4o-mini` if unset. |
+| Variable               | Required?   | Value                                                                                                                                                                                                   |
+| ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OPENAI_API_KEY`       | Optional    | Your OpenAI key. Without it, the app runs entirely on the deterministic fallback — the demo still works, it just won't show the "OpenAI" badge on the diagnosis page.                                   |
+| `OPENAI_MODEL`         | Optional    | Defaults to `gpt-4o-mini` if unset.                                                                                                                                                                     |
 | `NEXT_PUBLIC_SITE_URL` | Recommended | Your production URL, e.g. `https://claimready.vercel.app`. Used for the sitemap, robots.txt, and Open Graph/Twitter card image URLs. **You won't know this until after the first deploy** — see step 5. |
 
 ## 4. Deploy
@@ -37,6 +38,7 @@ depending on the project name.
 ## 5. Set `NEXT_PUBLIC_SITE_URL` and redeploy
 
 Now that you have the real URL:
+
 1. Settings → Environment Variables → set `NEXT_PUBLIC_SITE_URL` to it.
 2. Deployments → redeploy (or just push any commit — Vercel redeploys on push).
 

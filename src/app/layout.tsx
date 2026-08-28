@@ -51,11 +51,7 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-white text-[#0a0a0a] selection:bg-[#006cd2]/15 selection:text-[#0053a3]">
@@ -73,14 +69,17 @@ export default function RootLayout({
             <DisclosureBanner />
             <Navbar />
           </div>
-          <main id="main-content" className="flex-1 w-full">{children}</main>
+          <main id="main-content" className="flex-1 w-full">
+            {children}
+          </main>
           <footer className="border-t border-black/10 bg-white py-5 text-center text-[11px] text-neutral-500">
             <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
               <p className="font-medium text-neutral-600">
                 ClaimReady · Build What Moves India 2026
               </p>
               <p>
-                100% synthetic &amp; mocked · no real UAN / Aadhaar / PAN / bank data · not affiliated with EPFO
+                100% synthetic &amp; mocked · no real UAN / Aadhaar / PAN / bank data · not
+                affiliated with EPFO
               </p>
             </div>
           </footer>

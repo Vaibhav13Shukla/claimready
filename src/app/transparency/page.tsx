@@ -81,7 +81,10 @@ export default function TransparencyPage() {
         <span className="cr-tick" />
         <span>{isHindi ? "अनुपालन व पारदर्शिता" : "Compliance & transparency"}</span>
       </div>
-      <h1 className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]" style={{ ["--d" as string]: "0.05s" }}>
+      <h1
+        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        style={{ ["--d" as string]: "0.05s" }}
+      >
         {isHindi ? "क्या वास्तविक है, क्या सिम्युलेटेड" : "Real vs. mocked"}
       </h1>
       <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
@@ -92,7 +95,11 @@ export default function TransparencyPage() {
 
       <div className="mt-6 space-y-5">
         {groups.map((g, i) => (
-          <div key={i} className={`fade-up border p-6 ${g.accent}`} style={{ ["--d" as string]: `${0.12 + i * 0.06}s` }}>
+          <div
+            key={i}
+            className={`fade-up border p-6 ${g.accent}`}
+            style={{ ["--d" as string]: `${0.12 + i * 0.06}s` }}
+          >
             <div className="flex items-center justify-between border-b border-black/10 pb-3 mb-4">
               <h2 className="text-base font-semibold">{g.title}</h2>
               <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-white border border-black/10 text-neutral-600">

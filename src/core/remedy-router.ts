@@ -48,7 +48,8 @@ const ROUTING_MAP: Record<RootCauseCode, RemedyRoute> = {
     remedy_type: "uan_transfer_merge",
     requires_in_person: false,
     can_self_service: true,
-    escalation_tier: "Member self-service (online transfer claim) → EPFO Field Office → EPFiGMS Grievance",
+    escalation_tier:
+      "Member self-service (online transfer claim) → EPFO Field Office → EPFiGMS Grievance",
   },
   UNKNOWN: {
     root_cause_code: "UNKNOWN",

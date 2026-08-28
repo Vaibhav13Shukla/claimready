@@ -4,11 +4,7 @@ import React, { useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "../../i18n/context";
-import {
-  RootCauseCode,
-  RemedyType,
-  DiagnosisResult,
-} from "../../core/taxonomy/taxonomy.schema";
+import { RootCauseCode, RemedyType, DiagnosisResult } from "../../core/taxonomy/taxonomy.schema";
 import { calculateTimeline } from "../../core/timeline";
 import { generateRemedy } from "../../core/remedy";
 import { generateBankLetter } from "../../documents/bank-letter";
@@ -33,16 +29,16 @@ function ActionContent() {
         remedy_type: remedyType,
         estimated_timeline_days: `${timeline.min_days}-${timeline.max_days}`,
       } as DiagnosisResult),
-    [remedyType, timeline]
+    [remedyType, timeline],
   );
 
   const bankLetter = useMemo(
     () => generateBankLetter({ language: isHindi ? "hi" : "en" }),
-    [isHindi]
+    [isHindi],
   );
   const employerLetter = useMemo(
     () => generateGrievanceLetter({ language: isHindi ? "hi" : "en" }),
-    [isHindi]
+    [isHindi],
   );
   const walkthrough = rc === "RC01" || rc === "RC02" ? BASE_WALKTHROUGH_FLOWS[rc] : null;
 
@@ -55,7 +51,7 @@ function ActionContent() {
     window.open(
       `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`,
       "_blank",
-      "noopener,noreferrer"
+      "noopener,noreferrer",
     );
 
   return (
@@ -68,7 +64,10 @@ function ActionContent() {
         <span className="text-xs font-mono font-bold text-neutral-500">{rc}</span>
       </div>
 
-      <h1 className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]" style={{ ["--d" as string]: "0.05s" }}>
+      <h1
+        className="fade-up mt-5 text-2xl sm:text-3xl font-semibold tracking-[-0.03em]"
+        style={{ ["--d" as string]: "0.05s" }}
+      >
         {isHindi ? remedy.title_hi : remedy.title_en}
       </h1>
       <p className="fade-up mt-2 text-sm text-neutral-600" style={{ ["--d" as string]: "0.1s" }}>
@@ -111,7 +110,9 @@ function ActionContent() {
                     {walkthrough.steps[activeStep].screenName}
                   </span>
                   <h2 className="text-base font-semibold mt-0.5">
-                    {isHindi ? walkthrough.steps[activeStep].title_hi : walkthrough.steps[activeStep].title_en}
+                    {isHindi
+                      ? walkthrough.steps[activeStep].title_hi
+                      : walkthrough.steps[activeStep].title_en}
                   </h2>
                 </div>
                 <span className="text-xs font-bold px-2.5 py-1 bg-white border border-black/10 text-neutral-600 shrink-0">
@@ -119,7 +120,9 @@ function ActionContent() {
                 </span>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                {isHindi ? walkthrough.steps[activeStep].description_hi : walkthrough.steps[activeStep].description_en}
+                {isHindi
+                  ? walkthrough.steps[activeStep].description_hi
+                  : walkthrough.steps[activeStep].description_en}
               </p>
               <div className="bg-white border border-black/10 p-3 font-mono text-xs space-y-2">
                 <div className="flex items-center justify-between text-neutral-500 border-b border-black/10 pb-1">
@@ -130,11 +133,17 @@ function ActionContent() {
                   <span className="text-[#006cd2] font-bold">
                     {isHindi ? "करें: " : "Action: "}
                   </span>
-                  {isHindi ? walkthrough.steps[activeStep].simulatedAction_hi : walkthrough.steps[activeStep].simulatedAction_en}
+                  {isHindi
+                    ? walkthrough.steps[activeStep].simulatedAction_hi
+                    : walkthrough.steps[activeStep].simulatedAction_en}
                 </div>
                 <div className="text-[11px] text-[#b45309] flex items-start gap-1.5">
                   <span>💡</span>
-                  <span>{isHindi ? walkthrough.steps[activeStep].tip_hi : walkthrough.steps[activeStep].tip_en}</span>
+                  <span>
+                    {isHindi
+                      ? walkthrough.steps[activeStep].tip_hi
+                      : walkthrough.steps[activeStep].tip_en}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center justify-between pt-1">
@@ -153,7 +162,10 @@ function ActionContent() {
                     <span>{isHindi ? "अगला →" : "Next →"}</span>
                   </button>
                 ) : (
-                  <Link href="/tracker" className="cr-btn cr-btn--primary !min-h-[38px] !px-4 !text-[13px]">
+                  <Link
+                    href="/tracker"
+                    className="cr-btn cr-btn--primary !min-h-[38px] !px-4 !text-[13px]"
+                  >
                     <span>{t("view_tracker")} →</span>
                   </Link>
                 )}
@@ -164,37 +176,53 @@ function ActionContent() {
       )}
 
       {/* Letter for bank / employer */}
-      {(rc === "RC03" || rc === "RC04") && (() => {
-        const letter = rc === "RC03" ? bankLetter : employerLetter;
-        return (
-          <div className="fade-up cr-card mt-6 p-6 space-y-4" style={{ ["--d" as string]: "0.15s" }}>
-            <div className="flex items-center justify-between border-b border-black/10 pb-3">
-              <span className="text-[11px] font-bold px-2 py-0.5 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
-                {rc === "RC03"
-                  ? isHindi ? "बैंक अनुरोध पत्र" : "BANK REQUEST LETTER"
-                  : isHindi ? "नियोक्ता अनुरोध पत्र" : "EMPLOYER REQUEST LETTER"}
-              </span>
-              <button
-                onClick={() => copy(letter.printableText)}
-                className="px-3 py-1.5 bg-white border border-black/10 text-xs font-bold text-[#006cd2] cursor-pointer"
-              >
-                {copied ? `✓ ${isHindi ? "कॉपी हुआ" : "Copied"}` : `📋 ${isHindi ? "कॉपी करें" : "Copy"}`}
-              </button>
+      {(rc === "RC03" || rc === "RC04") &&
+        (() => {
+          const letter = rc === "RC03" ? bankLetter : employerLetter;
+          return (
+            <div
+              className="fade-up cr-card mt-6 p-6 space-y-4"
+              style={{ ["--d" as string]: "0.15s" }}
+            >
+              <div className="flex items-center justify-between border-b border-black/10 pb-3">
+                <span className="text-[11px] font-bold px-2 py-0.5 bg-[#006cd2]/10 text-[#0053a3] border border-[#006cd2]/20">
+                  {rc === "RC03"
+                    ? isHindi
+                      ? "बैंक अनुरोध पत्र"
+                      : "BANK REQUEST LETTER"
+                    : isHindi
+                      ? "नियोक्ता अनुरोध पत्र"
+                      : "EMPLOYER REQUEST LETTER"}
+                </span>
+                <button
+                  onClick={() => copy(letter.printableText)}
+                  className="px-3 py-1.5 bg-white border border-black/10 text-xs font-bold text-[#006cd2] cursor-pointer"
+                >
+                  {copied
+                    ? `✓ ${isHindi ? "कॉपी हुआ" : "Copied"}`
+                    : `📋 ${isHindi ? "कॉपी करें" : "Copy"}`}
+                </button>
+              </div>
+              <pre className="bg-neutral-50 border border-black/10 p-4 text-xs text-neutral-700 whitespace-pre-wrap leading-relaxed max-h-80 overflow-y-auto font-mono">
+                {letter.printableText}
+              </pre>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => window.print()}
+                  className="cr-btn cr-btn--ghost !min-h-[44px] !text-[13px]"
+                >
+                  <span>🖨 {t("print_download")}</span>
+                </button>
+                <button
+                  onClick={() => whatsapp(letter.whatsappText)}
+                  className="cr-btn cr-btn--ghost !min-h-[44px] !text-[13px]"
+                >
+                  <span>💬 {t("whatsapp_share")}</span>
+                </button>
+              </div>
             </div>
-            <pre className="bg-neutral-50 border border-black/10 p-4 text-xs text-neutral-700 whitespace-pre-wrap leading-relaxed max-h-80 overflow-y-auto font-mono">
-              {letter.printableText}
-            </pre>
-            <div className="grid grid-cols-2 gap-3">
-              <button onClick={() => window.print()} className="cr-btn cr-btn--ghost !min-h-[44px] !text-[13px]">
-                <span>🖨 {t("print_download")}</span>
-              </button>
-              <button onClick={() => whatsapp(letter.whatsappText)} className="cr-btn cr-btn--ghost !min-h-[44px] !text-[13px]">
-                <span>💬 {t("whatsapp_share")}</span>
-              </button>
-            </div>
-          </div>
-        );
-      })()}
+          );
+        })()}
 
       {/* Resolution steps (all cases) */}
       <div className="fade-up cr-card mt-6 p-6 space-y-4" style={{ ["--d" as string]: "0.2s" }}>
@@ -208,8 +236,12 @@ function ActionContent() {
                 {i + 1}
               </span>
               <div>
-                <p className="text-sm font-semibold text-[#0a0a0a]">{isHindi ? s.action_hi : s.action}</p>
-                <p className="text-xs text-neutral-600 mt-0.5 leading-relaxed">{isHindi ? s.details_hi : s.details}</p>
+                <p className="text-sm font-semibold text-[#0a0a0a]">
+                  {isHindi ? s.action_hi : s.action}
+                </p>
+                <p className="text-xs text-neutral-600 mt-0.5 leading-relaxed">
+                  {isHindi ? s.details_hi : s.details}
+                </p>
               </div>
             </li>
           ))}
@@ -243,7 +275,10 @@ function ActionContent() {
         </div>
       </div>
 
-      <div className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6" style={{ ["--d" as string]: "0.25s" }}>
+      <div
+        className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6"
+        style={{ ["--d" as string]: "0.25s" }}
+      >
         <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
           ← {t("start_over")}
         </Link>

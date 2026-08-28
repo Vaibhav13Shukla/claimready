@@ -72,10 +72,16 @@ configured.
 
 ## Troubleshooting
 
-**Build fails on Vercel but works locally** — almost always a missing env var
-or a Node version mismatch. This repo pins `engines.node: ">=20"` in
-`package.json`; Vercel's default Node version satisfies this, but if you've
-overridden it in project settings, make sure it's still ≥20.
+**Build fails on Vercel but works locally** — almost always a missing env var.
+Node version is unlikely to be the cause: `jsdom` (the one dependency that
+actually needs Node ^22.22.2 || ^24.15.0 || >=26.0.0, per `package.json`'s
+`engines` field) is a devDependency used only by the unit test suite —
+`next build` never imports it, so Vercel's build step doesn't hit that
+requirement even on an older Node runtime. This was caught for real on the
+first GitHub Actions CI run (pinned to Node 20 — jsdom doesn't support it at
+all) and fixed there; if Vercel's build ever does fail on something
+Node-version-shaped, set the Node version explicitly in Project Settings →
+General → Node.js Version to 22.x or newer.
 
 **CSP blocks something in production that worked locally** — check
 `next.config.ts`'s `securityHeaders`. It was deliberately built against this

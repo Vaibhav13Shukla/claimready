@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://claimready.example.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://pf-xray.vercel.app";
 
 // Static informational pages only — /confirm, /diagnosis, /action, /tracker
 // are stateful, query-param-driven steps in a flow (nothing to index; each

@@ -40,18 +40,18 @@ describe("LanguageProvider / useLanguage", () => {
     });
 
     expect(screen.getByTestId("lang").textContent).toBe("hi");
-    expect(localStorage.getItem("claimready_lang")).toBe("hi");
+    expect(localStorage.getItem("pfxray_lang")).toBe("hi");
     expect(document.documentElement.lang).toBe("hi");
 
     act(() => {
       fireEvent.click(screen.getByText("go-en"));
     });
     expect(screen.getByTestId("lang").textContent).toBe("en");
-    expect(localStorage.getItem("claimready_lang")).toBe("en");
+    expect(localStorage.getItem("pfxray_lang")).toBe("en");
   });
 
   it("reads a previously stored language on mount", () => {
-    localStorage.setItem("claimready_lang", "hi");
+    localStorage.setItem("pfxray_lang", "hi");
     render(
       <LanguageProvider>
         <Probe />
@@ -61,7 +61,7 @@ describe("LanguageProvider / useLanguage", () => {
   });
 
   it("ignores an invalid stored value and falls back to English", () => {
-    localStorage.setItem("claimready_lang", "fr");
+    localStorage.setItem("pfxray_lang", "fr");
     render(
       <LanguageProvider>
         <Probe />

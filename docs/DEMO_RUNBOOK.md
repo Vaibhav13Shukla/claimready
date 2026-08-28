@@ -1,4 +1,4 @@
-# ClaimReady — Demo Runbook
+# PF X-Ray — Demo Runbook
 
 ## Judge quick path (no login required)
 
@@ -17,7 +17,7 @@
 | Time   | On screen                                                                                                             |
 | ------ | --------------------------------------------------------------------------------------------------------------------- |
 | 0–5s   | Real EPFO rejection remark. Caption: **"1 in 5 PF claims ends like this."**                                           |
-| 5–12s  | Open ClaimReady → pick claim type → click a demo rejection.                                                           |
+| 5–12s  | Open PF X-Ray → pick claim type → click a demo rejection.                                                           |
 | 12–22s | Confirm screen — "this is what we read" (editable).                                                                   |
 | 22–35s | Diagnosis: **RC01 · Name mismatch**, 98% confidence, plain-language "this isn't your fault", who fixes it, 7–20 days. |
 | 35–48s | Resolution plan: the simulated EPFO portal walkthrough correcting the name to match Aadhaar.                          |

@@ -23,7 +23,7 @@ export function AssistantWidget() {
   const recRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const speakOnRef = useRef(speakOn);
-  speakOnRef.current = speakOn;
+  useEffect(() => { speakOnRef.current = speakOn; }, [speakOn]);
 
   const sttSupported =
     typeof window !== "undefined" &&

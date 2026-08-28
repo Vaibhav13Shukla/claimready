@@ -42,7 +42,7 @@ export default function LandingPage() {
       t: hi ? "समाधान प्लान पाएं" : "Get the fix plan",
       d: hi
         ? "सटीक कदम, आवश्यक दस्तावेज़, और तैयार पत्र प्राप्त करें।"
-        : "Step-by-step steps, required documents, and pre-formatted letters ready to use.",
+        : "Actionable steps, required documents, and pre-formatted letters ready to use.",
     },
   ];
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
       {/* ---------------- HERO ---------------- */}
       <section className="relative overflow-hidden border-b border-[#e1dfd8] bg-white">
         <div className="max-w-[1200px] mx-auto px-6 sm:px-8 pt-16 pb-16 sm:pt-20 sm:pb-20">
-          <div className="max-w-[820px]">
+          <div className="max-w-[840px]">
             {/* Tagline Badge */}
             <div className="cr-badge wipe-in" style={{ ["--d" as string]: "0.1s" }}>
               <span className="w-2 h-2 rounded-full bg-[#5196fe] shrink-0" />
@@ -121,12 +121,12 @@ export default function LandingPage() {
 
             {/* Subtitle */}
             <p
-              className="fade-up mt-6 max-w-[660px] text-[#6e6e6e] text-[17px] sm:text-[19px] font-normal leading-[1.5] tracking-[-0.015em]"
+              className="fade-up mt-6 max-w-[680px] text-[#6e6e6e] text-[17px] sm:text-[19px] font-normal leading-[1.5] tracking-[-0.015em]"
               style={{ ["--d" as string]: "0.45s" }}
             >
               {hi
-                ? "पीएफ एक्स-रे आपके ईपीएफओ दावे को सामान्य अस्वीकृति कारणों (नाम, जन्मतिथि, बैंक केवाईसी, एग्जिट डेट) से पहले ही जांचता है और सटीक सुधार बताता है।"
-                : "EPFO rejects claims for minor mismatches like name spelling, date of birth, inactive bank KYC, or missing exit dates. PF X-Ray runs a pre-flight check and gives you the exact fix."}
+                ? "ईपीएफओ के दावों में मामूली विसंगतियों (नाम की वर्तनी, जन्मतिथि, बैंक केवाईसी, या छूटी हुई निकास तिथि) से होने वाली अस्वीकृतियों को पहले ही रोकें। पीएफ एक्स-रे प्री-फ्लाइट जांच चलाकर सटीक सुधार बताता है।"
+                : "Even as EPFO expands auto-mode settlements, avoidable rejections persist due to minor profile discrepancies like name spelling, date of birth, unverified bank KYC, or missing exit dates. PF X-Ray runs a pre-flight check and gives you the exact fix."}
             </p>
 
             {/* Action Buttons */}
@@ -156,8 +156,18 @@ export default function LandingPage() {
                 className="cr-btn cr-btn--ghost wipe-in"
                 style={{ ["--d" as string]: "0.78s" }}
               >
-                <span>{hi ? "डेमो नागरिक के रूप में देखें" : "Log in as a demo citizen"}</span>
+                <span>{hi ? "डेमो व जज लॉगिन" : "Judge & Demo logins"}</span>
               </Link>
+            </div>
+
+            {/* Source Citation & Reality Check */}
+            <div className="mt-7 flex items-center gap-2 text-xs text-[#797876]">
+              <span className="text-[#3f75c6]">ℹ</span>
+              <span>
+                {hi
+                  ? "स्रोत: ईपीएफओ वार्षिक रिपोर्ट (2023–24) एवं क्लेम सेटलमेंट आधिकारिक रिलीज़।"
+                  : "Data references: EPFO Annual Reports (2023–24) & FY 2024–25 Claim Settlement releases."}
+              </span>
             </div>
           </div>
         </div>
@@ -204,6 +214,10 @@ export default function LandingPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#5196fe]" />
               {hi ? "हिंदी और अंग्रेज़ी" : "Hindi and English"}
             </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#067a54]" />
+              {hi ? "मुक्त व खुला स्रोत" : "Independent open prototype"}
+            </span>
           </div>
         </div>
       </section>
@@ -217,8 +231,8 @@ export default function LandingPage() {
             </h2>
             <p className="mt-2 text-sm text-[#6e6e6e]">
               {hi
-                ? "अधिकांश अस्वीकृतियां इन 5 श्रेणियों में आती हैं। फाइल करने से पहले इनकी जांच करें।"
-                : "Over 80% of claim rejections belong to these 5 categories. Each has a clear fix path."}
+                ? "अधिकांश रोकी जा सकने वाली अस्वीकृतियां इन 5 मुख्य श्रेणियों में आती हैं। प्रत्येक का स्पष्ट समाधान मार्ग उपलब्ध है।"
+                : "Historically, over 80% of preventable claim rejections stem from these core discrepancy categories. Each has a clear fix path."}
             </p>
           </div>
 

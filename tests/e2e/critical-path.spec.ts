@@ -47,7 +47,9 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
   }) => {
     await page.goto("/intake");
     await page.getByRole("tab", { name: /demo case/i }).click();
-    await page.getByRole("button", { name: /multiple uan found/i }).click();
+    // Wait for the samples grid to render after tab switch
+    await expect(page.getByText(/Multiple UAN found/i)).toBeVisible();
+    await page.getByText(/Multiple UAN found/i).click();
     await expect(page).toHaveURL(/\/confirm/);
 
     await page.getByRole("button", { name: /yes,?\s*run.*diagnosis/i }).click();

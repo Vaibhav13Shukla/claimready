@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 
 // The bundled favicon.ico was a generic unbranded placeholder (a black
-// circle with a white triangle) — not ClaimReady's actual mark. This
-// generates the real one: the same blue "CR" square used in Navbar.tsx,
+// circle with a white triangle) — not PF X-Ray's actual mark. This
+// generates the real one: the same blue "PF" square used in Navbar.tsx,
 // so the browser tab/bookmark icon actually matches the app.
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";

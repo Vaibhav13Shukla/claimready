@@ -12,14 +12,20 @@ const CLAIM_TYPES: { id: Scheme; icon: string; key: string }[] = [
   { id: "PENSION_EPS", icon: "👵", key: "claim_pension" },
 ];
 
-interface GoldenCase {
+export interface GoldenCase {
   id: string;
   scheme: Scheme;
   text: string;
   badge: string;
 }
 
-const GOLDEN_CASES: GoldenCase[] = [
+// Exported (not just used locally) so tests/unit/golden-cases-consistency.test.ts
+// can catch drift against tests/fixtures/golden-cases.json and
+// tests/unit/classifier.test.ts's own goldenCases array — these demo cases are
+// necessarily duplicated across three shapes (UI demo buttons, the golden-case
+// gate, a JSON fixture), and a test enforcing consistency beats a comment
+// asking future edits to remember to update all three by hand.
+export const GOLDEN_CASES: GoldenCase[] = [
   {
     id: "GC-01",
     scheme: "FINAL_SETTLEMENT",

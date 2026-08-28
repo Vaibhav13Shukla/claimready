@@ -93,10 +93,12 @@ export function heuristicExtract(input: ExtractionInput): ExtractionOutput {
 export async function aiExtract(
   input: ExtractionInput,
 ): Promise<{ result: ExtractionOutput; source: "ai_assisted" | "fixture_rules" }> {
-  const fallback = heuristicExtract(input);
-
+  // Only compute the heuristic fallback where it's actually needed (no key,
+  // or the AI call didn't pan out) instead of unconditionally on every call
+  // — on the common AI-configured-and-successful path, that work was
+  // previously always wasted.
   if (!process.env.OPENAI_API_KEY || !input.text || input.text.trim().length < 3) {
-    return { result: fallback, source: "fixture_rules" };
+    return { result: heuristicExtract(input), source: "fixture_rules" };
   }
 
   try {
@@ -114,16 +116,16 @@ export async function aiExtract(
     });
 
     const parsed = ExtractionOutputSchema.safeParse(object);
-    if (!parsed.success) return { result: fallback, source: "fixture_rules" };
+    if (!parsed.success) return { result: heuristicExtract(input), source: "fixture_rules" };
 
     // Prefer the member's explicit claim-type hint if the model returned null.
     const merged: ExtractionOutput = {
       ...parsed.data,
       scheme: parsed.data.scheme ?? input.schemeHint ?? null,
-      raw_error_text: parsed.data.raw_error_text ?? fallback.raw_error_text,
+      raw_error_text: parsed.data.raw_error_text ?? heuristicExtract(input).raw_error_text,
     };
     return { result: merged, source: "ai_assisted" };
   } catch {
-    return { result: fallback, source: "fixture_rules" };
+    return { result: heuristicExtract(input), source: "fixture_rules" };
   }
 }

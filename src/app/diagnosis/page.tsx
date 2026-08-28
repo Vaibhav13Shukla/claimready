@@ -140,7 +140,8 @@ function DiagnosisContent() {
                 : "bg-[#067a54]/10 text-[#067a54] border-[#067a54]/30"
             }`}
           >
-            {Math.round(diagnosis.confidence * 100)}% {isHindi ? "विश्वसनीयता" : "confidence"}
+            {Math.round(diagnosis.confidence * 100)}%{" "}
+            {isHindi ? "निदान विश्वसनीयता" : "diagnosis confidence"}
           </span>
         </div>
 

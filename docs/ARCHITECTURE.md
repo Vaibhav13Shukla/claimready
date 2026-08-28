@@ -21,7 +21,7 @@ The intelligence is the **workflow + state model**, not a chatbot. A general LLM
 - `classifier.ts` — deterministic phrase-match + confidence gate → `DiagnosisResult`. No randomness (see determinism test).
 - `remedy-router.ts` — root cause → owner + remedy type + escalation tier.
 - `timeline.ts` — root cause → working-day window.
-- `case.ts` — in-session case object + a `diagnosed → action_taken → awaiting_cycle → resolved` state machine.
+- `case.ts` — a tested, standalone `diagnosed → action_taken → awaiting_cycle → resolved` state machine (`createInitialCase`/`canTransition`/`transitionCase`) modeling the intended audit-trail lifecycle of a case. **Not currently wired into the live UI** — the pre-flight/decode flow carries state through URL params across pages instead of a persisted `CaseObject`, and `/tracker` (below) is a deliberately free-form demo simulator, not gated by these transition rules, so a judge can jump to any stage to preview it. Kept as the seam a real backend/session layer would plug into.
 
 ### 3. Templates explain (`src/core/remedy.ts`, `src/documents/`)
 

@@ -1,11 +1,11 @@
 {
-  "name": "SubsidySetu — DBT Payment Failure Diagnostic & Recovery",
-  "short_name": "SubsidySetu",
-  "description": "Mobile-first DBT payment failure diagnostic and recovery engine for Indian citizens.",
+  "name": "ClaimReady — EPFO PF Claim Pre-flight Check",
+  "short_name": "ClaimReady",
+  "description": "Check your EPFO provident fund claim against every common rejection reason before you file — and decode it if it was already rejected. Independent hackathon prototype, not affiliated with EPFO.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#090d16",
-  "theme_color": "#090d16",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "orientation": "portrait-primary",
   "icons": [
     {

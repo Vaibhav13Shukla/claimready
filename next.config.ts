@@ -25,8 +25,8 @@ const securityHeaders = [
       // React nor Next.js use eval() in a production build (Next's own CSP
       // docs call this out explicitly).
       `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self'",
       "img-src 'self' data:",
       "media-src 'self' https://d8j0ntlcm91z4.cloudfront.net",
       "connect-src 'self'",

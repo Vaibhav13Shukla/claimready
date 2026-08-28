@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @layer base {
@@ -13,7 +12,9 @@
     --glass-light: rgba(255, 255, 255, 0.55);
     --glass-blur: 18px;
     --radius: 0;
-    --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* --font-inter is set by next/font/google in layout.tsx (self-hosted,
+       no external request) */
+    --font: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     /* semantic accents */
     --red: #d21f3c;

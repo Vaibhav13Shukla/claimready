@@ -1,14 +1,46 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "../i18n/context";
 import { DisclosureBanner } from "../components/DisclosureBanner";
 import { Navbar } from "../components/Navbar";
 
+// Self-hosted via next/font: no external request to fonts.googleapis.com at
+// runtime (was previously a render-blocking @import in globals.css), no
+// layout shift, and it drops the font host from the CSP's attack surface.
+// Exposed as a CSS variable so the existing `--font` custom property in
+// globals.css keeps working without touching every component.
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://claimready.example.com";
+const TITLE = "ClaimReady — Check your EPFO PF claim before it gets rejected";
+const DESCRIPTION =
+  "1 in 5 EPFO claims is rejected for a small, fixable mismatch. ClaimReady runs a pre-flight check on your PF claim, decodes rejections, and gives you the exact fix. Independent hackathon prototype.";
+
 export const metadata: Metadata = {
-  title: "ClaimReady — Check your EPFO PF claim before it gets rejected",
-  description:
-    "1 in 5 EPFO claims is rejected for a small, fixable mismatch. ClaimReady runs a pre-flight check on your PF claim, decodes rejections, and gives you the exact fix. Independent hackathon prototype.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: TITLE, template: "%s · ClaimReady" },
+  description: DESCRIPTION,
   icons: { icon: "/favicon.ico" },
+  manifest: "/manifest.json",
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "ClaimReady",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
@@ -24,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-white text-[#0a0a0a] selection:bg-[#006cd2]/15 selection:text-[#0053a3]">
         <LanguageProvider>
           <a

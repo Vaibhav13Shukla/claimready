@@ -112,8 +112,8 @@ export function AssistantWidget() {
   }, [sttSupported, listening, hi, send]);
 
   const suggestions = hi
-    ? ["मेरा दावा अस्वीकृत हो गया", "मेरा पीएफ कहाँ है?", "मेरा नाम गलत है"]
-    : ["My claim was rejected", "Where is my PF?", "My name is wrong"];
+    ? ["मैंने नौकरी बदली", "मेरा दावा अस्वीकृत हो गया", "मेरा पीएफ कहाँ है?"]
+    : ["I just changed jobs", "My claim was rejected", "Where is my PF?"];
 
   return (
     <>

@@ -135,19 +135,26 @@ export default function LandingPage() {
               style={{ ["--d" as string]: "0.6s" }}
             >
               <Link
-                href="/intake?tab=preflight"
+                href="/job-switch"
                 className="cr-btn cr-btn--primary wipe-in shadow-sm"
                 style={{ ["--d" as string]: "0.62s" }}
               >
-                <span>{hi ? "प्री-फ्लाइट जांच चलाएं" : "Run a pre-flight check"}</span>
+                <span>{hi ? "जॉब बदली? पहले जांचें" : "Changed jobs? Check first"}</span>
                 <span className="cr-btn__icon">
                   <ArrowIcon />
                 </span>
               </Link>
               <Link
-                href="/intake?tab=paste"
+                href="/intake?tab=preflight"
                 className="cr-btn cr-btn--ghost wipe-in"
                 style={{ ["--d" as string]: "0.7s" }}
+              >
+                <span>{hi ? "प्री-फ्लाइट जांच चलाएं" : "Run a pre-flight check"}</span>
+              </Link>
+              <Link
+                href="/intake?tab=paste"
+                className="cr-btn cr-btn--ghost wipe-in"
+                style={{ ["--d" as string]: "0.76s" }}
               >
                 <span>{hi ? "अस्वीकृति डिकोड करें" : "Decode a rejection"}</span>
               </Link>
@@ -168,6 +175,82 @@ export default function LandingPage() {
                   ? "स्रोत: ईपीएफओ वार्षिक रिपोर्ट (2023–24) एवं क्लेम सेटलमेंट आधिकारिक रिलीज़।"
                   : "Data references: EPFO Annual Reports (2023–24) & FY 2024–25 Claim Settlement releases."}
               </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- JOB-SWITCH X-RAY (hero feature) ---------------- */}
+      <section className="border-b border-[#e1dfd8] bg-[#0f2a4a]">
+        <div className="max-w-[1200px] mx-auto px-6 sm:px-8 py-14 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-[9999px] border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
+                <span className="w-2 h-2 rounded-full bg-[#5196fe]" />
+                {hi ? "नया · रोकथाम" : "New · Prevention"}
+              </div>
+              <h2 className="mt-4 text-2xl sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.12] text-white">
+                {hi ? (
+                  "अधिकांश पीएफ दावे उस दिन टूटते हैं जब आप नौकरी बदलते हैं — फाइल करने के दिन नहीं।"
+                ) : (
+                  <>
+                    Most PF claims break the day you{" "}
+                    <span className="font-serif-accent italic text-[#8fc0ff]">change jobs</span> — not
+                    the day you file.
+                  </>
+                )}
+              </h2>
+              <p className="mt-4 text-[15px] sm:text-[16px] text-white/70 leading-[1.55] max-w-[560px]">
+                {hi
+                  ? "जॉब-स्विच एक्स-रे आपके स्विच को दोबारा जीता है और उन अदृश्य टाइम-बमों को दिखाता है — छूटी निकास तिथि, दूसरा यूएएन, बैंक केवाईसी — जो महीनों बाद दावे को अस्वीकृत कराते हैं। सब कुछ फाइल करने से पहले।"
+                  : "Job-Switch X-Ray replays your switch and surfaces the invisible time-bombs — a missing exit date, a second UAN, drifting bank KYC — that reject a claim months later. All of it, before you ever file."}
+              </p>
+              <div className="mt-6">
+                <Link
+                  href="/job-switch"
+                  className="inline-flex items-center gap-2 rounded-[9999px] bg-[#5196fe] hover:bg-[#3f75c6] text-white font-semibold text-[14px] px-5 py-3 transition-colors shadow-sm"
+                >
+                  <span>{hi ? "जॉब-स्विच एक्स-रे चलाएं" : "Run the Job-Switch X-Ray"}</span>
+                  <ArrowIcon />
+                </Link>
+              </div>
+            </div>
+
+            {/* Mini time-bomb preview */}
+            <div className="rounded-[20px] border border-white/15 bg-white/[0.06] p-5 sm:p-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/60">
+                  {hi ? "पीएफ निरंतरता स्कोर" : "PF continuity score"}
+                </span>
+                <span className="text-[12px] font-bold px-2.5 py-1 rounded-[9999px] bg-[#d21f3c]/20 text-[#ff8fa0] border border-[#d21f3c]/30">
+                  {hi ? "2 समस्याएँ" : "2 to fix"}
+                </span>
+              </div>
+              <div className="mt-2 flex items-end gap-2">
+                <span className="text-[44px] font-bold leading-none text-[#ff8fa0]">34</span>
+                <span className="text-white/50 text-sm mb-1.5">/ 100</span>
+              </div>
+              <ul className="mt-4 space-y-2.5">
+                {[
+                  hi ? "निकास तिथि दर्ज नहीं — RC04" : "Date of Exit never filed — RC04",
+                  hi ? "पुराना पीएफ दूसरे यूएएन में — RC05" : "Old PF split across a second UAN — RC05",
+                ].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5 text-[13px] text-white/85">
+                    <span className="text-[#ff8fa0]" aria-hidden="true">
+                      ⏳
+                    </span>
+                    {t}
+                  </li>
+                ))}
+                {[hi ? "बैंक केवाईसी सत्यापित" : "Bank KYC verified"].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5 text-[13px] text-white/50">
+                    <span className="text-[#6ee7b7]" aria-hidden="true">
+                      ✓
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import { z } from "zod";
 
 const ActionType = z.enum([
   "preflight",
+  "job_switch",
   "decode",
   "my_pf",
   "open_case",
@@ -42,6 +43,7 @@ Answer in the SAME language the user used — Hindi or English — in at most 45
 You help with PF claim rejections and money questions. This is a prototype with 100% synthetic data:
 never invent real balances, claim outcomes, deadlines, or government decisions.
 You may trigger EXACTLY ONE app action (or none). Allowed actions:
+- "job_switch": the member changed jobs (or is about to) and wants to know what could break in their PF — run the Job-Switch X-Ray prevention simulator. Prefer this when the member mentions changing/switching jobs, a new employer, or leaving a company.
 - "preflight": run a pre-flight check before filing.
 - "decode": decode a rejection remark the user already got.
 - "my_pf": open the member's My PF home / demo login.
@@ -106,6 +108,30 @@ function heuristic(message: string, lang: "en" | "hi"): AssistantOut {
       action: { type: "open_case", rc: "RC05" },
     };
   }
+  if (
+    has(
+      "changed job",
+      "change job",
+      "changing job",
+      "switched job",
+      "switch job",
+      "job switch",
+      "job change",
+      "new job",
+      "left my job",
+      "new employer",
+      "naukri",
+      "नौकरी",
+      "जॉब",
+    )
+  ) {
+    return {
+      reply: hi
+        ? "नौकरी बदली? जॉब-स्विच एक्स-रे से देखते हैं क्या टूट सकता है।"
+        : "Changed jobs? Let's run the Job-Switch X-Ray to catch what could break.",
+      action: { type: "job_switch" },
+    };
+  }
   if (has("reject", "rejected", "remark", "अस्वीकृत", "खारिज")) {
     return {
       reply: hi ? "अपनी अस्वीकृति टिप्पणी डिकोड करते हैं।" : "Let's decode your rejection remark.",
@@ -139,6 +165,8 @@ function route(out: AssistantOut): { href: string | null; setLang: "en" | "hi" |
   switch (a.type) {
     case "preflight":
       return { href: "/intake?tab=samples", setLang: null };
+    case "job_switch":
+      return { href: "/job-switch", setLang: null };
     case "decode":
       return { href: "/intake?tab=paste", setLang: null };
     case "my_pf":

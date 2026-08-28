@@ -62,6 +62,15 @@ export function Navbar({
           </Link>
 
           <Link
+            href="/job-switch"
+            className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              pathname.startsWith("/job-switch") ? "text-blue-600" : "text-slate-700"
+            }`}
+          >
+            {isHindi ? "जॉब-स्विच एक्स-रे" : "Job-Switch X-Ray"}
+          </Link>
+
+          <Link
             href="/intake?tab=preflight"
             className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
               pathname.startsWith("/intake") || pathname.startsWith("/diagnosis")
@@ -176,6 +185,13 @@ export function Navbar({
             className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
           >
             {isHindi ? "माय ईपीएफओ (होम)" : "My EPFO (Home)"}
+          </Link>
+          <Link
+            href="/job-switch"
+            onClick={() => setOpen(false)}
+            className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+          >
+            {isHindi ? "जॉब-स्विच एक्स-रे" : "Job-Switch X-Ray"}
           </Link>
           <Link
             href="/intake?tab=preflight"

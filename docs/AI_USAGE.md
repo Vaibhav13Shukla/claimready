@@ -6,7 +6,7 @@
 
 The brief requires the prototype to be **built with Codex OR powered by an OpenAI model**, with the submission explaining the AI's contribution.
 
-ClaimReady satisfies this **honestly, via the "powered by an OpenAI model" clause**:
+PF X-Ray satisfies this **honestly, via the "powered by an OpenAI model" clause**:
 
 - **Runtime is genuinely OpenAI-powered.** Two server routes call an OpenAI model through the Vercel AI SDK (`@ai-sdk/openai`):
   - `POST /api/extract` — `generateObject` extracts `{claim_type, rejection_reason, confidence}` from free-text / screenshot text against a Zod schema.

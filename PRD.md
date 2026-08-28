@@ -1,10 +1,10 @@
-# ClaimReady — Product Requirements & Spec
+# PF X-Ray — Product Requirements & Spec
 
 _Build What Moves India 2026 · Platform: EPFO · Independent hackathon prototype_
 
 ## 1. One-line thesis
 
-**Don't file your PF claim and pray. ClaimReady checks it against every common EPFO rejection reason first, tells you in plain language exactly what will get you rejected and how to fix it — and if you were already rejected, it decodes the reason and hands you a resolution packet.**
+**Don't file your PF claim and pray. PF X-Ray checks it against every common EPFO rejection reason first, tells you in plain language exactly what will get you rejected and how to fix it — and if you were already rejected, it decodes the reason and hands you a resolution packet.**
 
 ## 2. Problem (evidence-backed)
 
@@ -68,4 +68,4 @@ Generic "ask EPFO anything" chatbot · PF balance/returns tracker · admin/offic
 
 ## 10. Demo (60s)
 
-Real EPFO rejection screen ("1 in 3 end like this") → ClaimReady pre-flight: "2 issues will get you rejected" → tap each → plain fix → all green "Ready to file" → split-screen vs the 20-day-wait-then-reject path → _"Catch it in 30 seconds, not 30 days."_
+Real EPFO rejection screen ("1 in 3 end like this") → PF X-Ray pre-flight: "2 issues will get you rejected" → tap each → plain fix → all green "Ready to file" → split-screen vs the 20-day-wait-then-reject path → _"Catch it in 30 seconds, not 30 days."_

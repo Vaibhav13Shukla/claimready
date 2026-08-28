@@ -1,4 +1,4 @@
-# ClaimReady
+# PF X-Ray
 
 ### Check your EPFO PF claim before it gets rejected, and decode it if it already was
 
@@ -10,7 +10,7 @@ _Built for the "Build What Moves India" Hackathon 2026 · Platform: EPFO · Inde
 
 **1 in 5 EPFO claims is rejected, almost always for a small, fixable mismatch** (a one-letter name difference, a DOB mismatch, unverified bank KYC, or an employer that never marked your Date of Exit). Citizens wait 15-20 days only to be bounced, then guess and retry.
 
-ClaimReady is a **pre-flight check + rejection decoder** for PF claims:
+PF X-Ray is a **pre-flight check + rejection decoder** for PF claims:
 
 1. **Pre-flight**: pick your claim type / paste your details, and it tells you which rejection reason will hit you and the exact fix, _before_ you file.
 2. **Decode**: already rejected? Paste the remark; it classifies the cause, explains it in plain language, and hands you a resolution plan (steps, documents, who must act, timeline, and a ready-to-send bank/employer letter).

@@ -21,7 +21,7 @@ const sourceSerif = Source_Serif_4({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://claimready.example.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://pf-xray.vercel.app";
 const TITLE = "PF X-Ray: EPFO PF Claim Intelligence and Rejection Prevention";
 const DESCRIPTION =
   "1 in 5 EPFO claims is rejected for a small, fixable mismatch. PF X-Ray runs pre-flight checks, decodes rejection remarks, and provides deterministic resolution packets.";

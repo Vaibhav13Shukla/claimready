@@ -45,7 +45,7 @@ export function Navbar({
               </span>
             </div>
             <p className="text-[11px] text-slate-500 hidden sm:block">
-              {isHindi ? "नागरिक केंद्रित सामाजिक सुरक्षा ऑपरेटिंग सिस्टम" : "Intent-First Social Security Operating Experience"}
+              {isHindi ? "ईपीएफओ दावा जांच और अस्वीकृति रोकथाम" : "EPFO Claim Pre-flight Check & Rejection Decoder"}
             </p>
           </div>
         </Link>

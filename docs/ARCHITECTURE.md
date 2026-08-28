@@ -1,10 +1,10 @@
-# ClaimReady — Architecture
+# PF X-Ray — Architecture
 
 ## Principle
 
 > **AI INTERPRETS → RULES DECIDE → TEMPLATES EXPLAIN → MOCKS RESOLVE**
 
-The intelligence is the **workflow + state model**, not a chatbot. A general LLM can talk about EPFO; it cannot reliably map a specific rejection remark to a specific, safe, testable fix. ClaimReady does.
+The intelligence is the **workflow + state model**, not a chatbot. A general LLM can talk about EPFO; it cannot reliably map a specific rejection remark to a specific, safe, testable fix. PF X-Ray does.
 
 ## Layers
 

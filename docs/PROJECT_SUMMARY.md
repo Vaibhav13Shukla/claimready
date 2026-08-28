@@ -1,15 +1,15 @@
-# Project Summary (for the submission form, <250 words)
+# Project Summary (for the submission form, exactly 250 words)
 
-> Word count: 248. Paste as-is, or edit to taste. Just recount if you change it.
+> Word count: 250. Paste as-is into the submission field.
 
-PF X-Ray is a pre-flight check and rejection decoder for EPFO Provident Fund claims.
+PF X-Ray is a pre-flight check and rejection decoder for citizen EPFO Provident Fund claims.
 
-The problem: roughly 1 in 5 EPFO claims gets rejected, almost always for a small, fixable mismatch: a name spelling difference, a DOB mismatch, unverified bank KYC, or an employer who never updated the exit date. Citizens wait 15-20 days only to be bounced, then guess and retry blind. Every existing resource is reactive; nothing checks before you file.
+The problem: EPFO annual reports show that despite rising claim volumes, many PF withdrawal and transfer requests face rejection for small, fixable data mismatches. A name spelling difference between UAN and Aadhaar, a date-of-birth discrepancy, unverified bank KYC, or a missing Date of Exit can bounce a claim. Citizens wait weeks, receive a cryptic remark, and restart blind. While EPFO has improved overall settlement rates (source: EPFO Annual Report 2023–24), the confusing failure journey remains unaddressed.
 
-What we built: pick your claim type or paste a rejection remark, and ClaimReady runs it against a deterministic root-cause taxonomy (5 codes covering 80%+ of real rejections), explains the exact blocker in plain language (English and Hindi), and hands you a resolution plan: required documents, who must act, a realistic timeline, and a simulated EPFO portal walkthrough for self-service fixes.
+What we built: select your claim type or paste a rejection remark, and PF X-Ray checks it against a deterministic root-cause taxonomy covering the five most common rejection categories. It explains the blocker in plain language (English and Hindi), reconstructs a synthetic Claim X-Ray showing conflicting records, and delivers a resolution plan with required documents, the responsible party, a realistic resolution timeline, and a ready-to-send letter for your bank or employer.
 
-Why it's better: EPFO's portal only tells you a claim failed, not why or what to do next. ClaimReady closes that loop. An OpenAI model interprets messy rejection text, but a deterministic rules engine, not the model, decides the diagnosis, so there are no hallucinated remedies. Every root cause is covered by automated golden-case tests.
+Why it works: an OpenAI model interprets free-text rejection remarks, but a deterministic rules engine decides the final diagnosis—preventing hallucinated remedies. Every root cause is covered by automated golden-case tests.
 
-What's real vs. mocked: the classification engine, OpenAI-powered explanation, and resolution content are fully functional. The EPFO portal walkthrough and lifecycle tracker are simulated with synthetic data. No live government system is touched, and no real Aadhaar, PAN, UAN, or OTP data is accepted.
+What is real versus mocked: the classification engine, OpenAI explanation, and resolution content are fully functional. The EPFO portal walkthrough and lifecycle tracker use synthetic demo data. No live government system is touched, and no real Aadhaar, PAN, UAN, or citizen data is accepted.
 
-Built with Claude Code, spec-first and test-driven; runtime is genuinely OpenAI-powered for everyone per the hackathon's AI-usage rule.
+Built with AI coding agents, spec-first and test-driven; runtime is genuinely OpenAI-powered for everyone.

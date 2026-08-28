@@ -12,7 +12,7 @@ import hi from "./hi.json";
 
 export type Language = "en" | "hi";
 
-const STORAGE_KEY = "claimready_lang";
+const STORAGE_KEY = "pfxray_lang";
 
 // Minimal external store so the language survives across tabs/reloads without
 // a mount-time setState (which would either flash the wrong language or trip

@@ -30,10 +30,10 @@
 ### 0:45 – 1:15 | The Money Shot: Claim X-Ray & Case Reconstruction
 - **Visual:** Click **"Run Pre-Flight Check"** -> Lands on `/diagnosis`. Highlight the **Claim X-Ray** box. Point mouse to the work-history timeline showing the previous employer marked with `⚠ Date of Exit: not updated` and the comparison table.
 - **Voiceover:**
-  > "Here is our signature innovation: **Claim X-Ray**.
+  > "Here is **Claim X-Ray**.
   > Instead of a generic error message, the system reconstructs the member's complete case.
   > It immediately pins the exact blocker: *Your previous employer has not marked your Date of Exit.*
-  > Look at the work history timeline: previous company Northwind Systems is flagged with the exact missing exit date, while the current employer is active.
+  > The work history timeline flags the previous employer, Northwind Systems, with the exact missing exit date, while the current employer remains active.
   > It shows what records were compared, gives a *Confirmed by records* confidence score, and tells you exactly who must act."
 
 ---
@@ -52,7 +52,7 @@
 - **Visual:** Click the language toggle to switch to **हिन्दी**. Navigate to `/tracker` to show the 4-stage lifecycle tracker. End on the clean home screen.
 - **Voiceover:**
   > "Everything is fully bilingual in English and Hindi, accessible to WCAG 2.2 standards, and built on privacy-first synthetic data.
-  > We're not just showing citizens what failed. We're showing them how to move forward.
+  > PF X-Ray identifies what failed and gives citizens the exact steps to fix it.
   > That is PF X-RAY. Thank you."
 
 ---

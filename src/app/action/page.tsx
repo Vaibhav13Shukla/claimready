@@ -92,10 +92,13 @@ function ActionContent() {
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}
+                aria-current={i === activeStep ? "step" : undefined}
                 className={`flex-1 h-1.5 transition-colors cursor-pointer ${
                   i <= activeStep ? "bg-[#006cd2]" : "bg-black/10"
                 }`}
-                aria-label={`Step ${i + 1}`}
+                aria-label={`${isHindi ? "चरण" : "Step"} ${i + 1} ${isHindi ? "में से" : "of"} ${
+                  walkthrough.steps.length
+                }${i === activeStep ? `, ${isHindi ? "वर्तमान" : "current"}` : i < activeStep ? `, ${isHindi ? "पूर्ण" : "completed"}` : ""}`}
               />
             ))}
           </div>
@@ -107,9 +110,9 @@ function ActionContent() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#006cd2]">
                     {walkthrough.steps[activeStep].screenName}
                   </span>
-                  <h3 className="text-base font-semibold mt-0.5">
+                  <h2 className="text-base font-semibold mt-0.5">
                     {isHindi ? walkthrough.steps[activeStep].title_hi : walkthrough.steps[activeStep].title_en}
-                  </h3>
+                  </h2>
                 </div>
                 <span className="text-xs font-bold px-2.5 py-1 bg-white border border-black/10 text-neutral-600 shrink-0">
                   {activeStep + 1} / {walkthrough.steps.length}
@@ -195,9 +198,9 @@ function ActionContent() {
 
       {/* Resolution steps (all cases) */}
       <div className="fade-up cr-card mt-6 p-6 space-y-4" style={{ ["--d" as string]: "0.2s" }}>
-        <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-neutral-500">
+        <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-neutral-500">
           {isHindi ? "समाधान के कदम" : "Steps to resolve"}
-        </h3>
+        </h2>
         <ol className="space-y-3">
           {remedy.steps.map((s, i) => (
             <li key={i} className="flex gap-3">
@@ -241,10 +244,10 @@ function ActionContent() {
       </div>
 
       <div className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6" style={{ ["--d" as string]: "0.25s" }}>
-        <Link href="/intake" className="hover:text-[#006cd2]">
+        <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
           ← {t("start_over")}
         </Link>
-        <Link href="/tracker" className="hover:text-[#006cd2]">
+        <Link href="/tracker" className="inline-block py-2 hover:text-[#006cd2]">
           {t("view_tracker")} →
         </Link>
       </div>

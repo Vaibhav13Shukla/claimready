@@ -33,8 +33,13 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          <DisclosureBanner />
-          <Navbar />
+          {/* One shared sticky wrapper instead of each child hardcoding its
+              own top offset — the banner can wrap to two lines (long text,
+              narrow viewport, 200% zoom) without the Navbar overlapping it. */}
+          <div className="sticky top-0 z-50">
+            <DisclosureBanner />
+            <Navbar />
+          </div>
           <main id="main-content" className="flex-1 w-full">{children}</main>
           <footer className="border-t border-black/10 bg-white py-5 text-center text-[11px] text-neutral-500">
             <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">

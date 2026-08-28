@@ -161,13 +161,18 @@
 /* ---------- Nav ---------- */
 .cr-navlink {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   color: var(--text);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1;
   white-space: nowrap;
-  padding-bottom: 2px;
+  /* WCAG 2.5.8: keep the clickable area >=24px tall even though the text
+     itself is small — padding, not a taller font, so the layout is unchanged. */
+  padding: 10px 2px 12px;
+  margin: -10px -2px -12px;
   transition: color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -196,39 +201,15 @@
   display: block;
   overflow: hidden;
 }
+/* A single text node whose color animates muted -> accent blue. The earlier
+   version used two ::before/::after pseudo-elements with content: attr(data-text)
+   to fake a left-to-right paint-on reveal, but generated content is exposed to
+   the accessibility tree in Chromium, so a screen reader read the headline's
+   key phrase 2-3 times over. This keeps the same "the accent catches your eye
+   a beat after the headline lands" feel with exactly one copy of the text. */
 .accent-paint {
-  position: relative;
   color: var(--headline-muted);
-}
-.accent-paint::before,
-.accent-paint::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(100% - 72px),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(100% - 72px),
-    transparent 100%
-  );
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 0% 100%;
-  mask-size: 0% 100%;
-}
-.accent-paint::before {
-  color: #7eb6ee;
-  animation: accent-fill 1.05s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
-}
-.accent-paint::after {
-  color: var(--blue);
-  animation: accent-fill 1.05s cubic-bezier(0.4, 0, 0.2, 1) 1.08s forwards;
+  animation: accent-color 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
 }
 
 /* ---------- Entrance animations ---------- */
@@ -276,14 +257,9 @@
     transform: none;
   }
 }
-@keyframes accent-fill {
-  from {
-    -webkit-mask-size: 0% 100%;
-    mask-size: 0% 100%;
-  }
+@keyframes accent-color {
   to {
-    -webkit-mask-size: calc(100% + 72px) 100%;
-    mask-size: calc(100% + 72px) 100%;
+    color: var(--blue);
   }
 }
 @keyframes pulse-dot {
@@ -331,10 +307,7 @@
     animation: none !important;
   }
   .accent-paint {
+    animation: none !important;
     color: var(--blue);
-  }
-  .accent-paint::before,
-  .accent-paint::after {
-    content: none;
   }
 }

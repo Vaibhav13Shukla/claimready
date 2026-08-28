@@ -84,7 +84,8 @@ function ConfirmContent() {
             <select
               value={scheme}
               onChange={(e) => setScheme(e.target.value as Scheme)}
-              className="w-full cr-card p-2.5 text-sm focus:outline-none focus:border-[#006cd2]"
+              aria-label={lang === "hi" ? "दावा प्रकार" : "Claim type"}
+              className="w-full cr-card p-2.5 text-sm"
             >
               {(Object.keys(CLAIM_LABEL) as Scheme[]).map((s) => (
                 <option key={s} value={s}>
@@ -109,7 +110,8 @@ function ConfirmContent() {
               rows={3}
               value={errorText}
               onChange={(e) => setErrorText(e.target.value)}
-              className="w-full cr-card p-3 text-sm focus:outline-none focus:border-[#006cd2]"
+              aria-label={lang === "hi" ? "पढ़ी गई अस्वीकृति टिप्पणी" : "Extracted rejection remark"}
+              className="w-full cr-card p-3 text-sm"
             />
           ) : (
             <div className="cr-card p-3.5 text-sm font-medium text-[#0053a3]">
@@ -147,6 +149,7 @@ function ConfirmContent() {
           </button>
           <button
             onClick={() => setIsEditing((v) => !v)}
+            aria-pressed={isEditing}
             className="cr-btn cr-btn--ghost !min-h-[52px]"
           >
             <span>

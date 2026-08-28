@@ -29,7 +29,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className="w-full bg-white/85 backdrop-blur-md border-b border-black/[0.07] sticky top-[26px] z-40">
+    <header className="w-full bg-white/85 backdrop-blur-md border-b border-black/[0.07]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2.5 group" aria-label="ClaimReady home">
           <Logo />
@@ -53,9 +53,8 @@ export function Navbar() {
           <button
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
             className="text-xs font-semibold px-3 py-2 cr-glass text-[#0a0a0a] hover:text-[#006cd2] transition-colors cursor-pointer"
-            aria-label="Toggle language"
           >
-            🌐 {t("switch_lang")}
+            <span aria-hidden="true">🌐</span> {t("switch_lang")}
           </button>
           <Link
             href="/intake"
@@ -65,7 +64,7 @@ export function Navbar() {
           </Link>
           <button
             className="md:hidden inline-flex flex-col justify-center gap-[5px] w-9 h-9 items-center"
-            aria-label="Open menu"
+            aria-label={open ? (lang === "hi" ? "मेनू बंद करें" : "Close menu") : lang === "hi" ? "मेनू खोलें" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
           >
@@ -77,7 +76,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-black/[0.07] px-5 py-3 flex flex-col gap-1 bg-white">
+        <nav className="md:hidden border-t border-black/[0.07] px-5 py-3 flex flex-col gap-1 bg-white" aria-label="Primary">
           {links.map((l) => (
             <Link
               key={l.href}

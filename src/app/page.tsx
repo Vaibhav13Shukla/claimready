@@ -22,12 +22,19 @@ export default function LandingPage() {
   const { lang } = useLanguage();
   const hi = lang === "hi";
 
-  // Pause the decorative hero video for users who prefer reduced motion (WCAG 2.2.2).
+  // Pause the decorative hero video for users who prefer reduced motion
+  // (WCAG 2.2.2), and keep listening — a user can flip this OS setting
+  // mid-session and an already-playing video should stop retroactively.
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      videoRef.current?.pause();
-    }
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const applyPreference = () => {
+      if (mq.matches) videoRef.current?.pause();
+      else videoRef.current?.play().catch(() => {});
+    };
+    applyPreference();
+    mq.addEventListener("change", applyPreference);
+    return () => mq.removeEventListener("change", applyPreference);
   }, []);
 
   const steps = [
@@ -100,10 +107,7 @@ export default function LandingPage() {
                 <span className="text-[#6b7378] font-semibold">
                   {hi ? "अस्वीकृत होता है। इसे " : "gets rejected. Catch yours "}
                 </span>
-                <span
-                  className="accent-paint font-semibold"
-                  data-text={hi ? "पहले पकड़ें।" : "before you file."}
-                >
+                <span className="accent-paint font-semibold">
                   {hi ? "पहले पकड़ें।" : "before you file."}
                 </span>
               </span>

@@ -93,12 +93,13 @@ export default function TrackerPage() {
               <button
                 key={s.id}
                 onClick={() => setCurrent(s.id)}
+                aria-current={isCur ? "step" : undefined}
                 className={`w-full text-left p-4 border transition-colors cursor-pointer flex items-start gap-4 ${
                   isCur
                     ? "border-[#006cd2] bg-[#006cd2]/[0.04]"
                     : done
                     ? "border-black/10 bg-white"
-                    : "border-black/[0.06] bg-neutral-50 opacity-70"
+                    : "border-black/[0.06] bg-neutral-50"
                 }`}
               >
                 <span
@@ -143,10 +144,10 @@ export default function TrackerPage() {
       </div>
 
       <div className="fade-up flex items-center justify-between text-xs text-neutral-500 mt-6" style={{ ["--d" as string]: "0.2s" }}>
-        <Link href="/intake" className="hover:text-[#006cd2]">
+        <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
           ← {t("start_over")}
         </Link>
-        <Link href="/transparency" className="hover:text-[#006cd2]">
+        <Link href="/transparency" className="inline-block py-2 hover:text-[#006cd2]">
           {t("transparency_link")} →
         </Link>
       </div>

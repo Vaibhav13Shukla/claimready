@@ -135,10 +135,16 @@ function DiagnosisContent() {
           </span>
         </div>
 
-        {/* Explanation */}
-        <div className="p-4 bg-[#006cd2]/[0.04] border border-[#006cd2]/15 space-y-2">
+        {/* Explanation — role="status" + aria-live so screen reader users are
+            told when the deterministic text is replaced by the AI-fetched
+            one a moment later, instead of it silently changing under them. */}
+        <div
+          role="status"
+          aria-live="polite"
+          className="p-4 bg-[#006cd2]/[0.04] border border-[#006cd2]/15 space-y-2"
+        >
           <div className="flex items-center gap-2 text-xs font-bold text-[#0053a3]">
-            <span>💡</span>
+            <span aria-hidden="true">💡</span>
             <span>{isHindi ? "यह आपकी गलती नहीं — सरल भाषा में:" : "This isn't your fault — in plain words:"}</span>
             <span
               className={`ml-auto text-[10px] font-semibold px-1.5 py-0.5 border ${
@@ -194,10 +200,10 @@ function DiagnosisContent() {
             </span>
           </Link>
           <div className="flex items-center justify-between text-xs text-neutral-500">
-            <Link href="/intake" className="hover:text-[#006cd2]">
+            <Link href="/intake" className="inline-block py-2 hover:text-[#006cd2]">
               ← {t("start_over")}
             </Link>
-            <Link href="/tracker" className="hover:text-[#006cd2]">
+            <Link href="/tracker" className="inline-block py-2 hover:text-[#006cd2]">
               {t("view_tracker")} →
             </Link>
           </div>

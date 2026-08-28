@@ -126,15 +126,17 @@ function IntakeContent() {
       </p>
 
       {/* Claim type */}
-      <div className="fade-up mt-7" style={{ ["--d" as string]: "0.15s" }}>
-        <label className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
+      <fieldset className="fade-up mt-7 border-0 p-0 m-0" style={{ ["--d" as string]: "0.15s" }}>
+        <legend className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
           {t("select_scheme")}
-        </label>
-        <div className="grid grid-cols-3 gap-px bg-black/[0.08] mt-2 border border-black/10">
+        </legend>
+        <div className="grid grid-cols-3 gap-px bg-black/[0.08] mt-2 border border-black/10" role="radiogroup" aria-label={t("select_scheme")}>
           {CLAIM_TYPES.map((c) => (
             <button
               key={c.id}
               type="button"
+              role="radio"
+              aria-checked={scheme === c.id}
               onClick={() => setScheme(c.id)}
               className={`p-3 text-left transition-colors cursor-pointer ${
                 scheme === c.id ? "bg-[#006cd2] text-white" : "bg-white text-neutral-700 hover:bg-[#006cd2]/[0.06]"
@@ -145,13 +147,15 @@ function IntakeContent() {
             </button>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       {/* Tabs */}
-      <div className="fade-up mt-7 flex gap-6 border-b border-black/10" style={{ ["--d" as string]: "0.2s" }}>
+      <div className="fade-up mt-7 flex gap-6 border-b border-black/10" style={{ ["--d" as string]: "0.2s" }} role="tablist">
         {tabs.map((tb) => (
           <button
             key={tb.id}
+            role="tab"
+            aria-selected={activeTab === tb.id}
             onClick={() => setActiveTab(tb.id)}
             className={`pb-2.5 text-xs font-semibold border-b-2 -mb-px transition-colors cursor-pointer ${
               activeTab === tb.id
@@ -199,7 +203,7 @@ function IntakeContent() {
             onChange={(e) => setErrorText(e.target.value)}
             placeholder={t("intake_paste_placeholder")}
             aria-label={t("intake_tab_paste")}
-            className="w-full cr-card p-3.5 text-sm text-[#0a0a0a] placeholder:text-neutral-500 focus:outline-none focus:border-[#006cd2] transition-colors"
+            className="w-full cr-card p-3.5 text-sm text-[#0a0a0a] placeholder:text-neutral-500 transition-colors"
             required
           />
           <div className="flex flex-wrap gap-1.5">

@@ -69,7 +69,7 @@ export default function TransparencyPage() {
         },
         {
           t: "No government affiliation",
-          d: "ClaimReady is an independent project built for Build What Moves India 2026. It is not affiliated with EPFO or the Government of India.",
+          d: "PF X-Ray is an independent project built for Build What Moves India 2026. It is not affiliated with EPFO or the Government of India.",
         },
       ],
     },

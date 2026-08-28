@@ -15,7 +15,7 @@ export default function ErrorBoundary({
   retry: () => void;
 }) {
   useEffect(() => {
-    console.error("[ClaimReady] Unhandled error in a route segment:", error);
+    console.error("[PF X-Ray] Unhandled error in a route segment:", error);
   }, [error]);
 
   return (

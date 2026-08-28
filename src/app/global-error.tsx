@@ -26,7 +26,7 @@ export default function GlobalError({
       >
         <div style={{ maxWidth: 420, textAlign: "center", padding: 24 }}>
           <h1 style={{ fontSize: 22, fontWeight: 600, marginBottom: 8 }}>
-            ClaimReady hit an unexpected error.
+            PF X-Ray hit an unexpected error.
           </h1>
           <p style={{ fontSize: 14, color: "#525252", marginBottom: 24 }}>
             आपके दावे का कोई डेटा नहीं खोया। यह डेमो केवल आपके ब्राउज़र सत्र में चलता है। फिर से कोशिश

@@ -1,9 +1,9 @@
 {
-  "app_name": "ClaimReady",
+  "app_name": "PF X-Ray",
   "tagline": "EPFO PF Claim Rejection: Check Before You File",
   "disclosure_banner": "Independent project. All data is synthetic. Not affiliated with EPFO or any government body.",
   "hero_title": "Will your PF claim get rejected? Find out before you file.",
-  "hero_subtitle": "1 in 5 EPFO claims gets rejected, usually for a small fixable mismatch. ClaimReady checks your claim against common rejection reasons and gives you the exact fix.",
+  "hero_subtitle": "1 in 5 EPFO claims gets rejected, usually for a small fixable mismatch. PF X-Ray checks your claim against common rejection reasons and gives you the exact fix.",
   "cta_preflight": "Run a Pre-flight Check",
   "cta_decode": "Decode a Rejection",
   "select_scheme": "Select your claim type",

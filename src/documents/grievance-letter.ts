@@ -51,7 +51,7 @@ ${employer}
 ${name}
 मो.: 98XXXXXXXX`;
 
-    const whatsappText = `*ClaimReady: निकास तिथि अनुरोध*
+    const whatsappText = `*PF X-Ray: निकास तिथि अनुरोध*
 UAN: ${uan} | Claim: ${claimId}
 पूर्व नियोक्ता: ${employer}
 कार्य: नियोक्ता से Date of Exit अपडेट कराएं; 15 दिनों में न हो तो स्वयं निकास चिह्नित करें + EPFiGMS।
@@ -84,7 +84,7 @@ Yours faithfully,
 ${name}
 Contact: 98XXXXXXXX`;
 
-  const whatsappText = `*ClaimReady: Date of Exit Request*
+  const whatsappText = `*PF X-Ray: Date of Exit Request*
 UAN: ${uan} | Claim: ${claimId}
 Previous employer: ${employer}
 Action: Get employer to update Date of Exit; if not in 15 days, self-mark exit + EPFiGMS.

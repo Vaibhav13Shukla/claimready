@@ -48,7 +48,7 @@ ${bank}, ${branch}
 ${name}
 मो.: 98XXXXXXXX`;
 
-    const whatsappText = `*ClaimReady: बैंक केवाईसी सुधार अनुरोध*
+    const whatsappText = `*PF X-Ray: बैंक केवाईसी सुधार अनुरोध*
 खाता: ${account}
 बैंक: ${bank}
 UAN: ${uan}
@@ -82,7 +82,7 @@ Yours faithfully,
 ${name}
 Contact: 98XXXXXXXX`;
 
-  const whatsappText = `*ClaimReady: Bank KYC Correction Request*
+  const whatsappText = `*PF X-Ray: Bank KYC Correction Request*
 Account: ${account}
 Bank: ${bank}
 UAN: ${uan}

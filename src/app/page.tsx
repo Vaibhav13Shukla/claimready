@@ -125,8 +125,8 @@ export default function LandingPage() {
               style={{ ["--d" as string]: "0.45s" }}
             >
               {hi
-                ? "क्लेमरेडी आपके ईपीएफओ दावे को सामान्य अस्वीकृति कारणों (नाम, जन्मतिथि, बैंक केवाईसी, एग्जिट डेट) से पहले ही जांचता है और सटीक सुधार बताता है।"
-                : "EPFO rejects claims for minor mismatches like name spelling, date of birth, inactive bank KYC, or missing exit dates. ClaimReady runs a pre-flight check and gives you the exact fix."}
+                ? "पीएफ एक्स-रे आपके ईपीएफओ दावे को सामान्य अस्वीकृति कारणों (नाम, जन्मतिथि, बैंक केवाईसी, एग्जिट डेट) से पहले ही जांचता है और सटीक सुधार बताता है।"
+                : "EPFO rejects claims for minor mismatches like name spelling, date of birth, inactive bank KYC, or missing exit dates. PF X-Ray runs a pre-flight check and gives you the exact fix."}
             </p>
 
             {/* Action Buttons */}

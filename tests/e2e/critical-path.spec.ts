@@ -33,12 +33,17 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
 
     // Action page: resolution steps render, and the tracker is reachable.
     await expect(page.getByRole("heading", { name: /steps to resolve/i })).toBeVisible();
-    await page.getByRole("link", { name: /resolution timeline/i }).first().click();
+    await page
+      .getByRole("link", { name: /resolution timeline/i })
+      .first()
+      .click();
     await expect(page).toHaveURL(/\/tracker/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  test("GC-07 multiple UAN (RC05, added Day 2) classifies correctly end-to-end", async ({ page }) => {
+  test("GC-07 multiple UAN (RC05, added Day 2) classifies correctly end-to-end", async ({
+    page,
+  }) => {
     await page.goto("/intake");
     await page.getByRole("button", { name: /multiple uan found/i }).click();
     await expect(page).toHaveURL(/\/confirm/);
@@ -79,5 +84,33 @@ test.describe("Judge critical path (pre-flight -> resolution)", () => {
     await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
     await expect(page).toHaveURL(/\/diagnosis/);
     await expect(page.getByText("RC04")).toBeVisible();
+  });
+
+  test("Unrecognized rejection text (UNKNOWN path) renders the diagnosis page without crashing", async ({
+    page,
+  }) => {
+    // Regression test: getUnknownResult() used to return owner: "CSC" /
+    // remedy_type: "csc_referral" — neither a real Owner/RemedyType enum
+    // member — which crashed this exact page (OWNER_LABEL[diagnosis.owner].hi
+    // threw on the undefined lookup). A unit test on diagnose()'s return
+    // value alone couldn't catch this; it takes an actual render.
+    const errors: string[] = [];
+    page.on("pageerror", (err) => errors.push(err.message));
+
+    await page.goto("/intake");
+    await page.getByRole("tab", { name: /paste/i }).click();
+    await page
+      .getByRole("textbox")
+      .fill("My claim is stuck for reasons I don't understand, please help");
+    await page.getByRole("button", { name: /diagnose/i }).click();
+
+    await expect(page).toHaveURL(/\/confirm/);
+    await page.getByRole("button", { name: /yes, run the diagnosis/i }).click();
+    await expect(page).toHaveURL(/\/diagnosis/);
+
+    // The page must actually render its content, not a crashed blank screen.
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByText(/EPFO field office|ईपीएफओ फील्ड ऑफिस/i)).toBeVisible();
+    expect(errors).toEqual([]);
   });
 });

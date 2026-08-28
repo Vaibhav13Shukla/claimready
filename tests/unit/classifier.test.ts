@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { diagnose } from "../../src/core/classifier";
+import { Owner, RemedyType } from "../../src/core/taxonomy/taxonomy.schema";
 import type { DiagnosisResult, Scheme } from "../../src/core/taxonomy/taxonomy.schema";
 
 interface GoldenCase {
@@ -14,19 +15,34 @@ const goldenCases: GoldenCase[] = [
     id: "GC-01",
     scheme: "FINAL_SETTLEMENT",
     input: "Claim rejected: Name mismatch as per Aadhaar",
-    expected: { root_cause: "RC01", owner: "MEMBER_SELF", remedy_type: "member_correction", min_confidence: 0.5 },
+    expected: {
+      root_cause: "RC01",
+      owner: "MEMBER_SELF",
+      remedy_type: "member_correction",
+      min_confidence: 0.5,
+    },
   },
   {
     id: "GC-02",
     scheme: "PF_ADVANCE",
     input: "Rejected: Name mismatch between UAN and bank KYC",
-    expected: { root_cause: "RC01", owner: "MEMBER_SELF", remedy_type: "member_correction", min_confidence: 0.5 },
+    expected: {
+      root_cause: "RC01",
+      owner: "MEMBER_SELF",
+      remedy_type: "member_correction",
+      min_confidence: 0.5,
+    },
   },
   {
     id: "GC-03",
     scheme: "FINAL_SETTLEMENT",
     input: "Claim rejected: Date of Birth not matching Aadhaar",
-    expected: { root_cause: "RC02", owner: "MEMBER_SELF", remedy_type: "member_correction", min_confidence: 0.5 },
+    expected: {
+      root_cause: "RC02",
+      owner: "MEMBER_SELF",
+      remedy_type: "member_correction",
+      min_confidence: 0.5,
+    },
   },
   {
     id: "GC-04",
@@ -38,7 +54,12 @@ const goldenCases: GoldenCase[] = [
     id: "GC-05",
     scheme: "FINAL_SETTLEMENT",
     input: "Rejected: Date of Exit not updated by employer",
-    expected: { root_cause: "RC04", owner: "EMPLOYER", remedy_type: "employer_request", min_confidence: 0.5 },
+    expected: {
+      root_cause: "RC04",
+      owner: "EMPLOYER",
+      remedy_type: "employer_request",
+      min_confidence: 0.5,
+    },
   },
   {
     id: "GC-06",
@@ -50,7 +71,12 @@ const goldenCases: GoldenCase[] = [
     id: "GC-07",
     scheme: "FINAL_SETTLEMENT",
     input: "Claim rejected: Multiple UAN found, previous PF account not transferred",
-    expected: { root_cause: "RC05", owner: "MEMBER_SELF", remedy_type: "uan_transfer_merge", min_confidence: 0.5 },
+    expected: {
+      root_cause: "RC05",
+      owner: "MEMBER_SELF",
+      remedy_type: "uan_transfer_merge",
+      min_confidence: 0.5,
+    },
   },
 ];
 
@@ -61,6 +87,14 @@ describe("Golden Case Gate — classifier must pass all 6/6 EPFO cases determini
       expect(result.root_cause_code).toBe(gc.expected.root_cause);
       expect(result.owner).toBe(gc.expected.owner);
       expect(result.remedy_type).toBe(gc.expected.remedy_type);
+      // Strict enum validation, not just "matches the expected string" — an
+      // `as Owner`/`as RemedyType` cast can silently lie about its type
+      // (this caught a real bug: getUnknownResult() used to return
+      // owner: "CSC" / remedy_type: "csc_referral", neither a real enum
+      // member, which crashed the diagnosis page's OWNER_LABEL/REMEDY_LABEL
+      // lookups for any unrecognized rejection text).
+      expect(() => Owner.parse(result.owner)).not.toThrow();
+      expect(() => RemedyType.parse(result.remedy_type)).not.toThrow();
       expect(result.confidence).toBeGreaterThanOrEqual(gc.expected.min_confidence);
       expect(result.confidence).toBeLessThanOrEqual(1);
       expect(result.label_en).toBeTruthy();
@@ -69,6 +103,20 @@ describe("Golden Case Gate — classifier must pass all 6/6 EPFO cases determini
       expect(result.explanation_hi).toBeTruthy();
       expect(result.estimated_timeline_days).toBeTruthy();
     });
+  });
+});
+
+describe("UNKNOWN result — owner/remedy_type must be real enum members", () => {
+  it("returns EPFO_OFFICE/epfigms_grievance (matching remedy-router's own UNKNOWN routing), not a made-up value", () => {
+    const r = diagnose({
+      rawErrorText: "some genuinely unrecognizable rejection text",
+      scheme: "FINAL_SETTLEMENT",
+    });
+    expect(r.root_cause_code).toBe("UNKNOWN");
+    expect(r.owner).toBe("EPFO_OFFICE");
+    expect(r.remedy_type).toBe("epfigms_grievance");
+    expect(() => Owner.parse(r.owner)).not.toThrow();
+    expect(() => RemedyType.parse(r.remedy_type)).not.toThrow();
   });
 });
 
@@ -107,18 +155,27 @@ describe("Adversarial & Edge Cases", () => {
   });
 
   it("ADV-05: dormant bank account → RC03", () => {
-    const r = diagnose({ rawErrorText: "Transaction failed: bank account dormant", scheme: "PENSION_EPS" });
+    const r = diagnose({
+      rawErrorText: "Transaction failed: bank account dormant",
+      scheme: "PENSION_EPS",
+    });
     expect(r.root_cause_code).toBe("RC03");
     expect(r.owner).toBe("BANK");
   });
 
   it("ADV-06: IFSC invalid / payment returned → RC03", () => {
-    const r = diagnose({ rawErrorText: "IFSC invalid - bank returned payment", scheme: "FINAL_SETTLEMENT" });
+    const r = diagnose({
+      rawErrorText: "IFSC invalid - bank returned payment",
+      scheme: "FINAL_SETTLEMENT",
+    });
     expect(r.root_cause_code).toBe("RC03");
   });
 
   it("ADV-07: DOB mismatch → RC02", () => {
-    const r = diagnose({ rawErrorText: "dob mismatch with aadhaar records", scheme: "FINAL_SETTLEMENT" });
+    const r = diagnose({
+      rawErrorText: "dob mismatch with aadhaar records",
+      scheme: "FINAL_SETTLEMENT",
+    });
     expect(r.root_cause_code).toBe("RC02");
     expect(r.owner).toBe("MEMBER_SELF");
   });
@@ -142,13 +199,17 @@ describe("Adversarial & Edge Cases", () => {
   });
 
   it("ADV-11: weird casing → RC01", () => {
-    const r = diagnose({ rawErrorText: "NaMe MiSmAtCh As PeR aAdHaAr", scheme: "FINAL_SETTLEMENT" });
+    const r = diagnose({
+      rawErrorText: "NaMe MiSmAtCh As PeR aAdHaAr",
+      scheme: "FINAL_SETTLEMENT",
+    });
     expect(r.root_cause_code).toBe("RC01");
   });
 
   it("ADV-13: Hinglish multiple-UAN phrasing → RC05", () => {
     const r = diagnose({
-      rawErrorText: "do UAN number hai, dusra PF account transfer nahi hua - multiple uan not merged",
+      rawErrorText:
+        "do UAN number hai, dusra PF account transfer nahi hua - multiple uan not merged",
       scheme: "FINAL_SETTLEMENT",
     });
     expect(r.root_cause_code).toBe("RC05");
@@ -157,7 +218,8 @@ describe("Adversarial & Edge Cases", () => {
 
   it("ADV-14: duplicate UAN / previous member ID linked → RC05", () => {
     const r = diagnose({
-      rawErrorText: "Claim rejected: duplicate UAN detected, previous member ID not linked to current UAN",
+      rawErrorText:
+        "Claim rejected: duplicate UAN detected, previous member ID not linked to current UAN",
       scheme: "PF_ADVANCE",
     });
     expect(r.root_cause_code).toBe("RC05");

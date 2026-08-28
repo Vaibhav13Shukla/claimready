@@ -96,7 +96,7 @@ const STOP_WORDS = new Set([
 
 function matchAgainstEntry(
   input: string,
-  entry: (typeof taxonomy)[keyof typeof taxonomy]
+  entry: (typeof taxonomy)[keyof typeof taxonomy],
 ): { score: number; matchedPhrase: string | null; exactMatchCount: number } {
   const normalizedInput = normalize(input);
   if (!normalizedInput) {
@@ -138,16 +138,14 @@ function matchAgainstEntry(
 
   // 3. Keyword co-occurrence for key signals
   const inputWords = new Set(
-    normalizedInput
-      .split(/\s+/)
-      .filter((w) => w.length > 2 && !STOP_WORDS.has(w))
+    normalizedInput.split(/\s+/).filter((w) => w.length > 2 && !STOP_WORDS.has(w)),
   );
 
   for (const phrase of entry.error_phrases) {
     const distinctiveWords = normalize(phrase)
       .split(/\s+/)
       .filter((w) => w.length > 2 && !STOP_WORDS.has(w));
-    
+
     if (distinctiveWords.length > 0) {
       const matched = distinctiveWords.filter((w) => inputWords.has(w));
       if (matched.length === distinctiveWords.length) {
@@ -164,10 +162,7 @@ export interface DiagnoseOptions {
   scheme: Scheme;
 }
 
-export function diagnose({
-  rawErrorText,
-  scheme,
-}: DiagnoseOptions): DiagnosisResult {
+export function diagnose({ rawErrorText, scheme }: DiagnoseOptions): DiagnosisResult {
   const normalized = normalize(rawErrorText);
   if (!normalized || normalized.length === 0) {
     return getUnknownResult();
@@ -211,10 +206,20 @@ export function diagnose({
 }
 
 function getUnknownResult(): DiagnosisResult {
+  // owner/remedy_type MUST be real members of the Owner/RemedyType zod enums
+  // (taxonomy.schema.ts) — they were previously "CSC"/"csc_referral", which
+  // aren't. Every consumer of a DiagnosisResult indexes lookup maps keyed by
+  // these exact enum values (e.g. diagnosis/page.tsx's
+  // OWNER_LABEL[diagnosis.owner].hi, REMEDY_LABEL[diagnosis.remedy_type].hi)
+  // with no fallback, so an invalid value threw a TypeError and crashed the
+  // diagnosis page outright — for the UNKNOWN path, which any rejection text
+  // that doesn't match a known phrase hits. EPFO_OFFICE/epfigms_grievance
+  // matches remedy-router.ts's own UNKNOWN routing (the correct semantic
+  // pairing: unclassified cases route to an EPFiGMS grievance).
   return {
     root_cause_code: "UNKNOWN" as RootCauseCode,
-    owner: "CSC" as Owner,
-    remedy_type: "csc_referral" as RemedyType,
+    owner: "EPFO_OFFICE" as Owner,
+    remedy_type: "epfigms_grievance" as RemedyType,
     confidence: 0,
     matched_phrase: undefined,
     explanation_en:

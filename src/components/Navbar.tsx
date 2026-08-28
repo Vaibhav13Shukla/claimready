@@ -5,18 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../i18n/context";
 
-function Logo() {
-  return (
-    <span className="inline-flex items-center justify-center w-7 h-7 rounded-[6px] bg-[#5196fe] text-white font-bold text-xs tracking-tight shrink-0">
-      CR
-    </span>
-  );
-}
-
-export function Navbar() {
-  const { lang, setLang, t } = useLanguage();
+export function Navbar({
+  onOpenCommand,
+  onOpenPassbook,
+  onOpenServiceHistory,
+  onOpenSecurity,
+}: {
+  onOpenCommand?: () => void;
+  onOpenPassbook?: () => void;
+  onOpenServiceHistory?: () => void;
+  onOpenSecurity?: () => void;
+}) {
+  const { lang, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const isHindi = lang === "hi";
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -24,104 +27,201 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const links = [
-    { href: "/", label: lang === "hi" ? "होम" : "Home" },
-    { href: "/intake", label: lang === "hi" ? "जांच करें" : "Check Claim" },
-    { href: "/tracker", label: lang === "hi" ? "ट्रैकर" : "Tracker" },
-    { href: "/transparency", label: t("transparency_link") },
-  ];
-
   return (
-    <header className="w-full bg-white/95 backdrop-blur-md border-b border-[#e1dfd8] sticky top-0 z-40 transition-colors">
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 h-[64px] flex items-center justify-between gap-6">
-        {/* Wordmark */}
-        <Link href="/" className="flex items-center gap-2.5 group" aria-label="ClaimReady home">
-          <Logo />
-          <span className="text-[19px] font-semibold tracking-[-0.03em] text-[#1b1d20]">
-            {t("app_name")}
-          </span>
+    <header className="w-full bg-white/95 backdrop-blur-md border-b border-[#e1dfd8] sticky top-0 z-40 transition-colors shadow-xs">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between gap-4">
+        {/* Wordmark / Brand */}
+        <Link href="/" className="flex items-center gap-3 group" aria-label="PF X-Ray home">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] text-white flex items-center justify-center font-black text-sm tracking-tight shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            PF
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[18px] sm:text-[20px] font-black tracking-[-0.03em] text-[#0f2a4a]">
+                PF X-RAY
+              </span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
+                EPFO 2.0
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 hidden sm:block">
+              {isHindi ? "नागरिक केंद्रित सामाजिक सुरक्षा ऑपरेटिंग सिस्टम" : "Intent-First Social Security Operating Experience"}
+            </p>
+          </div>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
-          {links.map((l) => {
-            const isActive = pathname === l.href;
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`cr-navlink ${isActive ? "active" : ""}`}
-              >
-                {l.label}
-              </Link>
-            );
-          })}
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Primary">
+          <Link
+            href="/"
+            className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              pathname === "/" ? "text-blue-600" : "text-slate-700"
+            }`}
+          >
+            {isHindi ? "माय ईपीएफओ" : "My EPFO"}
+          </Link>
+
+          <Link
+            href="/intake?tab=samples"
+            className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              pathname.startsWith("/intake") || pathname.startsWith("/diagnosis")
+                ? "text-blue-600"
+                : "text-slate-700"
+            }`}
+          >
+            {isHindi ? "क्लेम एक्स-रे" : "Claim X-Ray"}
+          </Link>
+
+          {onOpenPassbook && (
+            <button
+              onClick={onOpenPassbook}
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
+            >
+              {isHindi ? "पासबुक व बैलेंस" : "Passbook & Money"}
+            </button>
+          )}
+
+          {onOpenServiceHistory && (
+            <button
+              onClick={onOpenServiceHistory}
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
+            >
+              {isHindi ? "सेवा इतिहास" : "Service History"}
+            </button>
+          )}
+
+          {onOpenSecurity && (
+            <button
+              onClick={onOpenSecurity}
+              className="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors cursor-pointer flex items-center gap-1"
+            >
+              <span>🛡️</span>
+              <span>{isHindi ? "सुरक्षा केंद्र" : "Security"}</span>
+            </button>
+          )}
+
+          <Link
+            href="/tracker"
+            className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              pathname === "/tracker" ? "text-blue-600" : "text-slate-700"
+            }`}
+          >
+            {isHindi ? "लाइफसाइकिल ट्रैकर" : "Tracker"}
+          </Link>
+
+          <Link
+            href="/transparency"
+            className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              pathname === "/transparency" ? "text-blue-600" : "text-slate-700"
+            }`}
+          >
+            {t("transparency_link")}
+          </Link>
         </nav>
 
         {/* Right CTA Actions */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setLang(lang === "en" ? "hi" : "en")}
-            className="text-[13px] font-medium px-3.5 py-1.5 rounded-[9999px] border border-[#e1dfd8] bg-[#f2f1ec] text-[#1b1d20] hover:bg-[#e1dfd8] transition-colors cursor-pointer"
-          >
-            {t("switch_lang")}
-          </button>
+        <div className="flex items-center gap-2.5">
+          {/* Quick Search ⌘K Button */}
+          {onOpenCommand && (
+            <button
+              onClick={onOpenCommand}
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 text-xs font-medium transition-colors cursor-pointer"
+              title="Search Services (Ctrl+K or ⌘K)"
+            >
+              <span>🔍</span>
+              <span>{isHindi ? "सेवा खोजें..." : "Search services..."}</span>
+              <kbd className="font-mono text-[10px] bg-white px-1.5 py-0.5 rounded border border-slate-300">
+                ⌘K
+              </kbd>
+            </button>
+          )}
 
-          {/* Ghost Pill Button */}
           <Link
-            href="/intake"
-            className="cr-btn cr-btn--ghost hidden sm:inline-flex !min-h-[38px] !py-1.5 !px-4 !text-[13px]"
+            href="/intake?tab=samples"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all hover:scale-[1.02] cursor-pointer"
           >
-            <span>{lang === "hi" ? "जांच शुरू करें" : "Check Claim"}</span>
+            <span>🔎</span>
+            <span>{isHindi ? "एक्स-रे चलाएं" : "Run Claim X-Ray"}</span>
           </Link>
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden inline-flex flex-col justify-center gap-[5px] w-9 h-9 items-center rounded-lg hover:bg-neutral-100 transition-colors"
-            aria-label={
-              open
-                ? lang === "hi"
-                  ? "मेनू बंद करें"
-                  : "Close menu"
-                : lang === "hi"
-                  ? "मेनू खोलें"
-                  : "Open menu"
-            }
+            className="lg:hidden inline-flex flex-col justify-center gap-[5px] w-9 h-9 items-center rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
           >
-            <span className={`block w-[18px] h-[1.5px] bg-[#1b1d20] transition-transform ${open ? "rotate-45 translate-y-[6.5px]" : ""}`} />
-            <span className={`block w-[18px] h-[1.5px] bg-[#1b1d20] transition-opacity ${open ? "opacity-0" : ""}`} />
-            <span className={`block w-[18px] h-[1.5px] bg-[#1b1d20] transition-transform ${open ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
+            <span className={`block w-[18px] h-[2px] bg-[#1b1d20] transition-transform ${open ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block w-[18px] h-[2px] bg-[#1b1d20] transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`block w-[18px] h-[2px] bg-[#1b1d20] transition-transform ${open ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
       </div>
 
       {/* Mobile menu dropdown */}
       {open && (
-        <nav
-          className="md:hidden border-t border-[#e1dfd8] px-6 py-4 flex flex-col gap-2 bg-white"
-          aria-label="Mobile Navigation"
-        >
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="px-4 py-2.5 text-[14px] font-medium text-[#1b1d20] hover:bg-[#f2f1ec] rounded-xl transition-colors"
+        <nav className="lg:hidden border-t border-[#e1dfd8] px-6 py-4 flex flex-col gap-2.5 bg-white animate-fade-in">
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+          >
+            {isHindi ? "माय ईपीएफओ (होम)" : "My EPFO (Home)"}
+          </Link>
+          <Link
+            href="/intake?tab=samples"
+            onClick={() => setOpen(false)}
+            className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+          >
+            {isHindi ? "दावा निदान (क्लेम एक्स-रे)" : "Claim X-Ray (Diagnosis)"}
+          </Link>
+          {onOpenPassbook && (
+            <button
+              onClick={() => {
+                setOpen(false);
+                onOpenPassbook();
+              }}
+              className="text-left px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
             >
-              {l.label}
-            </Link>
-          ))}
-          <div className="pt-2 border-t border-[#e1dfd8] mt-2">
-            <Link
-              href="/intake"
-              onClick={() => setOpen(false)}
-              className="cr-btn cr-btn--primary w-full text-center"
+              {isHindi ? "पासबुक व बैलेंस" : "Passbook & Balance"}
+            </button>
+          )}
+          {onOpenServiceHistory && (
+            <button
+              onClick={() => {
+                setOpen(false);
+                onOpenServiceHistory();
+              }}
+              className="text-left px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
             >
-              <span>{lang === "hi" ? "जांच शुरू करें" : "Check Claim"}</span>
-            </Link>
-          </div>
+              {isHindi ? "सेवा इतिहास" : "Service History"}
+            </button>
+          )}
+          {onOpenSecurity && (
+            <button
+              onClick={() => {
+                setOpen(false);
+                onOpenSecurity();
+              }}
+              className="text-left px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+            >
+              {isHindi ? "सुरक्षा केंद्र" : "Security Center"}
+            </button>
+          )}
+          <Link
+            href="/tracker"
+            onClick={() => setOpen(false)}
+            className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+          >
+            {isHindi ? "लाइफसाइकिल ट्रैकर" : "Lifecycle Tracker"}
+          </Link>
+          <Link
+            href="/transparency"
+            onClick={() => setOpen(false)}
+            className="px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 rounded-xl"
+          >
+            {t("transparency_link")}
+          </Link>
         </nav>
       )}
     </header>

@@ -50,3 +50,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .git-commit-msg.txt
+
+# Parked, unwired WIP (broken/experimental) — kept locally, never shipped.
+_parked_wip/

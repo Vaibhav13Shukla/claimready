@@ -19,11 +19,32 @@
     /* --font-inter is set by next/font/google in layout.tsx (self-hosted,
        no external request) */
     --font: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-serif: var(--font-serif-accent), Georgia, "Times New Roman", serif;
 
     /* semantic accents */
     --red: #d21f3c;
     --amber: #b45309;
     --green: #067a54;
+
+    /* ---- Join Parker reference palette, adopted as literally as WCAG AA
+       allows (see design decision below on --blue/--blue-dark). Warm
+       neutrals carry no text-contrast conflict, so they're taken verbatim. ---- */
+    --parchment: #f2f1ec;
+    --sand: #e1dfd8;
+    --steel: #6e6e6e;
+    --ash: #797876;
+    --fog: #a3a3a3;
+    --midnight: #101828;
+    --graphite: #27272a;
+    /* Electric Blue (#5196fe) and Ember Orange (#f9754e) both measure below
+       3:1 against white — neither clears even WCAG's non-text minimum, let
+       alone the 4.5:1 text threshold — so --blue/--blue-dark above keep the
+       same hue family retuned to 4.70:1 / 8.93:1 instead of the literal hex.
+       Orange has no accessible single-CTA role in this app (would collide
+       with the existing amber "action needed" status color), so it's
+       skipped rather than retuned. */
+
+    --shadow-md: rgba(0, 0, 0, 0.1) 0px 2px 10px 0px;
   }
 
   html {
@@ -81,6 +102,15 @@
   background: #ffffff;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
+}
+/* .cr-card doubles as form-control chrome (select/textarea in confirm/intake)
+   as well as content cards — those two roles have different radii in the
+   spec (24px cards vs 12.8px inputs), so form elements need their own,
+   more-specific override rather than inheriting the card radius. */
+select.cr-card,
+textarea.cr-card,
+input.cr-card {
+  border-radius: var(--radius-md);
 }
 
 .cr-badge {

@@ -141,7 +141,7 @@ export default function LandingPage() {
               {hi ? "फाइल करने से पहले · 30 सेकंड" : "Before you file · 30 seconds"}
             </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/[0.08]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--sand)]">
             {steps.map((s, i) => (
               <div
                 key={s.k}

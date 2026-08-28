@@ -42,10 +42,8 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Claude Code / gstack local session state — .claude/settings.json (shared
-# plugin config) stays tracked; these are ephemeral, machine/session-specific.
-.claude/settings.local.json
-.claude/scheduled_tasks.lock
+# Local AI-coding-tool state — not part of the shipped project.
+.claude/
 .gstack/
 
 # typescript

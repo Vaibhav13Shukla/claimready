@@ -52,7 +52,11 @@ function ActionContent() {
     setTimeout(() => setCopied(false), 1800);
   };
   const whatsapp = (text: string) =>
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(
+      `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
   return (
     <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">

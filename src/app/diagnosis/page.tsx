@@ -64,8 +64,7 @@ function DiagnosisContent() {
             root_cause_code: diagnosis.root_cause_code,
             owner: diagnosis.owner,
             language: lang,
-            schemeName: scheme,
-            labelHint: diagnosis.label_en,
+            scheme,
           }),
         });
         const data = await res.json();

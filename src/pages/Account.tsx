@@ -59,7 +59,8 @@ export function Dashboard() {
               "सब सत्यापित होने पर आपका क्लेम लगभग 3 दिन में अपने आप मिल सकता है।",
             )}
           </p>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-col items-start gap-2">
+            <Button onClick={() => navigate("/claim-check")}>{t("Will my claim be approved?", "क्या मेरा क्लेम मंज़ूर होगा?")}</Button>
             <A to="/kyc">{t("Change my details", "जानकारी बदलें")}</A>
           </div>
         </Card>

@@ -40,4 +40,23 @@ describe("EPFO app", () => {
     await user.click(within(banner).getByRole("button", { name: "हिन्दी" }));
     expect(await within(banner).findByRole("button", { name: /मेरा खाता/ })).toBeInTheDocument();
   });
+
+  it("claim pre-flight: fixing the blocking issues flips the verdict to ready", async () => {
+    const user = userEvent.setup();
+    window.location.hash = "#/claim-check";
+    render(<App />);
+    expect(await screen.findByText(/would get your claim rejected/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /fix the name to match/i }));
+    await user.click(screen.getByRole("button", { name: /re-verify my bank account/i }));
+    expect(await screen.findByText(/ready to file/i)).toBeInTheDocument();
+  });
+
+  it("rejection decoder explains a cryptic reason in plain language", async () => {
+    const user = userEvent.setup();
+    window.location.hash = "#/claim-check";
+    render(<App />);
+    const select = await screen.findByRole("combobox", { name: /message you received/i });
+    await user.selectOptions(select, "Bank KYC not approved / IFSC invalid");
+    expect(await screen.findByText(/bank account is not verified/i)).toBeInTheDocument();
+  });
 });

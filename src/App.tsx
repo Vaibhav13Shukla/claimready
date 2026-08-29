@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { Balance, Dashboard, Passbook } from "./pages/Account";
 import Withdraw from "./pages/Withdraw";
+import ClaimCheck from "./pages/ClaimCheck";
 import { TrackDetail, TrackList } from "./pages/Track";
 import { Calculators, Pension } from "./pages/Tools";
 import { GrievancePage, Kyc, Nominee, Transfer, UanHelp } from "./pages/Forms";
@@ -30,6 +31,8 @@ function Router() {
       return <Passbook />;
     case "/withdraw":
       return <Withdraw />;
+    case "/claim-check":
+      return <ClaimCheck />;
     case "/track":
       return <TrackList />;
     case "/pension":

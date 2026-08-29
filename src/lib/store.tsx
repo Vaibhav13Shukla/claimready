@@ -41,14 +41,34 @@ function currentPath() {
   return h === "" ? "/" : h;
 }
 
+// Small localStorage wrapper so the demo remembers state across reloads.
+const save = {
+  get<T>(key: string, fallback: T): T {
+    try {
+      const raw = localStorage.getItem(`epfo.${key}`);
+      return raw ? (JSON.parse(raw) as T) : fallback;
+    } catch {
+      return fallback;
+    }
+  },
+  set(key: string, value: unknown) {
+    // ponytail: private mode / quota just means it won't persist this session
+    try {
+      localStorage.setItem(`epfo.${key}`, JSON.stringify(value));
+    } catch {
+      /* ignore */
+    }
+  },
+};
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [path, setPath] = useState(currentPath());
-  const [lang, setLang] = useState<Lang>("en");
-  const [textSize, setTextSize] = useState(100);
-  const [contrast, setContrast] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [claims, setClaims] = useState<Claim[]>(initialClaims);
-  const [grievances, setGrievances] = useState<Grievance[]>([]);
+  const [lang, setLang] = useState<Lang>(() => save.get("lang", "en"));
+  const [textSize, setTextSize] = useState(() => save.get("textSize", 100));
+  const [contrast, setContrast] = useState(() => save.get("contrast", false));
+  const [loggedIn, setLoggedIn] = useState(() => save.get("loggedIn", false));
+  const [claims, setClaims] = useState<Claim[]>(() => save.get("claims", initialClaims));
+  const [grievances, setGrievances] = useState<Grievance[]>(() => save.get("grievances", []));
   const [toast, setToast] = useState<string | null>(null);
   const [speaking, setSpeaking] = useState(false);
 
@@ -68,6 +88,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.body.classList.toggle("hc", contrast);
   }, [contrast]);
+
+  // Persist state so a reload during a demo keeps the user's work.
+  useEffect(() => save.set("lang", lang), [lang]);
+  useEffect(() => save.set("textSize", textSize), [textSize]);
+  useEffect(() => save.set("contrast", contrast), [contrast]);
+  useEffect(() => save.set("loggedIn", loggedIn), [loggedIn]);
+  useEffect(() => save.set("claims", claims), [claims]);
+  useEffect(() => save.set("grievances", grievances), [grievances]);
 
   const navigate = useCallback((to: string) => {
     if (currentPath() === to) {

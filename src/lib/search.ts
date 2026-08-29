@@ -45,6 +45,17 @@ export const services: Service[] = [
     minutes: "5 minutes",
   },
   {
+    to: "/claim-check",
+    en: "Will my claim be approved?",
+    hi: "क्या मेरा क्लेम मंज़ूर होगा?",
+    descEn: "Catch the mistakes that get claims rejected before you file, and decode a past rejection.",
+    descHi: "फाइल करने से पहले क्लेम रिजेक्ट कराने वाली गलतियाँ पकड़ें, और पुराने रिजेक्शन का कारण समझें।",
+    group: "money",
+    keywords: "claim rejected rejection why check preflight approve approved eligibility name mismatch bank kyc problem stuck",
+    needsLogin: true,
+    minutes: "1 minute",
+  },
+  {
     to: "/track",
     en: "Track my claim",
     hi: "मेरा क्लेम ट्रैक करें",

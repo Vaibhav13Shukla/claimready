@@ -99,6 +99,23 @@ export default function Home() {
         </Callout>
       )}
 
+      {/* Flagship: will my claim be approved */}
+      <section className="rounded-lg border-2 border-[#12436d] bg-[#f4f8fb] p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="max-w-xl">
+            <Tag tone="blue">{t("New", "नया")}</Tag>
+            <h2 className="mt-2 text-2xl font-extrabold">{t("Will my claim be approved?", "क्या मेरा क्लेम मंज़ूर होगा?")}</h2>
+            <p className="mt-2 text-lg">
+              {t(
+                "Almost 1 in 3 PF claims are rejected for small, fixable mistakes. Check yours before you file and fix them in one tap.",
+                "लगभग हर 3 में से 1 पीएफ क्लेम छोटी, ठीक होने वाली गलतियों से रिजेक्ट होता है। फाइल करने से पहले जाँचें और एक टैप में ठीक करें।",
+              )}
+            </p>
+          </div>
+          <Button onClick={() => navigate("/claim-check")}>{t("Check my claim", "मेरा क्लेम जाँचें")}</Button>
+        </div>
+      </section>
+
       {/* Top tasks */}
       <section>
         <h2 className="mb-5 text-2xl font-extrabold">{t("Common tasks", "आम काम")}</h2>

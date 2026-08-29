@@ -18,7 +18,7 @@ body {
   color: #0b0c0c;
 }
 
-/* GOV.UK-style bold yellow focus state: visible for everyone, keyboard friendly */
+/* High-visibility bold yellow focus state: visible for everyone, keyboard friendly */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,

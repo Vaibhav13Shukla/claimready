@@ -1,87 +1,88 @@
-# PF X-Ray
+# EPFO — Your PF money, in plain language
 
-### Check your EPFO PF claim before it gets rejected, and decode it if it already was
+A citizen-first redesign concept for India's **Employees' Provident Fund Organisation (EPFO)**,
+inspired by the service design of GOV.UK. The goal: make provident-fund, pension and insurance
+services usable by *anyone* — a first-time worker, a busy parent, or an elderly pensioner —
+with no jargon, no PDF mazes, and no captcha inside a captcha.
 
-_Built for the "Build What Moves India" Hackathon 2026 · Platform: EPFO · Independent prototype_
+> ⚠️ **Demonstration prototype.** This is **not** an official Government of India / EPFO website.
+> All accounts, balances and money shown are fictional.
 
----
+## Highlights
 
-## What it is
+- **Plain language, task-first** — every page does one job and says it the way people say it
+  ("How much money do I have?", "Move my PF to my new job").
+- **Bilingual** — full English / हिन्दी toggle across the whole interface.
+- **Accessible by design** — adjustable text size, a high-contrast mode, **read-aloud
+  (text-to-speech)**, GOV.UK-style yellow focus states, skip links, and semantic markup.
+- **Realistic mock account** — sign in as a demo member with a full passbook, multiple
+  employments, claim tracking and calculators.
+- **Ships as one file** — the production build inlines all JS/CSS into a single `index.html`
+  with **no external requests**, so it hosts anywhere and opens instantly in a browser.
 
-**1 in 5 EPFO claims is rejected, almost always for a small, fixable mismatch** (a one-letter name difference, a DOB mismatch, unverified bank KYC, or an employer that never marked your Date of Exit). Citizens wait 15-20 days only to be bounced, then guess and retry.
+## Demo login
 
-PF X-Ray is a **pre-flight check + rejection decoder** for PF claims:
+| Field | Value |
+| --- | --- |
+| UAN | `100200300400` |
+| Password | `epfo123` |
+| OTP | `1234` |
 
-1. **Pre-flight**: pick your claim type / paste your details, and it tells you which rejection reason will hit you and the exact fix, _before_ you file.
-2. **Decode**: already rejected? Paste the remark; it classifies the cause, explains it in plain language, and hands you a resolution plan (steps, documents, who must act, timeline, and a ready-to-send bank/employer letter).
+Or click **"Fill demo details for me"** on the sign-in page.
 
-**The blue ocean:** every other resource is _reactive_ ("your claim was rejected, here's how to reapply"). Nobody ships an interactive _preventive_ check, and no government hackathon has targeted PF rejection.
+## Tech stack
 
-## Architecture
+- **React 19** + **TypeScript** (strict)
+- **Vite 7** with **Tailwind CSS v4** (`@tailwindcss/vite`)
+- **`vite-plugin-singlefile`** — one self-contained `dist/index.html`
+- **Vitest** + **Testing Library** (jsdom) for unit & component tests
+- **ESLint 9** (flat config) + **typescript-eslint**
+- **GitHub Actions** CI/CD → **GitHub Pages**
 
-> **AI INTERPRETS → RULES DECIDE → TEMPLATES EXPLAIN → MOCKS RESOLVE**
-
-- **AI interprets**: an OpenAI model extracts structured fields from messy rejection text and writes the plain-language explanation.
-- **Rules decide**: a deterministic, Zod-typed classifier maps the text to a root cause (`RC01`-`RC05`). The model never decides the diagnosis or the fix, so there are no hallucinated remedies. 100% covered by golden tests.
-- **Templates explain**: bilingual (English/Hindi) resolution steps, document checklists, and bank/employer letters.
-- **Mocks resolve**: a 4-stage simulated lifecycle shows how the claim clears once you act.
-
-## Root-cause taxonomy (v1.1)
-
-| Code | Cause                                 | Who fixes it                      | Timeline |
-| ---- | ------------------------------------- | --------------------------------- | -------- |
-| RC01 | Name mismatch (UAN/Aadhaar/PAN/bank)  | You (self-service)                | 7–20d    |
-| RC02 | Date of Birth mismatch vs Aadhaar     | You (self-service)                | 7–20d    |
-| RC03 | Bank KYC unverified / inactive / IFSC | Your bank                         | 3–10d    |
-| RC04 | Date of Exit not updated by employer  | Previous employer                 | 7–30d    |
-| RC05 | Multiple / duplicate UAN not merged   | You (self-service, EPFO verifies) | 10–30d   |
-
-## OpenAI / hackathon compliance
-
-The prototype is **genuinely powered by an OpenAI model at runtime** (via `@ai-sdk/openai`) for the two interpretation steps, satisfying the hackathon's "powered by an OpenAI model" requirement. It **degrades gracefully** to a deterministic engine when no key is present, so the demo never breaks. See [`docs/AI_USAGE.md`](docs/AI_USAGE.md) for an honest account of the toolchain and how to make an AI coding agent's contribution explicit in your submission.
-
-No login is required (it is a public citizen tool), so **no credentials are needed** to test it.
-
-## Run locally
+## Getting started
 
 ```bash
-cd claimready
-npm install
-cp .env.example .env.local   # optional: add OPENAI_API_KEY to enable live OpenAI calls
-npm run dev                  # http://localhost:3000
+npm install     # install dependencies
+npm run dev     # start the dev server (http://localhost:5173)
 ```
 
-## Test & build
+## Scripts
 
-```bash
-npm run test:ci        # 116 unit tests incl. the golden-case gate
-npm run test:coverage  # same, with a coverage report (87% statements)
-npm run test:e2e       # Playwright: the full judge critical path, real browser
-npm run build          # Next.js production build (type-checked)
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Produce the single-file `dist/index.html` |
+| `npm run preview` | Preview the production build locally |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run lint` | ESLint over the project |
+| `npm run test` | Vitest in watch mode |
+| `npm run test:run` | Vitest once (CI mode) |
+| `npm run test:coverage` | Vitest with a V8 coverage report |
+| `npm run ci` | typecheck → lint → test → build (the full local gate) |
+
+## CI/CD
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and pull request to `main`:
+
+1. **quality** — install, typecheck, lint, test, build.
+2. **deploy** — on push to `main`, the built `dist/` is published to **GitHub Pages**.
+
+To enable deployment: on GitHub, go to **Settings → Pages → Build and deployment → Source:
+GitHub Actions**. Because the build inlines every asset, no `base` path configuration is needed —
+it also works on Vercel, Netlify, S3, or any static host by uploading `dist/index.html`.
+
+## Project structure
+
+```
+src/
+  lib/         data (mock member, passbook, claims), search, global store
+  components/  Layout (header/nav/footer/search), shared UI, Ask widget
+  pages/       Home, Login, Account, Withdraw, Track, Tools, Forms, Info, Help
+  test/        Vitest setup
 ```
 
-## Quality bar
+## Accessibility notes
 
-- Zero ESLint errors/warnings, clean `tsc --noEmit`, 116/116 unit tests + 6/6 e2e tests green, `next build` green, verified against a clean `npm ci`.
-- 87% statement coverage / 73% branch coverage on `src/` (core rules engine at 97%; UI components covered by the e2e suite instead of shallow unit renders).
-- Zero known WCAG 2.2 AA violations, audited and fixed (see git log for the full findings list).
-- API routes (`/api/extract`, `/api/explain`) validate every field against Zod schemas, cap free-text
-  input length, rate-limit per IP, and never let client-supplied text reach the LLM prompt unvalidated.
-- Security headers (CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy) on every response.
-- `error.tsx` / `not-found.tsx` / `global-error.tsx`: no route ever falls through to Next's raw default error UI.
-- `robots.ts` / `sitemap.ts` / a generated Open Graph image: a shared demo link renders a real preview card.
-
-## Deploy (Vercel)
-
-See [`docs/DEPLOY_CHECKLIST.md`](docs/DEPLOY_CHECKLIST.md) for the full walkthrough. Short version:
-
-1. Push this repo to GitHub, import into Vercel.
-2. Set `OPENAI_API_KEY` (optional, the demo works without it) and `NEXT_PUBLIC_SITE_URL` (your Vercel URL, once you have it) in Vercel project env.
-3. Deploy → you get the public browser URL for submission.
-
-## Privacy & safety
-
-- **100% synthetic data**: obviously fake identifiers (`Demo Member`, `XXXX-DEMO-...`).
-- No scraping, no live EPFO/UIDAI APIs, no real UAN/Aadhaar/PAN/bank/OTP data.
-- Persistent disclosure banner + a `/transparency` page detailing real vs mocked layers.
-- Not affiliated with EPFO or any government body.
+Focus states are always visible (WCAG 2.2), text scales to 130% without breaking layout,
+colour is never the only signal, and every interactive element is reachable by keyboard.
+The read-aloud feature uses the browser's Speech Synthesis API where available.

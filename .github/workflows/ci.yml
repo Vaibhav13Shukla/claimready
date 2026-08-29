@@ -1,4 +1,7 @@
-name: CI Pipeline & Golden Case Gate
+name: CI/CD
+
+# Quality gate on every push/PR; deploy the built single-file app to GitHub
+# Pages when changes land on main.
 
 on:
   push:
@@ -6,52 +9,60 @@ on:
   pull_request:
     branches: [main]
 
-jobs:
-  validate:
-    name: Lint, Typecheck, Golden Case Gate & Build
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+concurrency:
+  group: cicd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint · Typecheck · Test · Build
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          # jsdom@30 (a real devDependency, used by the unit test suite) requires
-          # Node ^22.22.2 || ^24.15.0 || >=26.0.0 — it does not run on Node 20 at
-          # all. This was invisible locally (dev machine runs Node 26) and only
-          # surfaced on a real CI runner pinned to 20, which is exactly why this
-          # got caught here instead of staying a silent landmine.
-          node-version: 24
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version: 20
+          cache: npm
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Lint Check
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
         run: npm run lint
 
-      - name: TypeScript Strict Check
-        run: npx tsc --noEmit
+      - name: Unit + component tests
+        run: npm run test:run
 
-      - name: Unit Tests & Golden Case Gate (Vitest)
-        run: npm run test:ci
-
-      - name: Next.js Production Build
+      - name: Production build (single-file)
         run: npm run build
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: E2E Critical-Path Tests (Playwright)
-        run: npm run test:e2e
-
-      - name: Upload Playwright report on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+          path: dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: quality
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@v4

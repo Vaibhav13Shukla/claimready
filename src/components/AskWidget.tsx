@@ -54,7 +54,7 @@ export default function AskWidget() {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 rounded-full bg-[#12436d] px-5 py-4 text-lg font-bold text-white shadow-xl hover:bg-[#0b2f4d]"
       >
-        {open ? "✕" : "💬"} {open ? t("Close", "बंद करें") : t("Help", "मदद")}
+        {open ? t("Close", "बंद करें") : t("Help", "मदद")}
       </button>
     </div>
   );

@@ -43,8 +43,8 @@ export function Transfer() {
           <PageTitle
             title={t("Bring your old PF into your current job", "पुराना पीएफ मौजूदा नौकरी में लाएँ")}
             intro={t(
-              "Old money keeps earning interest, but it is easier to manage in one account — and your total service years count for pension.",
-              "पुराने पैसे पर ब्याज तो मिलता है, पर एक ही खाते में रखना आसान है — और आपकी कुल सेवा पेंशन में गिनी जाती है।",
+              "Old money keeps earning interest, but it is easier to manage in one account, and your total service years count for pension.",
+              "पुराने पैसे पर ब्याज तो मिलता है, पर एक ही खाते में रखना आसान है, और आपकी कुल सेवा पेंशन में गिनी जाती है।",
             )}
           />
           {pending.length === 0 ? (
@@ -54,10 +54,9 @@ export function Transfer() {
               {pending.map((e) => (
                 <ChoiceCard
                   key={e.id}
-                  emoji="🏢"
                   selected={picked === e.id}
                   onSelect={() => setPicked(e.id)}
-                  title={`${e.employer} — ${rupees(e.balance)}`}
+                  title={`${e.employer}, ${rupees(e.balance)}`}
                   desc={`${e.city} · ${e.from} – ${e.to} · ${t("Member ID", "मेंबर आईडी")} ${e.memberId}`}
                 />
               ))}
@@ -331,12 +330,12 @@ export function Nominee() {
 /* --------------------------------- Grievance --------------------------------- */
 
 const CATEGORIES = [
-  { k: "money", e: "💸", en: "My money has not arrived", hi: "मेरा पैसा नहीं आया" },
-  { k: "employer", e: "🏢", en: "My employer is not depositing PF", hi: "मेरा नियोक्ता पीएफ जमा नहीं कर रहा" },
-  { k: "details", e: "✏️", en: "My name / date of birth is wrong", hi: "मेरा नाम / जन्मतिथि गलत है" },
-  { k: "pension", e: "👵", en: "Problem with my pension", hi: "पेंशन में समस्या" },
-  { k: "login", e: "🔑", en: "I cannot log in", hi: "मैं लॉगिन नहीं कर पा रहा" },
-  { k: "other", e: "❓", en: "Something else", hi: "कुछ और" },
+  { k: "money", en: "My money has not arrived", hi: "मेरा पैसा नहीं आया" },
+  { k: "employer", en: "My employer is not depositing PF", hi: "मेरा नियोक्ता पीएफ जमा नहीं कर रहा" },
+  { k: "details", en: "My name / date of birth is wrong", hi: "मेरा नाम / जन्मतिथि गलत है" },
+  { k: "pension", en: "Problem with my pension", hi: "पेंशन में समस्या" },
+  { k: "login", en: "I cannot log in", hi: "मैं लॉगिन नहीं कर पा रहा" },
+  { k: "other", en: "Something else", hi: "कुछ और" },
 ];
 
 export function GrievancePage() {
@@ -346,7 +345,7 @@ export function GrievancePage() {
   const [done, setDone] = useState<Grievance | null>(null);
 
   const suggestion: Record<string, { en: string; hi: string; to: string }> = {
-    money: { en: "Check the live status of your claim first — most money arrives in 3 days.", hi: "पहले अपने क्लेम की स्थिति देखें — ज़्यादातर पैसा 3 दिन में आ जाता है।", to: "/track" },
+    money: { en: "Check the live status of your claim first, most money arrives in 3 days.", hi: "पहले अपने क्लेम की स्थिति देखें, ज़्यादातर पैसा 3 दिन में आ जाता है।", to: "/track" },
     login: { en: "You can get your UAN and reset your password in 2 minutes.", hi: "आप 2 मिनट में यूएएन पा सकते हैं और पासवर्ड बदल सकते हैं।", to: "/uan-help" },
     details: { en: "Small corrections can be done yourself in My details.", hi: "छोटे सुधार आप खुद ‘मेरी जानकारी’ में कर सकते हैं।", to: "/kyc" },
   };
@@ -384,15 +383,14 @@ export function GrievancePage() {
       <PageTitle
         title={t("What went wrong?", "क्या गलत हुआ?")}
         intro={t(
-          "Pick one line that matches your problem. No forms, no jargon, no file uploads unless we really need them.",
-          "अपनी समस्या से मिलती एक लाइन चुनें। न फॉर्म, न कठिन शब्द, बिना ज़रूरत कोई फाइल अपलोड नहीं।",
+          "Pick one line that matches your problem.",
+          "अपनी समस्या से मिलती एक लाइन चुनें।",
         )}
       />
       <div className="grid gap-3 sm:grid-cols-2">
         {CATEGORIES.map((c) => (
           <ChoiceCard
             key={c.k}
-            emoji={c.e}
             title={t(c.en, c.hi)}
             selected={cat === c.k}
             onSelect={() => setCat(c.k)}
@@ -526,7 +524,7 @@ export function UanHelp() {
         <ul className="list-disc space-y-1 pl-6">
           <li>{t("Give a missed call to 011-22901406 from your registered mobile.", "अपने रजिस्टर्ड मोबाइल से 011-22901406 पर मिस्ड कॉल दें।")}</li>
           <li>{t("SMS “EPFOHO UAN ENG” to 7738299899.", "7738299899 पर “EPFOHO UAN HIN” एसएमएस करें।")}</li>
-          <li>{t("Call the free helpline 14470 — they speak 10 languages.", "फ्री हेल्पलाइन 14470 पर कॉल करें — वे 10 भाषाएँ बोलते हैं।")}</li>
+          <li>{t("Call the free helpline 14470, they speak 10 languages.", "फ्री हेल्पलाइन 14470 पर कॉल करें, वे 10 भाषाएँ बोलते हैं।")}</li>
         </ul>
       </Callout>
     </div>

@@ -16,7 +16,6 @@ type ReasonKey =
 
 type Reason = {
   key: ReasonKey;
-  emoji: string;
   en: string;
   hi: string;
   ruleEn: string;
@@ -31,7 +30,6 @@ type Reason = {
 const REASONS: Reason[] = [
   {
     key: "medical",
-    emoji: "🏥",
     en: "Illness or hospital bills",
     hi: "बीमारी या अस्पताल का खर्च",
     ruleEn: "For you, your husband/wife, children or parents. No minimum years of service needed.",
@@ -39,12 +37,11 @@ const REASONS: Reason[] = [
     minYears: 0,
     form: "Form 31 (Advance)",
     cap: (s, e) => Math.min(e, s * 6),
-    docsEn: ["Nothing to upload — hospital bills can be shown later if asked"],
-    docsHi: ["कुछ अपलोड नहीं करना — ज़रूरत पड़ने पर बाद में बिल दिखा सकते हैं"],
+    docsEn: ["Nothing to upload, hospital bills can be shown later if asked"],
+    docsHi: ["कुछ अपलोड नहीं करना, ज़रूरत पड़ने पर बाद में बिल दिखा सकते हैं"],
   },
   {
     key: "marriage",
-    emoji: "💍",
     en: "Marriage (yours, your child's, brother's or sister's)",
     hi: "शादी (आपकी, बच्चे, भाई या बहन की)",
     ruleEn: "You need 7 years of PF service. You can take up to half of your own contribution.",
@@ -57,7 +54,6 @@ const REASONS: Reason[] = [
   },
   {
     key: "education",
-    emoji: "🎓",
     en: "Education (yours or your children's)",
     hi: "पढ़ाई (आपकी या बच्चों की)",
     ruleEn: "After 7 years of service, for education after Class 10. Up to half of your own contribution.",
@@ -70,7 +66,6 @@ const REASONS: Reason[] = [
   },
   {
     key: "house",
-    emoji: "🏠",
     en: "Buying land, buying or building a house",
     hi: "ज़मीन खरीदना, घर खरीदना या बनाना",
     ruleEn: "After 5 years of service. Up to 90% of your total PF, once in a lifetime.",
@@ -83,7 +78,6 @@ const REASONS: Reason[] = [
   },
   {
     key: "loan",
-    emoji: "🏦",
     en: "Repaying my home loan",
     hi: "होम लोन चुकाना",
     ruleEn: "After 10 years of service. Up to 90% of your total PF.",
@@ -96,7 +90,6 @@ const REASONS: Reason[] = [
   },
   {
     key: "unemployed",
-    emoji: "🧳",
     en: "I left my job and I am not working now",
     hi: "मैंने नौकरी छोड़ दी है और अभी काम नहीं कर रहा",
     ruleEn: "After 1 month without a job you can take 75%. After 2 months you can take everything and close the account.",
@@ -104,12 +97,11 @@ const REASONS: Reason[] = [
     minYears: 0,
     form: "Form 19 + 10C (Final settlement)",
     cap: (_s, _e, total) => total,
-    docsEn: ["Nothing — your employer's exit date is already with us"],
-    docsHi: ["कुछ नहीं — आपकी नौकरी छोड़ने की तारीख हमारे पास है"],
+    docsEn: ["Nothing, your employer's exit date is already with us"],
+    docsHi: ["कुछ नहीं, आपकी नौकरी छोड़ने की तारीख हमारे पास है"],
   },
   {
     key: "retire",
-    emoji: "🎉",
     en: "I have retired (58 years or more)",
     hi: "मैं रिटायर हो गया हूँ (58 साल या अधिक)",
     ruleEn: "You get the full PF amount, and your monthly pension starts.",
@@ -122,7 +114,6 @@ const REASONS: Reason[] = [
   },
   {
     key: "calamity",
-    emoji: "🌊",
     en: "Flood, earthquake or other disaster",
     hi: "बाढ़, भूकंप या कोई आपदा",
     ruleEn: "Up to ₹50,000 or half of your own contribution, whichever is less.",
@@ -221,7 +212,6 @@ export default function Withdraw() {
             {REASONS.map((r) => (
               <ChoiceCard
                 key={r.key}
-                emoji={r.emoji}
                 title={t(r.en, r.hi)}
                 desc={t(r.ruleEn, r.ruleHi)}
                 selected={reasonKey === r.key}
@@ -247,7 +237,7 @@ export default function Withdraw() {
             caption={t(reason.en, reason.hi)}
             title={
               eligible
-                ? t("Good news — you can take this money", "अच्छी खबर — आप यह पैसा ले सकते हैं")
+                ? t("Good news, you can take this money", "अच्छी खबर, आप यह पैसा ले सकते हैं")
                 : t("You are not eligible yet", "अभी आप पात्र नहीं हैं")
             }
           />
@@ -335,7 +325,7 @@ export default function Withdraw() {
         <div className="max-w-3xl">
           <PageTitle
             title={t("Check these 3 things", "ये 3 बातें जाँच लें")}
-            intro={t("If anything is wrong, fix it now — this is what causes most rejections.", "कुछ गलत हो तो अभी ठीक करें — ज़्यादातर क्लेम इसी वजह से रुकते हैं।")}
+            intro={t("If anything is wrong, fix it now, this is what causes most rejections.", "कुछ गलत हो तो अभी ठीक करें, ज़्यादातर क्लेम इसी वजह से रुकते हैं।")}
           />
           <ul className="space-y-3">
             {[
@@ -427,7 +417,7 @@ export default function Withdraw() {
           </div>
           <Callout tone="info" title={t("What happens next", "आगे क्या होगा")}>
             <ol className="list-decimal space-y-1 pl-6">
-              <li>{t("We check your details automatically — usually within a day.", "हम आपकी जानकारी अपने आप जाँचते हैं — आमतौर पर एक दिन में।")}</li>
+              <li>{t("We check your details automatically, usually within a day.", "हम आपकी जानकारी अपने आप जाँचते हैं, आमतौर पर एक दिन में।")}</li>
               <li>{t("You get an SMS at each step. No need to call anyone.", "हर चरण पर एसएमएस मिलेगा। किसी को फोन करने की ज़रूरत नहीं।")}</li>
               <li>{t("If something is missing we will tell you exactly what to fix.", "कुछ कमी होगी तो हम ठीक-ठीक बताएँगे कि क्या ठीक करना है।")}</li>
             </ol>
@@ -435,7 +425,7 @@ export default function Withdraw() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Button onClick={() => navigate(`/track/${claimId}`)}>{t("Track this claim", "इस क्लेम को ट्रैक करें")}</Button>
             <Button variant="secondary" onClick={() => window.print()}>
-              🖨 {t("Print receipt", "रसीद प्रिंट करें")}
+              {t("Print receipt", "रसीद प्रिंट करें")}
             </Button>
             <Button variant="plain" onClick={() => navigate("/dashboard")}>
               {t("Back to my account", "मेरे खाते पर वापस")}

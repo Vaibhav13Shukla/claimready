@@ -33,8 +33,8 @@ export default function Home() {
           </h1>
           <p className="mt-4 max-w-2xl text-xl text-white/90">
             {t(
-              "Check your balance, take out money, track a claim or plan your pension. Every task is written the way you would say it.",
-              "बैलेंस देखें, पैसा निकालें, क्लेम ट्रैक करें या पेंशन की योजना बनाएँ। हर काम वैसे ही लिखा है जैसे आप बोलते हैं।",
+              "Check your balance, take out money, track a claim or plan your pension.",
+              "बैलेंस देखें, पैसा निकालें, क्लेम ट्रैक करें या पेंशन की योजना बनाएँ।",
             )}
           </p>
           <div className="mt-6 max-w-2xl">
@@ -82,8 +82,8 @@ export default function Home() {
         <Callout tone="info" title={t("New to this website? Start here.", "पहली बार आए हैं? यहाँ से शुरू करें।")}>
           <p>
             {t(
-              "You do not need any documents to look around. To see your own money, sign in with your UAN — the 12-digit number on your salary slip.",
-              "देखने के लिए किसी दस्तावेज़ की ज़रूरत नहीं। अपना पैसा देखने के लिए यूएएन से साइन इन करें — यह आपकी सैलरी स्लिप पर 12 अंकों का नंबर है।",
+              "You do not need any documents to look around. To see your own money, sign in with your UAN, the 12-digit number on your salary slip.",
+              "देखने के लिए किसी दस्तावेज़ की ज़रूरत नहीं। अपना पैसा देखने के लिए यूएएन से साइन इन करें, यह आपकी सैलरी स्लिप पर 12 अंकों का नंबर है।",
             )}
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
@@ -101,25 +101,17 @@ export default function Home() {
 
       {/* Top tasks */}
       <section>
-        <h2 className="mb-1 text-2xl font-extrabold">
-          {t("9 out of 10 people come here to do one of these", "10 में से 9 लोग इन्हीं कामों के लिए आते हैं")}
-        </h2>
-        <p className="mb-5 text-lg text-[#505a5f]">
-          {t("Tap a box. No forms until you actually need one.", "किसी बॉक्स पर टैप करें। ज़रूरत होने तक कोई फॉर्म नहीं।")}
-        </p>
+        <h2 className="mb-5 text-2xl font-extrabold">{t("Common tasks", "आम काम")}</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tasks.map((s) => (
             <Card key={s.to} onClick={() => navigate(s.to)} className="h-full">
-              <div className="text-3xl" aria-hidden>
-                {s.emoji}
-              </div>
-              <h3 className="mt-2 text-xl font-bold text-[#1d70b8] underline underline-offset-4">
+              <h3 className="text-xl font-bold text-[#1d70b8] underline underline-offset-4">
                 {t(s.en, s.hi)}
               </h3>
               <p className="mt-1 text-lg text-[#2b3236]">{t(s.descEn, s.descHi)}</p>
               {s.minutes && (
                 <p className="mt-3 text-base font-bold text-[#505a5f]">
-                  ⏱ {t("Takes about", "लगभग")} {s.minutes}
+                  {t("Takes about", "लगभग")} {s.minutes}
                 </p>
               )}
             </Card>
@@ -141,7 +133,7 @@ export default function Home() {
           </h2>
           <p className="mt-2 text-lg">
             {t(
-              "Type things like “I left my job”, “I need money for my daughter's wedding” or “my employer is not paying PF”. We will take you to the exact page — no menus to hunt through.",
+              "Type things like “I left my job”, “I need money for my daughter's wedding” or “my employer is not paying PF”. We will take you to the exact page.",
               "जैसे लिखें “मैंने नौकरी छोड़ दी”, “बेटी की शादी के लिए पैसा चाहिए” या “कंपनी पीएफ जमा नहीं कर रही”। हम आपको सीधे सही पेज पर ले जाएँगे।",
             )}
           </p>
@@ -163,15 +155,15 @@ export default function Home() {
             <li>
               <b>2.</b>{" "}
               {t(
-                "Your employer puts in the same amount — part of it goes to your pension.",
-                "आपका नियोक्ता भी उतना ही डालता है — उसका कुछ हिस्सा पेंशन में जाता है।",
+                "Your employer puts in the same amount, part of it goes to your pension.",
+                "आपका नियोक्ता भी उतना ही डालता है, उसका कुछ हिस्सा पेंशन में जाता है।",
               )}
             </li>
             <li>
               <b>3.</b>{" "}
               {t(
-                `The government adds ${member.interestRate}% interest every year. Nobody can touch it except you.`,
-                `सरकार हर साल ${member.interestRate}% ब्याज जोड़ती है। आपके अलावा कोई इसे नहीं छू सकता।`,
+                `The government adds ${member.interestRate}% interest every year.`,
+                `सरकार हर साल ${member.interestRate}% ब्याज जोड़ती है।`,
               )}
             </li>
           </ol>
@@ -186,7 +178,7 @@ export default function Home() {
             }
             className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-[#12436d] px-3 py-1 text-base font-bold text-[#12436d]"
           >
-            🔊 {t("Listen instead of reading", "पढ़ने की जगह सुनें")}
+            {t("Listen instead of reading", "पढ़ने की जगह सुनें")}
           </button>
         </Card>
       </section>
@@ -209,8 +201,8 @@ export default function Home() {
               tag: t("Faster claims", "तेज़ क्लेम"),
               tone: "blue" as const,
               text: t(
-                "Auto-settlement limit is now ₹1 lakh — most medical, education and housing advances are paid in 3 days.",
-                "ऑटो-सेटलमेंट की सीमा अब ₹1 लाख — ज़्यादातर मेडिकल, शिक्षा और आवास एडवांस 3 दिन में मिल जाते हैं।",
+                "Auto-settlement limit is now ₹1 lakh, most medical, education and housing advances are paid in 3 days.",
+                "ऑटो-सेटलमेंट की सीमा अब ₹1 लाख, ज़्यादातर मेडिकल, शिक्षा और आवास एडवांस 3 दिन में मिल जाते हैं।",
               ),
               to: "/withdraw",
             },
@@ -242,27 +234,23 @@ export default function Home() {
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {[
             {
-              e: "👵",
               h: t("Pensioners", "पेंशनभोगी"),
               d: t("Life certificate, pension slip, and why the amount changed.", "जीवन प्रमाण, पेंशन स्लिप, और राशि क्यों बदली।"),
               to: "/pension",
             },
             {
-              e: "🕊️",
               h: t("After a death in the family", "परिवार में मृत्यु के बाद"),
               d: t("One checklist for PF, pension and ₹7 lakh insurance.", "पीएफ, पेंशन और ₹7 लाख बीमा के लिए एक चेकलिस्ट।"),
               to: "/death-claim",
             },
             {
-              e: "🧾",
               h: t("Employer not paying?", "नियोक्ता जमा नहीं कर रहा?"),
               d: t("Check the last deposit date and complain in 4 minutes.", "आख़िरी जमा तारीख देखें और 4 मिनट में शिकायत करें।"),
               to: "/grievance",
             },
           ].map((c) => (
             <Card key={c.to} onClick={() => navigate(c.to)}>
-              <span className="text-3xl">{c.e}</span>
-              <h3 className="mt-2 text-xl font-bold text-[#1d70b8] underline underline-offset-4">{c.h}</h3>
+              <h3 className="text-xl font-bold text-[#1d70b8] underline underline-offset-4">{c.h}</h3>
               <p className="mt-1 text-lg">{c.d}</p>
             </Card>
           ))}

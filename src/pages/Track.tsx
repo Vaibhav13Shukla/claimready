@@ -80,7 +80,7 @@ export function TrackDetail({ id }: { id: string }) {
       </Callout>
       <div className="mt-6 flex gap-3">
         <Button variant="secondary" onClick={() => window.print()}>
-          🖨 {t("Print this page", "यह पेज प्रिंट करें")}
+          {t("Print this page", "यह पेज प्रिंट करें")}
         </Button>
         <Button variant="plain" onClick={() => navigate("/track")}>
           {t("See all my claims", "मेरे सभी क्लेम देखें")}

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, type KeyboardEvent, type ReactNode } from "react";
 import { useApp } from "../lib/store";
 import { cn } from "../utils/cn";
 import { searchServices } from "../lib/search";
@@ -47,7 +47,7 @@ function AccessBar() {
               contrast ? "bg-[#ffdd00] text-black" : "hover:bg-white/15",
             )}
           >
-            ◑ {t("High contrast", "हाई कॉन्ट्रास्ट")}
+            {t("High contrast", "हाई कॉन्ट्रास्ट")}
           </button>
         </div>
         <div className="flex overflow-hidden rounded-sm border border-white/40">
@@ -72,21 +72,57 @@ function AccessBar() {
 export function SearchBox({ big }: { big?: boolean }) {
   const { navigate, t, lang } = useApp();
   const [q, setQ] = useState("");
+  const [active, setActive] = useState(-1);
   const results = q.trim().length > 1 ? searchServices(q, lang).slice(0, 6) : [];
+
+  const go = (i: number) => {
+    const r = results[i] ?? results[0];
+    if (!r) return;
+    navigate(r.to);
+    setQ("");
+    setActive(-1);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!results.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive((a) => (a + 1) % results.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive((a) => (a <= 0 ? results.length - 1 : a - 1));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      go(active);
+    } else if (e.key === "Escape") {
+      setQ("");
+      setActive(-1);
+    }
+  };
+
   return (
     <div className="no-print relative w-full">
       <div className="flex">
         <input
           value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder={t("Search e.g. “withdraw money”, “pension”", "खोजें जैसे “पैसा निकालना”, “पेंशन”")}
+          onChange={(e) => {
+            setQ(e.target.value);
+            setActive(-1);
+          }}
+          onKeyDown={onKeyDown}
+          role="combobox"
+          aria-expanded={results.length > 0}
+          aria-controls="search-results"
+          aria-activedescendant={active >= 0 ? `search-opt-${active}` : undefined}
+          autoComplete="off"
+          placeholder={t("Search e.g. withdraw money, pension", "खोजें जैसे पैसा निकालना, पेंशन")}
           className={cn(
             "w-full rounded-l-[3px] border-2 border-r-0 border-[#0b0c0c] bg-white px-4 text-[#0b0c0c] placeholder:text-[#6f777b]",
             big ? "py-4 text-lg" : "py-3 text-base",
           )}
         />
         <button
-          onClick={() => results[0] && navigate(results[0].to)}
+          onClick={() => go(active)}
           aria-label={t("Search", "खोजें")}
           className={cn("flex items-center justify-center rounded-r-[3px] bg-[#12436d] px-5 font-bold text-white hover:bg-[#0b2f4d]", big ? "text-lg" : "")}
         >
@@ -97,18 +133,23 @@ export function SearchBox({ big }: { big?: boolean }) {
         </button>
       </div>
       {results.length > 0 && (
-        <ul className="absolute z-30 mt-1 w-full overflow-hidden rounded-md border-2 border-[#0b0c0c] bg-white shadow-xl">
-          {results.map((r) => (
-            <li key={r.to + r.title}>
+        <ul
+          id="search-results"
+          role="listbox"
+          className="absolute z-30 mt-1 w-full overflow-hidden rounded-md border-2 border-[#0b0c0c] bg-white shadow-xl"
+        >
+          {results.map((r, i) => (
+            <li key={r.to + r.title} id={`search-opt-${i}`} role="option" aria-selected={i === active}>
               <button
-                onClick={() => {
-                  navigate(r.to);
-                  setQ("");
-                }}
-                className="block w-full px-4 py-3 text-left hover:bg-[#f0f4f8]"
+                onMouseMove={() => setActive(i)}
+                onClick={() => go(i)}
+                className={cn(
+                  "block w-full px-4 py-3 text-left",
+                  i === active ? "bg-[#1d70b8] text-white" : "hover:bg-[#f0f4f8]",
+                )}
               >
-                <span className="block font-bold text-[#1d70b8] underline">{r.title}</span>
-                <span className="block text-base text-[#505a5f]">{r.desc}</span>
+                <span className={cn("block font-bold", i === active ? "text-white" : "text-[#1d70b8] underline")}>{r.title}</span>
+                <span className={cn("block text-base", i === active ? "text-white/90" : "text-[#505a5f]")}>{r.desc}</span>
               </button>
             </li>
           ))}
@@ -274,8 +315,8 @@ export function Footer() {
         <div className="mt-10 border-t-2 border-[#b1b4b6] pt-6 text-base text-[#505a5f]">
           <p className="font-bold text-[#0b0c0c]">
             {t(
-              "A redesign concept for EPFO — Ministry of Labour & Employment, Government of India.",
-              "ईपीएफओ के लिए एक पुनःडिज़ाइन अवधारणा — श्रम एवं रोजगार मंत्रालय, भारत सरकार।",
+              "A redesign concept for EPFO, Ministry of Labour & Employment, Government of India.",
+              "ईपीएफओ के लिए एक पुनःडिज़ाइन अवधारणा, श्रम एवं रोजगार मंत्रालय, भारत सरकार।",
             )}
           </p>
           <p className="mt-2">
@@ -310,8 +351,8 @@ function Feedback() {
         <div className="flex flex-wrap items-center gap-3">
           <span className="text-lg font-bold">{t("Was this page easy to use?", "क्या यह पेज इस्तेमाल करना आसान था?")}</span>
           {[
-            { l: `👍 ${t("Yes", "हाँ")}`, m: t("Thanks for telling us.", "बताने के लिए धन्यवाद।") },
-            { l: `👎 ${t("No", "नहीं")}`, m: t("Sorry about that — we will simplify it.", "क्षमा करें — हम इसे और आसान बनाएँगे।") },
+            { l: t("Yes", "हाँ"), m: t("Thanks for telling us.", "बताने के लिए धन्यवाद।") },
+            { l: t("No", "नहीं"), m: t("Sorry about that, we will simplify it.", "क्षमा करें, हम इसे और आसान बनाएँगे।") },
           ].map((b) => (
             <button
               key={b.l}

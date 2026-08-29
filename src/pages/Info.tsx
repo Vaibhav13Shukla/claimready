@@ -34,13 +34,12 @@ export function Services() {
               .map((s) => (
                 <li key={s.to}>
                   <Card onClick={() => navigate(s.to)} className="h-full">
-                    <span className="text-2xl">{s.emoji}</span>
-                    <h3 className="mt-1 text-xl font-bold text-[#1d70b8] underline underline-offset-4">
+                    <h3 className="text-xl font-bold text-[#1d70b8] underline underline-offset-4">
                       {t(s.en, s.hi)}
                     </h3>
                     <p className="mt-1 text-lg">{t(s.descEn, s.descHi)}</p>
                     <p className="mt-2 text-base text-[#505a5f]">
-                      {s.needsLogin ? `🔐 ${t("Sign in needed", "साइन इन ज़रूरी")} · ` : ""}⏱ {s.minutes}
+                      {s.needsLogin ? `${t("Sign in needed", "साइन इन ज़रूरी")} · ` : ""}{s.minutes}
                     </p>
                   </Card>
                 </li>
@@ -120,28 +119,28 @@ export function About() {
           <ol className="mt-3 space-y-3 text-lg">
             {[
               [
-                "Universal coverage — bring every eligible worker, including gig and contract workers, under social security.",
-                "सर्वव्यापी कवरेज — गिग और ठेका कामगारों सहित हर पात्र कामगार को सामाजिक सुरक्षा में लाना।",
+                "Universal coverage, bring every eligible worker, including gig and contract workers, under social security.",
+                "सर्वव्यापी कवरेज, गिग और ठेका कामगारों सहित हर पात्र कामगार को सामाजिक सुरक्षा में लाना।",
               ],
               [
-                "Reliable service — settle claims within 3 to 20 days, with no need to visit an office.",
-                "भरोसेमंद सेवा — 3 से 20 दिन में क्लेम निपटाना, बिना ऑफिस आए।",
+                "Reliable service, settle claims within 3 to 20 days, with no need to visit an office.",
+                "भरोसेमंद सेवा, 3 से 20 दिन में क्लेम निपटाना, बिना ऑफिस आए।",
               ],
               [
-                "Safe returns — keep members' money secure and pay a fair rate of interest every year.",
-                "सुरक्षित रिटर्न — सदस्यों का पैसा सुरक्षित रखना और हर साल उचित ब्याज देना।",
+                "Safe returns, keep members' money secure and pay a fair rate of interest every year.",
+                "सुरक्षित रिटर्न, सदस्यों का पैसा सुरक्षित रखना और हर साल उचित ब्याज देना।",
               ],
               [
-                "Full compliance — make sure every employer deposits what they owe, on time.",
-                "पूर्ण अनुपालन — यह सुनिश्चित करना कि हर नियोक्ता समय पर जमा करे।",
+                "Full compliance, make sure every employer deposits what they owe, on time.",
+                "पूर्ण अनुपालन, यह सुनिश्चित करना कि हर नियोक्ता समय पर जमा करे।",
               ],
               [
-                "Transparency — let every member see their own money and the status of every request.",
-                "पारदर्शिता — हर सदस्य अपना पैसा और हर अनुरोध की स्थिति खुद देख सके।",
+                "Transparency, let every member see their own money and the status of every request.",
+                "पारदर्शिता, हर सदस्य अपना पैसा और हर अनुरोध की स्थिति खुद देख सके।",
               ],
               [
-                "Ease of access — services in simple language, on any phone, in every Indian language.",
-                "आसान पहुँच — सरल भाषा में, हर फोन पर, हर भारतीय भाषा में सेवाएँ।",
+                "Ease of access, services in simple language, on any phone, in every Indian language.",
+                "आसान पहुँच, सरल भाषा में, हर फोन पर, हर भारतीय भाषा में सेवाएँ।",
               ],
             ].map(([en, hi], i) => (
               <li key={i} className="flex gap-3">
@@ -161,7 +160,7 @@ export function About() {
           {[
             {
               tag: "EPF 1952",
-              h: t("Provident Fund — your savings", "भविष्य निधि — आपकी बचत"),
+              h: t("Provident Fund, your savings", "भविष्य निधि, आपकी बचत"),
               d: t(
                 "12% of your basic salary and a matching amount from your employer, growing at 8.25% a year. Yours to take when you retire, or in part for a real need.",
                 "आपकी बेसिक सैलरी का 12% और उतना ही नियोक्ता का, 8.25% सालाना बढ़ता हुआ। रिटायरमेंट पर पूरा, और ज़रूरत पर कुछ हिस्सा।",
@@ -169,7 +168,7 @@ export function About() {
             },
             {
               tag: "EPS 1995",
-              h: t("Pension — money every month after 58", "पेंशन — 58 के बाद हर महीने पैसा"),
+              h: t("Pension, money every month after 58", "पेंशन, 58 के बाद हर महीने पैसा"),
               d: t(
                 "8.33% of your employer's share goes here. After 10 years of service you get a pension for life, and your family gets it after you.",
                 "नियोक्ता के हिस्से का 8.33% यहाँ जाता है। 10 साल की सेवा के बाद जीवन भर पेंशन, और आपके बाद परिवार को।",
@@ -177,7 +176,7 @@ export function About() {
             },
             {
               tag: "EDLI 1976",
-              h: t("Insurance — up to ₹7 lakh, free", "बीमा — ₹7 लाख तक, मुफ़्त"),
+              h: t("Insurance, up to ₹7 lakh, free", "बीमा, ₹7 लाख तक, मुफ़्त"),
               d: t(
                 "If a member dies while in service, the family gets a lump sum of up to ₹7 lakh. You pay nothing for this cover.",
                 "सेवा के दौरान सदस्य की मृत्यु होने पर परिवार को ₹7 लाख तक एकमुश्त मिलता है। इसके लिए आप कुछ नहीं देते।",
@@ -218,8 +217,8 @@ export function About() {
             {
               q: t("Who runs EPFO?", "ईपीएफओ कौन चलाता है?"),
               a: t(
-                "A tripartite Central Board of Trustees — the government, employers and workers' unions together — under the Ministry of Labour & Employment. It was set up by the EPF Act of 1952.",
-                "एक त्रिपक्षीय केंद्रीय न्यासी बोर्ड — सरकार, नियोक्ता और श्रमिक संघ मिलकर — श्रम एवं रोजगार मंत्रालय के अधीन। इसकी स्थापना 1952 के ईपीएफ अधिनियम से हुई।",
+                "A tripartite Central Board of Trustees, the government, employers and workers' unions together, under the Ministry of Labour & Employment. It was set up by the EPF Act of 1952.",
+                "एक त्रिपक्षीय केंद्रीय न्यासी बोर्ड, सरकार, नियोक्ता और श्रमिक संघ मिलकर, श्रम एवं रोजगार मंत्रालय के अधीन। इसकी स्थापना 1952 के ईपीएफ अधिनियम से हुई।",
               ),
             },
             {
@@ -328,13 +327,12 @@ export function DeathClaim() {
       <h2 className="mb-3 text-2xl font-extrabold">{t("The family gets three things", "परिवार को तीन चीज़ें मिलती हैं")}</h2>
       <div className="grid gap-4 sm:grid-cols-3">
         {[
-          { e: "💰", h: t("Full PF balance", "पूरा पीएफ बैलेंस"), d: t("Paid in one go", "एकमुश्त भुगतान") },
-          { e: "👪", h: t("Monthly family pension", "मासिक पारिवारिक पेंशन"), d: t("For the spouse, and children till 25", "पति/पत्नी को, बच्चों को 25 साल तक") },
-          { e: "🛡️", h: t("Insurance up to ₹7 lakh", "₹7 लाख तक बीमा"), d: t("Free cover under EDLI", "ईडीएलआई के तहत मुफ़्त") },
+          { h: t("Full PF balance", "पूरा पीएफ बैलेंस"), d: t("Paid in one go", "एकमुश्त भुगतान") },
+          { h: t("Monthly family pension", "मासिक पारिवारिक पेंशन"), d: t("For the spouse, and children till 25", "पति/पत्नी को, बच्चों को 25 साल तक") },
+          { h: t("Insurance up to ₹7 lakh", "₹7 लाख तक बीमा"), d: t("Free cover under EDLI", "ईडीएलआई के तहत मुफ़्त") },
         ].map((c) => (
           <Card key={c.h}>
-            <span className="text-3xl">{c.e}</span>
-            <p className="mt-2 text-lg font-bold">{c.h}</p>
+            <p className="text-lg font-bold">{c.h}</p>
             <p className="text-base text-[#505a5f]">{c.d}</p>
           </Card>
         ))}
@@ -352,8 +350,8 @@ export function DeathClaim() {
             "सदस्य का यूएएन, आपका आधार, बैंक पासबुक और फोटो तैयार रखें।",
           ],
           [
-            "Fill one combined form (20, 10D and 5IF) — we ask the questions in simple language.",
-            "एक ही संयुक्त फॉर्म भरें (20, 10D और 5IF) — हम सवाल आसान भाषा में पूछते हैं।",
+            "Fill one combined form (20, 10D and 5IF), we ask the questions in simple language.",
+            "एक ही संयुक्त फॉर्म भरें (20, 10D और 5IF), हम सवाल आसान भाषा में पूछते हैं।",
           ],
           [
             "The employer signs online. If the employer has closed down, a gazetted officer or bank manager can attest.",
@@ -405,14 +403,13 @@ export function Employers() {
       />
       <div className="grid gap-4 sm:grid-cols-2">
         {[
-          { e: "🏭", h: t("Register my business", "मेरा व्यवसाय रजिस्टर करें"), d: t("Needed once you have 20 or more staff.", "20 या ज़्यादा कर्मचारी होने पर ज़रूरी।") },
-          { e: "🧾", h: t("File monthly ECR and pay", "मासिक ECR भरें और भुगतान करें"), d: t("Due by the 15th of every month.", "हर महीने की 15 तारीख तक।") },
-          { e: "👤", h: t("Add a new employee", "नया कर्मचारी जोड़ें"), d: t("Only their Aadhaar and bank details are needed.", "सिर्फ़ आधार और बैंक विवरण चाहिए।") },
-          { e: "📤", h: t("Mark an employee as exited", "कर्मचारी का निकास दर्ज करें"), d: t("Do this the same month — it unblocks their claims.", "उसी महीने करें — इससे उनके क्लेम रुकते नहीं।") },
+          { h: t("Register my business", "मेरा व्यवसाय रजिस्टर करें"), d: t("Needed once you have 20 or more staff.", "20 या ज़्यादा कर्मचारी होने पर ज़रूरी।") },
+          { h: t("File monthly ECR and pay", "मासिक ECR भरें और भुगतान करें"), d: t("Due by the 15th of every month.", "हर महीने की 15 तारीख तक।") },
+          { h: t("Add a new employee", "नया कर्मचारी जोड़ें"), d: t("Only their Aadhaar and bank details are needed.", "सिर्फ़ आधार और बैंक विवरण चाहिए।") },
+          { h: t("Mark an employee as exited", "कर्मचारी का निकास दर्ज करें"), d: t("Do this the same month, it unblocks their claims.", "उसी महीने करें, इससे उनके क्लेम रुकते नहीं।") },
         ].map((c) => (
-          <Card key={c.h} onClick={() => showToast(t("Demo only — employer console not part of this prototype", "सिर्फ़ डेमो — नियोक्ता कंसोल इस प्रोटोटाइप में नहीं है"))}>
-            <span className="text-3xl">{c.e}</span>
-            <h2 className="mt-2 text-xl font-bold text-[#1d70b8] underline underline-offset-4">{c.h}</h2>
+          <Card key={c.h} onClick={() => showToast(t("Demo only, employer console not part of this prototype", "सिर्फ़ डेमो, नियोक्ता कंसोल इस प्रोटोटाइप में नहीं है"))}>
+            <h2 className="text-xl font-bold text-[#1d70b8] underline underline-offset-4">{c.h}</h2>
             <p className="mt-1 text-lg">{c.d}</p>
           </Card>
         ))}
@@ -446,10 +443,10 @@ export function Accessibility() {
           ["Text can be made 30% bigger with one tap, and stays big on every page.", "एक टैप में टेक्स्ट 30% बड़ा, और हर पेज पर बड़ा ही रहता है।"],
           ["A high-contrast mode for weak eyesight and bright sunlight.", "कमज़ोर नज़र और तेज़ धूप के लिए हाई-कॉन्ट्रास्ट मोड।"],
           ["Every important page can be read out loud in Hindi or English.", "हर ज़रूरी पेज हिंदी या अंग्रेज़ी में बोलकर सुनाया जा सकता है।"],
-          ["Plain language — Class 6 reading level, no legal jargon, no abbreviations without meaning.", "सरल भाषा — कक्षा 6 का स्तर, न कानूनी शब्दजाल, न बिना अर्थ के संक्षेप।"],
+          ["Plain language, Class 6 reading level, no legal jargon, no abbreviations without meaning.", "सरल भाषा, कक्षा 6 का स्तर, न कानूनी शब्दजाल, न बिना अर्थ के संक्षेप।"],
           ["Works fully with a keyboard, with a bold yellow focus outline.", "कीबोर्ड से पूरा चलता है, चमकीली पीली फोकस लाइन के साथ।"],
           ["Light pages that open on 2G, and no pop-ups or moving banners.", "हल्के पेज जो 2G पर खुलें, न पॉप-अप न चलते बैनर।"],
-          ["No photographs of officials taking up your screen — only your task.", "स्क्रीन पर अधिकारियों की तस्वीरें नहीं — सिर्फ़ आपका काम।"],
+          ["No photographs of officials taking up your screen, only your task.", "स्क्रीन पर अधिकारियों की तस्वीरें नहीं, सिर्फ़ आपका काम।"],
         ].map(([en, hi], i) => (
           <li key={i} className="flex gap-3">
             <span className="text-[#00703c]">✓</span>

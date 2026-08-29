@@ -154,7 +154,7 @@ export function PageTitle({
           onClick={() => speak(`${title}. ${speakText || intro || ""}`)}
           className="no-print mt-3 inline-flex items-center gap-2 rounded-full border-2 border-[#12436d] px-3 py-1 text-base font-bold text-[#12436d] hover:bg-[#f0f4f8]"
         >
-          🔊 {t("Read this page aloud", "यह पेज सुनें")}
+          {t("Read this page aloud", "यह पेज सुनें")}
         </button>
       )}
     </header>
@@ -213,13 +213,11 @@ export function ChoiceCard({
   onSelect,
   title,
   desc,
-  emoji,
 }: {
   selected: boolean;
   onSelect: () => void;
   title: string;
   desc?: string;
-  emoji?: string;
 }) {
   return (
     <button
@@ -239,10 +237,7 @@ export function ChoiceCard({
         {selected ? "✓" : ""}
       </span>
       <span>
-        <span className="block text-lg font-bold">
-          {emoji && <span className="mr-2">{emoji}</span>}
-          {title}
-        </span>
+        <span className="block text-lg font-bold">{title}</span>
         {desc && <span className="mt-1 block text-base text-[#505a5f]">{desc}</span>}
       </span>
     </button>

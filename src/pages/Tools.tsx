@@ -126,7 +126,7 @@ export function Pension() {
         <ul className="list-disc space-y-1 pl-6">
           <li>{t("You need 10 years of PF service to get a lifetime pension.", "जीवन भर पेंशन के लिए 10 साल की पीएफ सेवा चाहिए।")}</li>
           <li>{t("You can start early at 50 with a smaller amount, or wait till 60 for more.", "50 पर कम राशि से शुरू कर सकते हैं, या 60 तक रुककर ज़्यादा पा सकते हैं।")}</li>
-          <li>{t("Pensioners must give a life certificate once a year — it can be done from home.", "पेंशनभोगियों को साल में एक बार जीवन प्रमाण देना होता है — घर से भी हो सकता है।")}</li>
+          <li>{t("Pensioners must give a life certificate once a year, it can be done from home.", "पेंशनभोगियों को साल में एक बार जीवन प्रमाण देना होता है, घर से भी हो सकता है।")}</li>
         </ul>
       </Callout>
 

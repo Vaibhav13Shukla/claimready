@@ -68,8 +68,8 @@ const RULES: { match: RegExp; a: Answer }[] = [
   {
     match: /employer|company|not deposit|nahi jama|कंपनी|नियोक्ता|जमा नहीं/i,
     a: {
-      en: "Open your passbook and check the last month your employer deposited. If a month is missing, raise a complaint — EPFO can recover the money with interest and penalty from the employer.",
-      hi: "पासबुक खोलकर देखें नियोक्ता ने आख़िरी बार कब जमा किया। कोई महीना गायब हो तो शिकायत करें — ईपीएफओ ब्याज और जुर्माने सहित वसूली करता है।",
+      en: "Open your passbook and check the last month your employer deposited. If a month is missing, raise a complaint, EPFO can recover the money with interest and penalty from the employer.",
+      hi: "पासबुक खोलकर देखें नियोक्ता ने आख़िरी बार कब जमा किया। कोई महीना गायब हो तो शिकायत करें, ईपीएफओ ब्याज और जुर्माने सहित वसूली करता है।",
       actions: [
         { en: "Open passbook", hi: "पासबुक खोलें", to: "/passbook" },
         { en: "Raise a complaint", hi: "शिकायत दर्ज करें", to: "/grievance" },
@@ -95,8 +95,8 @@ const RULES: { match: RegExp; a: Answer }[] = [
   {
     match: /tax|tds|टैक्स/i,
     a: {
-      en: "PF is tax-free if you complete 5 years of service. If you withdraw before 5 years and the amount is more than ₹50,000, 10% TDS applies — and only if your PAN is missing, 20%.",
-      hi: "5 साल की सेवा पूरी होने पर पीएफ कर-मुक्त है। 5 साल से पहले ₹50,000 से ज़्यादा निकालने पर 10% टीडीएस लगता है — पैन न होने पर 20%।",
+      en: "PF is tax-free if you complete 5 years of service. If you withdraw before 5 years and the amount is more than ₹50,000, 10% TDS applies, and only if your PAN is missing, 20%.",
+      hi: "5 साल की सेवा पूरी होने पर पीएफ कर-मुक्त है। 5 साल से पहले ₹50,000 से ज़्यादा निकालने पर 10% टीडीएस लगता है, पैन न होने पर 20%।",
       actions: [{ en: "Check my details", hi: "मेरी जानकारी देखें", to: "/kyc" }],
     },
   },
@@ -124,8 +124,8 @@ export default function Help() {
     {
       from: "epfo",
       text: t(
-        "Namaste! Tell me your problem in one line — like “I left my job” or “my money has not come”.",
-        "नमस्ते! अपनी समस्या एक लाइन में बताएँ — जैसे “मैंने नौकरी छोड़ दी” या “मेरा पैसा नहीं आया”।",
+        "Namaste! Tell me your problem in one line, like “I left my job” or “my money has not come”.",
+        "नमस्ते! अपनी समस्या एक लाइन में बताएँ, जैसे “मैंने नौकरी छोड़ दी” या “मेरा पैसा नहीं आया”।",
       ),
     },
   ]);
@@ -192,7 +192,7 @@ export default function Help() {
                     onClick={() => speak(m.text)}
                     className="no-print mt-2 block text-base font-bold text-[#1d70b8] underline"
                   >
-                    🔊 {t("Listen", "सुनें")}
+                    {t("Listen", "सुनें")}
                   </button>
                 )}
               </div>
@@ -275,13 +275,12 @@ export default function Help() {
 
       <section className="mt-10 grid gap-4 sm:grid-cols-3">
         {[
-          { e: "📞", h: t("Free helpline", "फ्री हेल्पलाइन"), v: "14470", d: t("10 languages, 9am–5:30pm", "10 भाषाएँ, सुबह 9 – शाम 5:30") },
-          { e: "📱", h: t("Missed call balance", "मिस्ड कॉल बैलेंस"), v: "011-22901406", d: t("No internet needed", "इंटरनेट की ज़रूरत नहीं") },
-          { e: "✉️", h: t("SMS balance", "एसएमएस बैलेंस"), v: "7738299899", d: "EPFOHO UAN ENG" },
+          { h: t("Free helpline", "फ्री हेल्पलाइन"), v: "14470", d: t("10 languages, 9am–5:30pm", "10 भाषाएँ, सुबह 9 – शाम 5:30") },
+          { h: t("Missed call balance", "मिस्ड कॉल बैलेंस"), v: "011-22901406", d: t("No internet needed", "इंटरनेट की ज़रूरत नहीं") },
+          { h: t("SMS balance", "एसएमएस बैलेंस"), v: "7738299899", d: "EPFOHO UAN ENG" },
         ].map((c) => (
           <Card key={c.h}>
-            <span className="text-3xl">{c.e}</span>
-            <p className="mt-2 text-lg font-bold">{c.h}</p>
+            <p className="text-lg font-bold">{c.h}</p>
             <p className="text-2xl font-extrabold text-[#12436d]">{c.v}</p>
             <p className="text-base text-[#505a5f]">{c.d}</p>
           </Card>

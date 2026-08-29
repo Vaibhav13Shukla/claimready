@@ -1,6 +1,5 @@
 export type Service = {
   to: string;
-  emoji: string;
   en: string;
   hi: string;
   descEn: string;
@@ -14,7 +13,6 @@ export type Service = {
 export const services: Service[] = [
   {
     to: "/balance",
-    emoji: "💰",
     en: "Check my PF balance",
     hi: "मेरा पीएफ बैलेंस देखें",
     descEn: "See how much money is saved in your PF and pension account today.",
@@ -26,7 +24,6 @@ export const services: Service[] = [
   },
   {
     to: "/passbook",
-    emoji: "📗",
     en: "See my passbook",
     hi: "मेरी पासबुक देखें",
     descEn: "Month-by-month record of what you and your employer paid in.",
@@ -38,7 +35,6 @@ export const services: Service[] = [
   },
   {
     to: "/withdraw",
-    emoji: "🏧",
     en: "Withdraw money from my PF",
     hi: "मेरे पीएफ से पैसा निकालें",
     descEn: "For a house, wedding, illness, education or after leaving a job.",
@@ -50,7 +46,6 @@ export const services: Service[] = [
   },
   {
     to: "/track",
-    emoji: "📦",
     en: "Track my claim",
     hi: "मेरा क्लेम ट्रैक करें",
     descEn: "See where your money has reached and when it will arrive.",
@@ -61,7 +56,6 @@ export const services: Service[] = [
   },
   {
     to: "/pension",
-    emoji: "👵",
     en: "Estimate my monthly pension",
     hi: "मेरी मासिक पेंशन का अनुमान",
     descEn: "Find out how much pension you will get every month after 58.",
@@ -72,7 +66,6 @@ export const services: Service[] = [
   },
   {
     to: "/transfer",
-    emoji: "🔁",
     en: "Move my PF to my new job",
     hi: "नई नौकरी में पीएफ ट्रांसफर करें",
     descEn: "Bring old PF accounts together into one place.",
@@ -84,7 +77,6 @@ export const services: Service[] = [
   },
   {
     to: "/kyc",
-    emoji: "🪪",
     en: "Update my details (KYC)",
     hi: "मेरी जानकारी अपडेट करें (केवाईसी)",
     descEn: "Aadhaar, PAN, bank account, mobile number, name spelling.",
@@ -96,7 +88,6 @@ export const services: Service[] = [
   },
   {
     to: "/nominee",
-    emoji: "👨‍👩‍👧",
     en: "Add or change my nominee",
     hi: "नॉमिनी जोड़ें या बदलें",
     descEn: "Decide who gets your money if something happens to you.",
@@ -108,7 +99,6 @@ export const services: Service[] = [
   },
   {
     to: "/grievance",
-    emoji: "📣",
     en: "Raise a complaint",
     hi: "शिकायत दर्ज करें",
     descEn: "Money not received, employer not paying, wrong details.",
@@ -119,7 +109,6 @@ export const services: Service[] = [
   },
   {
     to: "/uan-help",
-    emoji: "🔑",
     en: "I don't know my UAN / password",
     hi: "मुझे यूएएन / पासवर्ड नहीं पता",
     descEn: "Get your UAN using Aadhaar or your mobile number.",
@@ -130,7 +119,6 @@ export const services: Service[] = [
   },
   {
     to: "/offices",
-    emoji: "📍",
     en: "Find my EPFO office",
     hi: "मेरा ईपीएफओ ऑफिस खोजें",
     descEn: "Address, phone number and opening hours near you.",
@@ -141,7 +129,6 @@ export const services: Service[] = [
   },
   {
     to: "/calculators",
-    emoji: "🧮",
     en: "Calculators",
     hi: "कैलकुलेटर",
     descEn: "See how big your PF will grow, and plan your retirement.",
@@ -152,7 +139,6 @@ export const services: Service[] = [
   },
   {
     to: "/employers",
-    emoji: "🏢",
     en: "For employers",
     hi: "नियोक्ताओं के लिए",
     descEn: "Register your company, pay monthly dues, file ECR.",
@@ -163,7 +149,6 @@ export const services: Service[] = [
   },
   {
     to: "/help",
-    emoji: "💬",
     en: "Ask a question",
     hi: "सवाल पूछें",
     descEn: "Plain-language answers to the questions people ask most.",
@@ -174,7 +159,6 @@ export const services: Service[] = [
   },
   {
     to: "/about",
-    emoji: "ℹ️",
     en: "About EPFO",
     hi: "ईपीएफओ के बारे में",
     descEn: "Our vision, mission, objectives and the schemes we run.",
@@ -185,7 +169,6 @@ export const services: Service[] = [
   },
   {
     to: "/death-claim",
-    emoji: "🕊️",
     en: "Claim after a family member dies",
     hi: "परिवार के सदस्य की मृत्यु के बाद दावा",
     descEn: "Step-by-step help for families claiming PF, pension and insurance.",

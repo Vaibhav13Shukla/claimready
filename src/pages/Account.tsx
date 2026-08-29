@@ -14,8 +14,8 @@ export function Dashboard() {
         caption={`UAN ${member.uan}`}
         title={`${t("Hello", "नमस्ते")}, ${t(member.name, member.nameHi)}`}
         intro={t(
-          "Everything about your PF in one place. Nothing hidden inside PDFs.",
-          "आपके पीएफ की हर बात एक जगह। कुछ भी पीडीएफ में छिपा नहीं।",
+          "Everything about your PF in one place.",
+          "आपके पीएफ की हर बात एक जगह।",
         )}
       />
 
@@ -171,8 +171,8 @@ export function Balance() {
           `आपके भविष्य निधि में ${rupees(totalBalance)} और पेंशन फंड में ${rupees(b.pension)} हैं।`,
         )}
         intro={t(
-          "Updated today. This is real money that belongs only to you.",
-          "आज अपडेट किया गया। यह पैसा सिर्फ़ आपका है।",
+          "Updated today.",
+          "आज अपडेट किया गया।",
         )}
       />
 
@@ -190,7 +190,7 @@ export function Balance() {
           }
           className="no-print mt-3 rounded-full border-2 border-[#005a30] px-3 py-1 text-base font-bold text-[#005a30]"
         >
-          🔊 {t("Say the amount out loud", "राशि बोलकर सुनाएँ")}
+          {t("Say the amount out loud", "राशि बोलकर सुनाएँ")}
         </button>
       </div>
 
@@ -280,8 +280,8 @@ export function Passbook() {
       <PageTitle
         title={t("My passbook", "मेरी पासबुक")}
         intro={t(
-          "Every rupee that went in, month by month. No login inside a login, no captcha.",
-          "हर महीने जमा हुआ हर रुपया। न दूसरा लॉगिन, न कैप्चा।",
+          "Every rupee that went in, month by month.",
+          "हर महीने जमा हुआ हर रुपया।",
         )}
       />
 
@@ -299,7 +299,7 @@ export function Passbook() {
           </button>
         ))}
         <Button variant="secondary" onClick={() => window.print()}>
-          🖨 {t("Print / save as PDF", "प्रिंट / पीडीएफ सेव करें")}
+          {t("Print / save as PDF", "प्रिंट / पीडीएफ सेव करें")}
         </Button>
       </div>
 
@@ -326,7 +326,7 @@ export function Passbook() {
                 </td>
                 <td className="py-3 pr-4">{rupees(r.employee)}</td>
                 <td className="py-3 pr-4">{rupees(r.employer)}</td>
-                <td className="py-3 pr-4">{r.pension ? rupees(r.pension) : "—"}</td>
+                <td className="py-3 pr-4">{r.pension ? rupees(r.pension) : "-"}</td>
               </tr>
             ))}
           </tbody>
